@@ -1,0 +1,81 @@
+body {
+    background-color: #f5f8fa;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.navbar {
+    background-color: red;
+    border-bottom: 1px solid #c63919;
+    border-radius: 0;
+}
+
+.navbar-brand {
+    color: #fff;
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    max-width: 40px;
+    margin-left: 10px;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+}
+
+.fa-solid fa-bars {
+    background-color: #fff;
+}
+
+.post {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    font-size: 16px;
+    color: #333;
+}
+
+.fixed-logo {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.fixed-logo i {
+    font-size: 3em;
+    color: #007bff;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s;
+}
+
+.fixed-logo:hover {
+    background-color: #e2e6ea;
+    border-radius: 50%;
+}
+
+.fixed-logo i:hover {
+    color: #0056b3;
+    border-radius: 50%;
+}
