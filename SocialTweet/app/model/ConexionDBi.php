@@ -1,7 +1,6 @@
 <?php 
-require 'config.php';
 
-class ConnexionDBi{
+class ConexionDBi{
 
     private static $conn;
 

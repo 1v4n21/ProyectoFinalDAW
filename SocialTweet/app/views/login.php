@@ -29,7 +29,7 @@
         SocialTweet
     </div>
 
-    <form id="loginForm" method="post" action="/login" class="p-3 mt-3">
+    <form action="index.php?accion=login" method="post" class="p-3 mt-3">
 
         <!-- Nombre de Usuario -->
         <div class="form-field d-flex align-items-center">

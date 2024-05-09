@@ -1,7 +1,7 @@
 <?php
 
 require_once 'app/config/config.php';
-//require_once 'app/model/ConexionDBi.php';
+require_once 'app/model/ConexionDBi.php';
 
 require_once 'app/model/Sesion.php';
 require_once 'app/model/Usuario.php';

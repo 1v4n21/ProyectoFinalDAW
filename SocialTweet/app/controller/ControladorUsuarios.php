@@ -7,7 +7,7 @@ class ControladorUsuarios{
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Creamos la conexión utilizando la clase que hemos creado
-            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $connexionDB = new ConexionDBi();
             $conn = $connexionDB->getConnexion();
 
             //limpiamos los datos que vienen del usuario

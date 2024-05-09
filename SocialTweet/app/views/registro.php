@@ -30,7 +30,7 @@
         SocialTweet
     </div>
 
-    <form action="/registro" method="post" class="p-3 mt-3">
+    <form action="index.php?accion=registro" method="post" class="p-3 mt-3">
         <!-- Nombre -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user-pen"></span>
