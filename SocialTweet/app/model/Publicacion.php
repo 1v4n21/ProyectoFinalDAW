@@ -1,9 +1,9 @@
 <?php
 class Publicacion{
-    public $idpublicacion;
-    public $fecha;
-    public $mensaje;
-    public $idusuario;
+    private $idpublicacion;
+    private $fecha;
+    private $mensaje;
+    private $idusuario;
     
     /**
      * Get the value of idpublicacion

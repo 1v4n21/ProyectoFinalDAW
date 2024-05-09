@@ -1,155 +1,48 @@
 <?php
 class Usuario {
-    public $idusuario;
-    public $apellidos;
-    public $email;
-    public $localidad;
-    public $nombre;
-    public $nombreusuario;
-    public $password;
-    public $rol;
+    private $idusuario;
+    private $sid;
+    private $apellidos;
+    private $email;
+    private $localidad;
+    private $nombre;
+    private $nombreusuario;
+    private $password;
+    private $rol;
     
-    /**
-     * Get the value of idusuario
-     */
-    public function getIdusuario()
-    {
-        return $this->idusuario;
-    }
+    public function getIdusuario() {return $this->idusuario;}
 
-    /**
-     * Set the value of idusuario
-     */
-    public function setIdusuario($idusuario): self
-    {
-        $this->idusuario = $idusuario;
+	public function getSid() {return $this->sid;}
 
-        return $this;
-    }
+	public function getApellidos() {return $this->apellidos;}
 
-    /**
-     * Get the value of apellidos
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
+	public function getEmail() {return $this->email;}
 
-    /**
-     * Set the value of apellidos
-     */
-    public function setApellidos($apellidos): self
-    {
-        $this->apellidos = $apellidos;
+	public function getLocalidad() {return $this->localidad;}
 
-        return $this;
-    }
+	public function getNombre() {return $this->nombre;}
 
-    /**
-     * Get the value of email
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+	public function getNombreusuario() {return $this->nombreusuario;}
 
-    /**
-     * Set the value of email
-     */
-    public function setEmail($email): self
-    {
-        $this->email = $email;
+	public function getPassword() {return $this->password;}
 
-        return $this;
-    }
+	public function getRol() {return $this->rol;}
 
-    /**
-     * Get the value of localidad
-     */
-    public function getLocalidad()
-    {
-        return $this->localidad;
-    }
+	public function setIdusuario( $idusuario): void {$this->idusuario = $idusuario;}
 
-    /**
-     * Set the value of localidad
-     */
-    public function setLocalidad($localidad): self
-    {
-        $this->localidad = $localidad;
+	public function setSid( $sid): void {$this->sid = $sid;}
 
-        return $this;
-    }
+	public function setApellidos( $apellidos): void {$this->apellidos = $apellidos;}
 
-    /**
-     * Get the value of nombre
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
+	public function setEmail( $email): void {$this->email = $email;}
 
-    /**
-     * Set the value of nombre
-     */
-    public function setNombre($nombre): self
-    {
-        $this->nombre = $nombre;
+	public function setLocalidad( $localidad): void {$this->localidad = $localidad;}
 
-        return $this;
-    }
+	public function setNombre( $nombre): void {$this->nombre = $nombre;}
 
-    /**
-     * Get the value of nombreusuario
-     */
-    public function getNombreusuario()
-    {
-        return $this->nombreusuario;
-    }
+	public function setNombreusuario( $nombreusuario): void {$this->nombreusuario = $nombreusuario;}
 
-    /**
-     * Set the value of nombreusuario
-     */
-    public function setNombreusuario($nombreusuario): self
-    {
-        $this->nombreusuario = $nombreusuario;
+	public function setPassword( $password): void {$this->password = $password;}
 
-        return $this;
-    }
-
-    /**
-     * Get the value of password
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set the value of password
-     */
-    public function setPassword($password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of rol
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
-
-    /**
-     * Set the value of rol
-     */
-    public function setRol($rol): self
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
+	public function setRol( $rol): void {$this->rol = $rol;}
 }

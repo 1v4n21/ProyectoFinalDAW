@@ -1,8 +1,8 @@
 <?php
 class MeGusta{
-    public $idmegusta;
-    public $idpublicacion;
-    public $idusuario;
+    private $idmegusta;
+    private $idpublicacion;
+    private $idusuario;
     
     /**
      * Get the value of idmegusta

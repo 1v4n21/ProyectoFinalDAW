@@ -1,8 +1,8 @@
 <?php
 class Guardado{
-    public $idguardado;
-    public $idpublicacion;
-    public $idusuario;
+    private $idguardado;
+    private $idpublicacion;
+    private $idusuario;
     
     /**
      * Get the value of idguardado
