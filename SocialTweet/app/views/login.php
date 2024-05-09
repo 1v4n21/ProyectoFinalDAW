@@ -14,7 +14,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Hoja de estilos -->
-    <link rel="stylesheet" href="/estilos/LoginRegistro.css">
+    <link rel="stylesheet" href="web/styles/LoginRegistro.css">
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.png">
@@ -23,7 +23,7 @@
 <!-- Login de registro SocialTweet -->
 <div class="wrapper">
     <div class="logo">
-        <img src="web/images/gorjeo.png" alt="">
+        <img src="web/images/gorjeoLR.png" alt="Logo SocialTweet">
     </div>
     <div class="text-center mt-4 name">
         SocialTweet
@@ -49,7 +49,7 @@
 
     <!-- Link para realizar el registro -->
     <div class="text-center fs-6">
-        <a href="/registro">No tienes cuenta? Registrate</a>
+        <a href="index.php?accion=registro">No tienes cuenta? Registrate</a>
     </div>
 </div>
 

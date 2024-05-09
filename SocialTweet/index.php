@@ -33,16 +33,18 @@ session_start();
 
 //Mapa de enrutamiento
 $mapa = array(
-    'inicio' => array(
-        "controlador" => 'ControladorMensajes',
-        'metodo' => 'inicio',
+    'login' => array(
+        "controlador" => 'ControladorUsuarios',
+        'metodo' => 'login',
         'privada' => false
     ),
-    'ver_mensaje' => array(
-        "controlador" => 'ControladorMensajes',
-        'metodo' => 'ver',
+    
+    'registro' => array(
+        "controlador" => 'ControladorUsuarios',
+        'metodo' => 'registro',
         'privada' => false
     ),
+    /*
     'insertar_mensaje' => array(
         'controlador' => 'ControladorMensajes',
         'metodo' => 'insertar',
@@ -92,7 +94,7 @@ $mapa = array(
         'controlador' => 'ControladorMensajes',
         'metodo' => 'deleteImageMensaje',
         'privada' => false
-    ),
+    ),*/
 );
 
 
@@ -108,7 +110,7 @@ if (isset($_GET['accion'])) { //Compruebo si me han pasado una acción concreta,
         die();
     }
 } else {
-    $accion = 'inicio';   //Acción por defecto
+    $accion = 'login';   //Acción por defecto
 }
 
 //Si existe la cookie y no ha iniciado sesión, le iniciamos sesión de forma automática

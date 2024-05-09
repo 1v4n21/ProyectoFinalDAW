@@ -79,6 +79,7 @@ CREATE TABLE `Publicaciones` (
 
 CREATE TABLE `Usuarios` (
   `idusuario` int NOT NULL,
+  `sidusuario` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `apellidos` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `localidad` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,

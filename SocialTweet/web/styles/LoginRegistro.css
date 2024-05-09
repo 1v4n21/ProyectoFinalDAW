@@ -71,7 +71,7 @@ body {
     box-shadow: none;
     width: 100%;
     height: 40px;
-    background-color: red;
+    background-color: #40E0D0;
     color: #fff;
     border-radius: 25px;
     box-shadow: 3px 3px 3px #b1b1b1,
@@ -80,17 +80,17 @@ body {
 }
 
 .wrapper .btn:hover {
-    background-color: darkred;
+    background-color: rgba(21, 134, 123, 0.8);
 }
 
 .wrapper a {
     text-decoration: none;
     font-size: 0.8rem;
-    color: red;
+    color: #40E0D0;
 }
 
 .wrapper a:hover {
-    color: #ff0000;
+    color: rgba(21, 134, 123, 0.8);
 }
 
 @media(max-width: 380px) {
