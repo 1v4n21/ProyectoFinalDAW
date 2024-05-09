@@ -93,6 +93,10 @@ body {
     color: rgba(21, 134, 123, 0.8);
 }
 
+.required-asterisk{
+    color: red;
+}
+
 @media(max-width: 380px) {
     .wrapper {
         margin: 30px 20px;
