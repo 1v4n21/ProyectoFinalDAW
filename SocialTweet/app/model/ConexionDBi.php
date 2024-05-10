@@ -1,19 +1,19 @@
-<?php 
+<?php
 
-class ConexionDBi{
+class ConexionDBi
+{
 
-    private static $conn;
+    private $conn;
 
-    public static function getConnexion()
+    function __construct($user, $password, $host, $database)
     {
-        if (is_null(self::$conn)){
-            self::$conn = new mysqli(MYSQL_HOST,MYSQL_USER,MYSQL_PASS,MYSQL_DB);
-            if(is_null(self::$conn)){
-                die("Error al conectar con la BD");
-            }
+        $this->conn = new mysqli($host,$user,$password,$database);
+        if($this->conn->connect_error){
+            die('Error al conectar con MySQL');
         }
-        else{
-            return self::$conn;
-        }
+    }
+
+    function getConnexion(){
+        return $this->conn;
     }
 }

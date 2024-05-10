@@ -13,16 +13,16 @@ class ControladorUsuarios{
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Creamos la conexión utilizando la clase que hemos creado
-            $connexionDB = new ConexionDBi();
+            $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
             //limpiamos los datos que vienen del usuario
-            $email = htmlspecialchars($_POST['username']);
+            $nombreusuario = htmlspecialchars($_POST['username']);
             $password = htmlspecialchars($_POST['password']);
 
             //Validamos el usuario
-            $usuariosDAO = new UsuarioDAO();
-            if ($usuario = $usuariosDAO->getByEmail($email)) {
+            $usuariosDAO = new UsuarioDAO($conn);
+            if ($usuario = $usuariosDAO->getByNombreUsuario($nombreusuario)) {
                 if (password_verify($password, $usuario->getPassword())) {
                     //email y password correctos. Inciamos sesión
                     Sesion::iniciarSesion($usuario);

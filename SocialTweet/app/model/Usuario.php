@@ -1,7 +1,7 @@
 <?php
 class Usuario {
     private $idusuario;
-    private $sid;
+    private $sidusuario;
     private $apellidos;
     private $email;
     private $localidad;
@@ -12,7 +12,7 @@ class Usuario {
     
     public function getIdusuario() {return $this->idusuario;}
 
-	public function getSid() {return $this->sid;}
+	public function getSid() {return $this->sidusuario;}
 
 	public function getApellidos() {return $this->apellidos;}
 
@@ -30,7 +30,7 @@ class Usuario {
 
 	public function setIdusuario( $idusuario): void {$this->idusuario = $idusuario;}
 
-	public function setSid( $sid): void {$this->sid = $sid;}
+	public function setSid( $sidusuario): void {$this->sidusuario = $sidusuario;}
 
 	public function setApellidos( $apellidos): void {$this->apellidos = $apellidos;}
 
