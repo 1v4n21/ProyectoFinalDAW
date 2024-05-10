@@ -17,7 +17,7 @@ class ControladorUsuarios{
             $conn = $connexionDB->getConnexion();
 
             //limpiamos los datos que vienen del usuario
-            $nombreusuario = htmlspecialchars($_POST['username']);
+            $nombreusuario = htmlspecialchars($_POST['nombreUsuario']);
             $password = htmlspecialchars($_POST['password']);
 
             //Validamos el usuario
@@ -27,7 +27,8 @@ class ControladorUsuarios{
                     //email y password correctos. Inciamos sesión
                     Sesion::iniciarSesion($usuario);
 
-                    //Crear la cookeie
+                    //Creamos la cookie para que nos recuerde 1 semana
+                    setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
 
                     //Redirigimos a inicio
                     header('location: index.php');
@@ -50,7 +51,11 @@ class ControladorUsuarios{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             //Limpiamos los datos
-            $email = htmlentities($_POST['nombreUsuario']);
+            $nombre = htmlentities($_POST['nombre']);
+            $apellidos = htmlentities($_POST['apellidos']);
+            $localidad = htmlentities($_POST['localidad']);
+            $email = htmlentities($_POST['email']);
+            $nombreUsuario = htmlentities($_POST['nombreUsuario']);
             $password = htmlentities($_POST['password']);
             $foto = '';
 
@@ -62,8 +67,8 @@ class ControladorUsuarios{
 
             //Compruebo que no haya un usuario registrado con el mismo email
             $usuariosDAO = new UsuarioDAO($conn);
-            if ($usuariosDAO->getByNombreUsuario($email) != null) {
-                $error = "Ya hay un usuario con ese email";
+            if ($usuariosDAO->getByNombreUsuario($nombreUsuario) != null) {
+                $error = "Ya hay un usuario con ese nombre";
             } else {
 
                 /*Copiamos la foto al disco
@@ -93,7 +98,12 @@ class ControladorUsuarios{
                     //Insertamos en la BD
 
                     $usuario = new Usuario();
+                    $usuario->setNombre($nombre);
+                    $usuario->setApellidos($apellidos);
+                    $usuario->setLocalidad($localidad);
                     $usuario->setEmail($email);
+                    $usuario->setNombreUsuario($nombreUsuario);
+                    
                     //encriptamos el password
                     $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
                     $usuario->setPassword($passwordCifrado);

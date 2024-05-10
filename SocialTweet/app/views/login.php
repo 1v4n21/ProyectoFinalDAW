@@ -105,7 +105,7 @@
         <!-- Nombre de Usuario -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user"></span>
-            <input name="username" id="userName" type="text" placeholder="Nombre Usuario" required autofocus />
+            <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" required autofocus />
         </div>
 
         <!-- Contraseña -->
