@@ -57,19 +57,6 @@
 </head>
 <body>
 
-<?php
-    $mensaje = "";
-
-    if(Sesion::existeSesion()){
-        $mensaje = Sesion::getUsuario()->getEmail();
-    }else{
-        $mensaje = "No ha iniciado sesion";
-    }
-
-?>
-
-<h1><?= $mensaje ?></h1>
-
 <!-- Mensaje de error -->
 <?php imprimirMensaje(); ?>
 

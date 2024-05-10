@@ -38,11 +38,15 @@ $mapa = array(
         'metodo' => 'login',
         'privada' => false
     ),
-    
     'registro' => array(
         "controlador" => 'ControladorUsuarios',
         'metodo' => 'registro',
         'privada' => false
+    ),
+    'logout' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'logout',
+        'privada' => true
     ),
     'inicio' => array(
         'controlador' => 'ControladorPublicaciones',
@@ -64,11 +68,6 @@ $mapa = array(
         'controlador' => 'ControladorUsuarios',
         'metodo' => 'login',
         'privada' => false
-    ),
-    'logout' => array(
-        'controlador' => 'ControladorUsuarios',
-        'metodo' => 'logout',
-        'privada' => true
     ),
     'registrar' => array(
         'controlador' => 'ControladorUsuarios',
@@ -122,8 +121,8 @@ if (!Sesion::existeSesion() && isset($_COOKIE['sid'])) {
     $conn = $connexionDB->getConnexion();
 
     //Nos conectamos para obtener el id
-    $usuariosDAO = new UsuariosDAO($conn);
-    if ($usuario = $usuariosDAO->getById($_COOKIE['sid'])) {
+    $usuariosDAO = new UsuarioDAO($conn);
+    if ($usuario = $usuariosDAO->getBySid($_COOKIE['sid'])) {
         Sesion::iniciarSesion($usuario);
         header('location: index.php');
         guardarMensajeC("Bienvenido " . $usuario->getNombre());

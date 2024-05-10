@@ -67,7 +67,7 @@ class UsuarioDAO {
      */
     public function getBySid(string $sid): ?Usuario {
         // Prepara la consulta SQL para obtener el usuario por su SID
-        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE sid = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE sidusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return null;
         }

@@ -122,4 +122,12 @@ class ControladorUsuarios{
 
         require 'app/views/registro.php';
     }   // Acaba function registrar()
+
+    public function logout()
+    {
+        Sesion::cerrarSesion();
+        setcookie('sid', '', 0, '/');
+        guardarMensajeC("Sesion cerrada con éxito");
+        header('location: index.php');
+    }
 }

@@ -19,8 +19,66 @@
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
+
+    <!-- Link jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        .error {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .correcto {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #28a745;
+            border: 1px solid #218838;
+            color: black;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+
+<!-- Mensaje de error -->
+<?php imprimirMensaje(); ?>
+
+<!-- Mensaje de correcto -->
+<?php imprimirMensajeC(); ?>
+
+<!--JavaScript-->
+<script>
+    // Muestra el mensaje de error al cargar la página
+    $(document).ready(function() {
+        $(".error").fadeIn().delay(5000).fadeOut();
+    });
+</script>
+
+<script>
+    // Muestra el mensaje de correcto al cargar la página
+    $(document).ready(function() {
+        $(".correcto").fadeIn().delay(5000).fadeOut();
+    });
+</script>
+
 <!-- Registro de SocialTweet -->
 <div class="wrapper">
     <div class="logo">
