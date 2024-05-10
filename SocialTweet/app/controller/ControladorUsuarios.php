@@ -1,48 +1,55 @@
 <?php
 
 class ControladorUsuarios{
+
+    /**
+     * Maneja el inicio de sesión de un usuario.
+     * Si el usuario ya ha iniciado sesión, lo redirige a la página de inicio.
+     * Si se envía un formulario POST para iniciar sesión, valida las credenciales del usuario y lo inicia sesión si son correctas.
+     * Si las credenciales son incorrectas, muestra un mensaje de error.
+     * Si el usuario inicia sesión con éxito, crea una cookie de sesión para recordar al usuario.
+     */
     public function login()
     {
-
         if (Sesion::existeSesion()) {
-            // Si ya ha iniciado sesión, redirige a la página de inicio
             header('location: index.php?accion=inicio');
-            guardarMensaje("No puedes acceder aqui si ya has iniciado sesion");
+            guardarMensaje("No puedes acceder aquí si ya has iniciado sesión");
             die();
         }
 
+        //Envio de formulario POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //Creamos la conexión utilizando la clase que hemos creado
             $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
-            //limpiamos los datos que vienen del usuario
+            //Obtenemos los campos del formulario
             $nombreusuario = htmlspecialchars($_POST['nombreUsuario']);
             $password = htmlspecialchars($_POST['password']);
 
-            //Validamos el usuario
             $usuariosDAO = new UsuarioDAO($conn);
+
+            //Comprobamos credenciales
             if ($usuario = $usuariosDAO->getByNombreUsuario($nombreusuario)) {
+               
                 if (password_verify($password, $usuario->getPassword())) {
-                    //email y password correctos. Inciamos sesión
+                    
+                    //Iniciamos sesion
                     Sesion::iniciarSesion($usuario);
 
-                    //Creamos la cookie para que nos recuerde 1 semana
                     setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
 
-                    //Redirigimos a inicio
                     header('location: index.php');
                     guardarMensajeC("Inicio de sesión con éxito");
                     die();
                 }
             }
 
-            //email o password incorrectos
-            guardarMensaje("Email o password incorrectos");
-        } //Acaba if($_SERVER['REQUEST_METHOD']=='POST'){...}
+            guardarMensaje("Nombre de usuario o contraseña incorrectos");
+        }
 
         require 'app/views/login.php';
     }
+
 
     public function registro()
     {
@@ -123,6 +130,12 @@ class ControladorUsuarios{
         require 'app/views/registro.php';
     }   // Acaba function registrar()
 
+    /**
+     * Maneja el cierre de sesión de un usuario.
+     * Cierra la sesión del usuario utilizando la clase Sesion.
+     * Elimina la cookie de sesión del usuario.
+     * Redirige al usuario a la página de inicio después de cerrar sesión lanzando un mensaje.
+     */
     public function logout()
     {
         Sesion::cerrarSesion();

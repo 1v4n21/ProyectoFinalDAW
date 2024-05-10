@@ -3,6 +3,7 @@
 //Uso de variables de sesión
 session_start();
 
+//Importaciones ordenadas
 require_once 'app/config/config.php';
 require_once 'app/model/ConexionDBi.php';
 
@@ -28,10 +29,9 @@ require_once 'app/controller/ControladorMeGustas.php';
 require_once 'app/controller/ControladorGuardados.php';
 require_once 'app/controller/ControladorMensajes.php';
 
-//require_once 'app/controller/ControladorFavoritos.php';
 require_once 'app/utils/funciones.php';
 
-//Mapa de enrutamiento
+//Mapa de enrutamiento para MVC con el controlador, el metodo y su privacidad
 $mapa = array(
     'login' => array(
         "controlador" => 'ControladorUsuarios',
@@ -53,47 +53,6 @@ $mapa = array(
         'metodo' => 'inicio',
         'privada' => true
     ),
-    /*
-    'borrar_mensaje' => array(
-        'controlador' => 'ControladorMensajes',
-        'metodo' => 'borrar',
-        'privada' => true
-    ),
-    'editar_mensaje' => array(
-        'controlador' => 'ControladorMensajes',
-        'metodo' => 'editar',
-        'privada' => true
-    ),
-    'login' => array(
-        'controlador' => 'ControladorUsuarios',
-        'metodo' => 'login',
-        'privada' => false
-    ),
-    'registrar' => array(
-        'controlador' => 'ControladorUsuarios',
-        'metodo' => 'registrar',
-        'privada' => false
-    ),
-    'insertar_favorito' => array(
-        'controlador' => 'ControladorFavoritos',
-        'metodo' => 'insertar',
-        'privada' => false
-    ),
-    'borrar_favorito' => array(
-        'controlador' => 'ControladorFavoritos',
-        'metodo' => 'borrar',
-        'privada' => false
-    ),
-    'addImageMensaje' => array(
-        'controlador' => 'ControladorMensajes',
-        'metodo' => 'addImageMensaje',
-        'privada' => false
-    ),
-    'deleteImageMensaje' => array(
-        'controlador' => 'ControladorMensajes',
-        'metodo' => 'deleteImageMensaje',
-        'privada' => false
-    ),*/
 );
 
 // Parseo de la ruta
@@ -107,22 +66,24 @@ if (isset($_GET['accion'])) {
         die();
     }
 } elseif (Sesion::existeSesion()) {
-    $accion = 'inicio';   // Acción por defecto
+    $accion = 'inicio';   // Acción por defecto si existe la sesion
 } else {
-    $accion = 'login';    //Acción por defecto
+    $accion = 'login';    //Acción por defecto si no existe la sesion
 }
 
 
 //Si existe la cookie y no ha iniciado sesión, le iniciamos sesión de forma automática
-//if( !isset($_SESSION['email']) && isset($_COOKIE['id'])){
 if (!Sesion::existeSesion() && isset($_COOKIE['sid'])) {
-    //Conectamos con la bD
+
     $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
     $conn = $connexionDB->getConnexion();
 
-    //Nos conectamos para obtener el id
     $usuariosDAO = new UsuarioDAO($conn);
+
+    //Obtenemos el usuario por el sid (cookie)
     if ($usuario = $usuariosDAO->getBySid($_COOKIE['sid'])) {
+
+        //Iniciamos sesion
         Sesion::iniciarSesion($usuario);
         header('location: index.php');
         guardarMensajeC("Bienvenido " . $usuario->getNombre());
@@ -130,15 +91,14 @@ if (!Sesion::existeSesion() && isset($_COOKIE['sid'])) {
     }
 }
 
-//Si la acción es privada compruebo que ha iniciado sesión, sino, lo echamos a index
-// if(!isset($_SESSION['email']) && $mapa[$accion]['privada']){
+//Si la acción es privada compruebo que ha iniciado sesión, sino, redirigimos a index
 if (!Sesion::existeSesion() && $mapa[$accion]['privada']) {
     header('location: index.php');
     guardarMensaje("Debes iniciar sesión para acceder a $accion");
     die();
 }
 
-//$acción ya tiene la acción a ejecutar, cogemos el controlador y metodo a ejecutar del mapa
+//$acción ya tiene la acción a ejecutar, cogemos el controlador y metodo a ejecutar del mapa MVC
 $controlador = $mapa[$accion]['controlador'];
 $metodo = $mapa[$accion]['metodo'];
 

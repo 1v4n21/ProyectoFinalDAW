@@ -149,11 +149,6 @@
     <div class="text-center fs-6">
         <a href="index.php?accion=login">Ya tienes cuenta? Inicia Sesion</a>
     </div>
-
-    <!-- mostrar el mensaje de error -->
-    <div class="alert alert-danger mt-3">
-        <p></p>
-    </div>
 </div>
 
 <!-- Script bootsrap -->
