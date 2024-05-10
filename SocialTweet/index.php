@@ -44,12 +44,12 @@ $mapa = array(
         'metodo' => 'registro',
         'privada' => false
     ),
-    /*
-    'insertar_mensaje' => array(
-        'controlador' => 'ControladorMensajes',
-        'metodo' => 'insertar',
+    'inicio' => array(
+        'controlador' => 'ControladorPublicaciones',
+        'metodo' => 'inicio',
         'privada' => true
     ),
+    /*
     'borrar_mensaje' => array(
         'controlador' => 'ControladorMensajes',
         'metodo' => 'borrar',
@@ -97,36 +97,37 @@ $mapa = array(
     ),*/
 );
 
-
-
-//Parseo de la ruta
-if (isset($_GET['accion'])) { //Compruebo si me han pasado una acción concreta, sino pongo la accción por defecto inicio
-    if (isset($mapa[$_GET['accion']])) {  //Compruebo si la accción existe en el mapa, sino muestro error 404
+// Parseo de la ruta
+if (isset($_GET['accion'])) {
+    if (isset($mapa[$_GET['accion']])) {
         $accion = $_GET['accion'];
     } else {
-        //La acción no existe
+        // La acción no existe
         header('Status: 404 Not found');
         echo 'Página no encontrada';
         die();
     }
+} elseif (Sesion::existeSesion()) {
+    $accion = 'inicio';   // Acción por defecto
 } else {
-    $accion = 'login';   //Acción por defecto
+    $accion = 'login';    //Acción por defecto
 }
 
+
 //Si existe la cookie y no ha iniciado sesión, le iniciamos sesión de forma automática
-//if( !isset($_SESSION['email']) && isset($_COOKIE['sid'])){
+//if( !isset($_SESSION['email']) && isset($_COOKIE['id'])){
 if (!Sesion::existeSesion() && isset($_COOKIE['sid'])) {
     //Conectamos con la bD
-    $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+    $connexionDB = new ConexionDBi();
     $conn = $connexionDB->getConnexion();
 
-    //Nos conectamos para obtener el id y la foto del usuario
+    //Nos conectamos para obtener el id
     $usuariosDAO = new UsuariosDAO($conn);
-    if ($usuario = $usuariosDAO->getBySid($_COOKIE['sid'])) {
-        //$_SESSION['email']=$usuario->getEmail();
-        //$_SESSION['id']=$usuario->getId();
-        //$_SESSION['foto']=$usuario->getFoto();
+    if ($usuario = $usuariosDAO->getById($_COOKIE['sid'])) {
         Sesion::iniciarSesion($usuario);
+        header('location: index.php');
+        guardarMensajeC("Bienvenido " . $usuario->getNombre());
+        die();
     }
 }
 
@@ -137,7 +138,6 @@ if (!Sesion::existeSesion() && $mapa[$accion]['privada']) {
     guardarMensaje("Debes iniciar sesión para acceder a $accion");
     die();
 }
-
 
 //$acción ya tiene la acción a ejecutar, cogemos el controlador y metodo a ejecutar del mapa
 $controlador = $mapa[$accion]['controlador'];

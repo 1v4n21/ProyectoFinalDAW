@@ -20,6 +20,20 @@
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.png">
 </head>
 <body>
+
+<?php
+    $mensaje = "";
+
+    if(Sesion::existeSesion()){
+        $mensaje = Sesion::getUsuario()->getEmail();
+    }else{
+        $mensaje = "No ha iniciado sesion";
+    }
+
+?>
+
+<h1><?= $mensaje ?></h1>
+
 <!-- Login de registro SocialTweet -->
 <div class="wrapper">
     <div class="logo">

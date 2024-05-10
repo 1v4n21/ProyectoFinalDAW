@@ -3,8 +3,8 @@
 class UsuarioDAO {
     private mysqli $conn;
 
-    public function __construct($conn) {
-        $this->conn = $conn;
+     public function __construct() {
+        $this->conn = ConexionDBi::getConnexion();
     }
 
     /**
@@ -138,5 +138,33 @@ class UsuarioDAO {
             $usuarios[] = $usuario;
         }
         return $usuarios;
+    }
+
+    /**
+     * Obtiene un usuario de la base de datos por su dirección de correo electrónico
+     * @param string $email La dirección de correo electrónico del usuario
+     * @return Usuario|null Devuelve el objeto Usuario si se encuentra, de lo contrario devuelve null
+     */
+    public function getByEmail(string $email): ?Usuario {
+        // Prepara la consulta SQL para obtener el usuario por su dirección de correo electrónico
+        if(!$stmt = $this->conn->prepare("SELECT * FROM usuarios WHERE email = ?")) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return null;
+        }
+        
+        // Asocia el parámetro a la consulta SQL
+        $stmt->bind_param('s', $email);
+        // Ejecuta la consulta
+        $stmt->execute();
+        // Obtiene el resultado
+        $result = $stmt->get_result();
+        
+        // Comprueba si se encontró algún resultado
+        if($result->num_rows >= 1) {
+            $usuario = $result->fetch_object('Usuario'); // Convierte el resultado en objeto Usuario
+            return $usuario;
+        } else {
+            return null;
+        }
     }
 }

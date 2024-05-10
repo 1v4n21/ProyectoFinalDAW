@@ -3,7 +3,13 @@
 class ControladorUsuarios{
     public function login()
     {
-        $error = '';
+
+        if (Sesion::existeSesion()) {
+            // Si ya ha iniciado sesión, redirige a la página de inicio
+            header('location: index.php?accion=inicio');
+            guardarMensaje("No puedes acceder aqui si ya has iniciado sesion");
+            die();
+        }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Creamos la conexión utilizando la clase que hemos creado
@@ -11,28 +17,28 @@ class ControladorUsuarios{
             $conn = $connexionDB->getConnexion();
 
             //limpiamos los datos que vienen del usuario
-            $email = htmlspecialchars($_POST['email']);
+            $email = htmlspecialchars($_POST['username']);
             $password = htmlspecialchars($_POST['password']);
 
             //Validamos el usuario
-            $usuariosDAO = new UsuariosDAO($conn);
+            $usuariosDAO = new UsuarioDAO();
             if ($usuario = $usuariosDAO->getByEmail($email)) {
                 if (password_verify($password, $usuario->getPassword())) {
                     //email y password correctos. Inciamos sesión
                     Sesion::iniciarSesion($usuario);
 
-                    //Creamos la cookie para que nos recuerde 1 semana
-                    setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
+                    //Crear la cookeie
 
-                    //Redirigimos a index.php
+                    //Redirigimos a inicio
                     header('location: index.php');
+                    guardarMensajeC("Inicio de sesión con éxito");
                     die();
                 }
             }
-            //email o password incorrectos, redirigir a index.php
+
+            //email o password incorrectos
             guardarMensaje("Email o password incorrectos");
-            header('location: index.php');
-        }
+        } //Acaba if($_SERVER['REQUEST_METHOD']=='POST'){...}
 
         require 'app/views/login.php';
     }

@@ -1,9 +1,9 @@
 <?php 
 
-define('MYSQL_USER', 'id21577253_ivan');
-define('MYSQL_PASS', 'Genu6082-');
-define('MYSQL_DB', 'id21577253_shopswap');
-define('MYSQL_HOST', 'https://databases-auth.000webhost.com/index.php');
+define('MYSQL_USER', 'root');
+define('MYSQL_PASS', '');
+define('MYSQL_DB', 'socialtweet');
+define('MYSQL_HOST', 'localhost');
 
 //Datos para hosting 000webhost
 // define('MYSQL_USER', 'id21551567_blog');
