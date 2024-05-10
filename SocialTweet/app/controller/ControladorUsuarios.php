@@ -50,23 +50,23 @@ class ControladorUsuarios{
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             //Limpiamos los datos
-            $email = htmlentities($_POST['email']);
+            $email = htmlentities($_POST['nombreUsuario']);
             $password = htmlentities($_POST['password']);
             $foto = '';
 
             //Validación 
 
             //Conectamos con la BD
-            $connexionDB = new ConnexionDB(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
             //Compruebo que no haya un usuario registrado con el mismo email
-            $usuariosDAO = new UsuariosDAO($conn);
-            if ($usuariosDAO->getByEmail($email) != null) {
+            $usuariosDAO = new UsuarioDAO($conn);
+            if ($usuariosDAO->getByNombreUsuario($email) != null) {
                 $error = "Ya hay un usuario con ese email";
             } else {
 
-                //Copiamos la foto al disco
+                /*Copiamos la foto al disco
                 if (
                     $_FILES['foto']['type'] != 'image/jpeg' &&
                     $_FILES['foto']['type'] != 'image/webp' &&
@@ -85,7 +85,7 @@ class ControladorUsuarios{
                     if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
                         die("Error al copiar la foto a la carpeta fotosUsuarios");
                     }
-                }
+                }*/
 
 
                 if ($error == '')    //Si no hay error
@@ -97,7 +97,7 @@ class ControladorUsuarios{
                     //encriptamos el password
                     $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
                     $usuario->setPassword($passwordCifrado);
-                    $usuario->setFoto($foto);
+                    //$usuario->setFoto($foto);
                     $usuario->setSid(sha1(rand() + time()), true);
 
                     if ($usuariosDAO->insert($usuario)) {

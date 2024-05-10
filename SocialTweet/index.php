@@ -1,5 +1,8 @@
 <?php
 
+//Uso de variables de sesión
+session_start();
+
 require_once 'app/config/config.php';
 require_once 'app/model/ConexionDBi.php';
 
@@ -27,9 +30,6 @@ require_once 'app/controller/ControladorMensajes.php';
 
 //require_once 'app/controller/ControladorFavoritos.php';
 require_once 'app/utils/funciones.php';
-
-//Uso de variables de sesión
-session_start();
 
 //Mapa de enrutamiento
 $mapa = array(
@@ -118,7 +118,7 @@ if (isset($_GET['accion'])) {
 //if( !isset($_SESSION['email']) && isset($_COOKIE['id'])){
 if (!Sesion::existeSesion() && isset($_COOKIE['sid'])) {
     //Conectamos con la bD
-    $connexionDB = new ConexionDBi();
+    $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
     $conn = $connexionDB->getConnexion();
 
     //Nos conectamos para obtener el id

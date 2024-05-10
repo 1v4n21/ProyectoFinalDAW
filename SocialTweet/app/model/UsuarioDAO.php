@@ -15,7 +15,7 @@ class UsuarioDAO {
      */
     public function insert(Usuario $usuario): int|bool {
         // Prepara la consulta SQL
-        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (sid, apellidos, email, localidad, nombre, nombreusuario, password, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (sidusuario, apellidos, email, localidad, nombre, nombreusuario, password, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
             echo "Error al preparar la consulta insert: " . $this->conn->error;
             return false;
         }
