@@ -19,8 +19,65 @@
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
+
+    <!-- Link jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        .error {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .correcto {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #28a745;
+            border: 1px solid #218838;
+            color: black;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+<!-- Mensaje de error -->
+<?php imprimirMensaje(); ?>
+
+<!-- Mensaje de correcto -->
+<?php imprimirMensajeC(); ?>
+
+<!--JavaScript-->
+<script>
+    // Muestra el mensaje de error al cargar la página
+    $(document).ready(function() {
+        $(".error").fadeIn().delay(5000).fadeOut();
+    });
+</script>
+
+<script>
+    // Muestra el mensaje de correcto al cargar la página
+    $(document).ready(function() {
+        $(".correcto").fadeIn().delay(5000).fadeOut();
+    });
+</script>
+
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
@@ -47,8 +104,13 @@
                     <a class="nav-link" href="guardados">Guardados</a>
                 </li>
             </ul>
+
+            <br>
+
             <!-- Campo de búsqueda -->
             <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar">
+
+            <br>
 
             <!-- Botón de Logout con color rojo y dinámico -->
             <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
@@ -64,31 +126,45 @@
 <!-- Posts -->
 <div class="container" id="resultadosContainer">
     <?php foreach ($lasPublicaciones as $post): ?>
-        <div class="post" data-id="<?php echo $post->idPublicacion; ?>">
-            <div class="post-title"><?php echo '@' . $post->usuario->nombreUsuario; ?></div>
+        <?php 
+            $usuarioDAO = new UsuarioDAO($conn);
+            $usuario = $usuarioDAO->getById($post->getIdUsuario());
+
+            $megustaDAO = new MeGustaDAO($conn);
+            $meGusta = $megustaDAO->getByIdPublicacionYIdUsuario($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
+            $claseIconoM = $meGusta ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
+
+            $guardadoDAO = new GuardadoDAO($conn);
+            $guardado = $guardadoDAO->getByIdPublicacionYIdUsuario($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
+            $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+        ?>
+        <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
+            <div class="post-title">
+                <?php echo '@' . $usuario->getNombreusuario(); ?>
+            </div>
             <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
-            <div class="post-content"><?php echo $post->mensaje; ?></div>
+            <div class="post-content"><?php echo $post->getMensaje(); ?></div>
             <br>
             <div class="post-actions">
                 <!-- Botón de Me Gusta -->
-                <i class="<?php echo ($post->usuarioHaDadoMeGusta(Sesion::getUsuario()->getIdusuario())) ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'; ?>"
-                   onclick="darLike(<?php echo $post->idPublicacion . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
-                <span style="display: inline;"><?php echo count($post->meGustas); ?></span>
+                <i class="<?php echo $claseIconoM; ?>"
+                    onclick="darLike(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                <span style="display: inline;"><?php echo count($megustaDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
                 &nbsp;&nbsp;&nbsp;
 
                 <!-- Botón de Guardar -->
-                <i class="<?php echo ($post->usuarioHaGuardado(Sesion::getUsuario()->getIdusuario())) ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'; ?>"
-                   onclick="guardarPost(<?php echo $post->idPublicacion . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
-                <span style="display: inline;"><?php echo count($post->guardados); ?></span>
+                <i class="<?php echo $claseIconoG; ?>"
+                   onclick="guardarPost(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <!-- Mostrar íconos de editar y eliminar si el usuario es el creador del post o tiene rol admin -->
-                <?php if ($post->usuario->idUsuario == Sesion::getUsuario()->getIdusuario() || Sesion::getUsuario()->getRol() == 'admin'): ?>
-                    <a href="publicacion?id=<?php echo $post->idPublicacion; ?>" style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
+                <?php if ($post->getIdusuario() == Sesion::getUsuario()->getIdusuario() || Sesion::getUsuario()->getRol() == 'admin'): ?>
+                    <a href="publicacion?id=<?php echo $post->getIdpublicacion(); ?>" style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
                     &nbsp;&nbsp;&nbsp;
-                    <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->idPublicacion; ?>)"></i>
+                    <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->getIdpublicacion(); ?>)"></i>
                 <?php endif; ?>
             </div>
         </div>
@@ -108,6 +184,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Script de Ajax -->
-<script src="/javascript/ajax.js"></script>
+<script src="web/js/ajax.js"></script>
 </body>
 </html>

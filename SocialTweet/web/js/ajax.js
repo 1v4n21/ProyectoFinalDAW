@@ -1,6 +1,6 @@
 //Funcion al dar me gusta
 function darLike(postId, userId, event) {
-    fetch(`darLike?postId=${postId}&userId=${userId}`, {
+    fetch(`index.php?accion=darLike&postId=${postId}&userId=${userId}`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {

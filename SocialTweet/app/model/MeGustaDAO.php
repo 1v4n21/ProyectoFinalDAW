@@ -14,7 +14,7 @@ class MeGustaDAO {
      */
     public function insert(MeGusta $megusta): int|bool {
         // Prepara la consulta SQL
-        if(!$stmt = $this->conn->prepare("INSERT INTO me_gusta (idpublicacion, idusuario) VALUES (?, ?)")) {
+        if(!$stmt = $this->conn->prepare("INSERT INTO megustas (idpublicacion, idusuario) VALUES (?, ?)")) {
             echo "Error al preparar la consulta insert: " . $this->conn->error;
             return false;
         }
@@ -41,7 +41,7 @@ class MeGustaDAO {
      */
     public function delete(int $id): bool {
         // Prepara la consulta SQL para eliminar el registro de MeGusta por su ID
-        if(!$stmt = $this->conn->prepare("DELETE FROM me_gusta WHERE idmegusta = ?")) {
+        if(!$stmt = $this->conn->prepare("DELETE FROM megustas WHERE idmegusta = ?")) {
             echo "Error al preparar la consulta delete: " . $this->conn->error;
             return false;
         }
@@ -60,7 +60,7 @@ class MeGustaDAO {
      */
     public function getById(int $id): ?MeGusta {
         // Prepara la consulta SQL para obtener el registro de MeGusta por su ID
-        if(!$stmt = $this->conn->prepare("SELECT * FROM me_gusta WHERE idmegusta = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idmegusta = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return null;
         }
@@ -87,7 +87,7 @@ class MeGustaDAO {
      */
     public function getAll(): array {
         // Prepara la consulta SQL para obtener todos los registros de MeGusta
-        if(!$stmt = $this->conn->prepare("SELECT * FROM me_gusta")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -113,7 +113,7 @@ class MeGustaDAO {
      */
     public function getByIdPublicacion(int $idPublicacion): array {
         // Prepara la consulta SQL para obtener los registros de MeGusta por ID de publicación
-        if(!$stmt = $this->conn->prepare("SELECT * FROM me_gusta WHERE idpublicacion = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idpublicacion = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -141,7 +141,7 @@ class MeGustaDAO {
      */
     public function getByIdUsuario(int $idUsuario): array {
         // Prepara la consulta SQL para obtener los registros de MeGusta por ID de usuario
-        if(!$stmt = $this->conn->prepare("SELECT * FROM me_gusta WHERE idusuario = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -168,11 +168,11 @@ class MeGustaDAO {
      * @param int $idUsuario El ID del usuario
      * @return MeGusta|null Devuelve el objeto MeGusta si se encuentra, de lo contrario devuelve null
      */
-    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): ?MeGusta {
+    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): bool {
         // Prepara la consulta SQL para obtener el registro de MeGusta por ID de publicación y usuario
-        if(!$stmt = $this->conn->prepare("SELECT * FROM me_gusta WHERE idpublicacion = ? AND idusuario = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idpublicacion = ? AND idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
-            return null;
+            return false;
         }
         
         // Asocia los parámetros a la consulta SQL
@@ -185,9 +185,9 @@ class MeGustaDAO {
         // Comprueba si se encontró algún resultado
         if($result->num_rows >= 1) {
             $megusta = $result->fetch_object('MeGusta'); // Convierte el resultado en objeto MeGusta
-            return $megusta;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }

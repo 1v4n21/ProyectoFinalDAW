@@ -7,9 +7,8 @@ class ControladorPublicaciones{
         $conn = $connexionDB->getConnexion();
 
         //Obtenemos las publicaciones
-        $lasPublicaciones = new PublicacionDAO($conn);
-
-        $usuarioLogueado = Sesion::getUsuario();
+        $publicacionDAO = new PublicacionDAO($conn);
+        $lasPublicaciones = $publicacionDAO->getAll();
 
         //Incluyo la vista
         require 'app/views/inicio.php';

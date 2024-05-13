@@ -58,6 +58,11 @@ $mapa = array(
         'metodo' => 'publicacion',
         'privada' => true
     ),
+    'darLike' => array(
+        'controlador' => 'ControladorMeGustas',
+        'metodo' => 'darLike',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

@@ -14,7 +14,7 @@ class GuardadoDAO {
      */
     public function insert(Guardado $guardado): int|bool {
         // Prepara la consulta SQL
-        if(!$stmt = $this->conn->prepare("INSERT INTO guardado (idpublicacion, idusuario) VALUES (?, ?)")) {
+        if(!$stmt = $this->conn->prepare("INSERT INTO guardados (idpublicacion, idusuario) VALUES (?, ?)")) {
             echo "Error al preparar la consulta insert: " . $this->conn->error;
             return false;
         }
@@ -41,7 +41,7 @@ class GuardadoDAO {
      */
     public function delete(int $id): bool {
         // Prepara la consulta SQL para eliminar el registro de Guardado por su ID
-        if(!$stmt = $this->conn->prepare("DELETE FROM guardado WHERE idguardado = ?")) {
+        if(!$stmt = $this->conn->prepare("DELETE FROM guardados WHERE idguardado = ?")) {
             echo "Error al preparar la consulta delete: " . $this->conn->error;
             return false;
         }
@@ -60,7 +60,7 @@ class GuardadoDAO {
      */
     public function getById(int $id): ?Guardado {
         // Prepara la consulta SQL para obtener el registro de Guardado por su ID
-        if(!$stmt = $this->conn->prepare("SELECT * FROM guardado WHERE idguardado = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idguardado = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return null;
         }
@@ -87,7 +87,7 @@ class GuardadoDAO {
      */
     public function getAll(): array {
         // Prepara la consulta SQL para obtener todos los registros de Guardado
-        if(!$stmt = $this->conn->prepare("SELECT * FROM guardado")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -113,7 +113,7 @@ class GuardadoDAO {
      */
     public function getByIdPublicacion(int $idPublicacion): array {
         // Prepara la consulta SQL para obtener los registros de Guardado por ID de publicación
-        if(!$stmt = $this->conn->prepare("SELECT * FROM guardado WHERE idpublicacion = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idpublicacion = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -141,7 +141,7 @@ class GuardadoDAO {
      */
     public function getByIdUsuario(int $idUsuario): array {
         // Prepara la consulta SQL para obtener los registros de Guardado por ID de usuario
-        if(!$stmt = $this->conn->prepare("SELECT * FROM guardado WHERE idusuario = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
@@ -168,11 +168,11 @@ class GuardadoDAO {
      * @param int $idUsuario El ID del usuario
      * @return Guardado|null Devuelve el objeto Guardado si se encuentra, de lo contrario devuelve null
      */
-    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): ?Guardado {
+    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): bool{
         // Prepara la consulta SQL para obtener el registro de Guardado por ID de publicación y usuario
-        if(!$stmt = $this->conn->prepare("SELECT * FROM guardado WHERE idpublicacion = ? AND idusuario = ?")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idpublicacion = ? AND idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
-            return null;
+            return false;
         }
         
         // Asocia los parámetros a la consulta SQL
@@ -185,9 +185,9 @@ class GuardadoDAO {
         // Comprueba si se encontró algún resultado
         if($result->num_rows >= 1) {
             $guardado = $result->fetch_object('Guardado'); // Convierte el resultado en objeto Guardado
-            return $guardado;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 }
