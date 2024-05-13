@@ -53,6 +53,11 @@ $mapa = array(
         'metodo' => 'inicio',
         'privada' => true
     ),
+    'publicacion' => array(
+        'controlador' => 'ControladorPublicaciones',
+        'metodo' => 'publicacion',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta
