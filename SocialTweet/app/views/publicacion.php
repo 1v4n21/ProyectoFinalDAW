@@ -55,29 +55,15 @@
                 <div class="card-header bg-primary text-white"><?php echo $form; ?> Publicación</div>
                 <div class="card-body">
                     <form action="/crearPublicacion" method="post">
-                        <input type="hidden" name="idPublicacion" value="<?php echo $laPublicacion->idPublicacion; ?>" />
+                        <input type="hidden" name="idPublicacion" value="<?php echo $laPublicacion->getIdpublicacion(); ?>" />
                         <div class="mb-3">
                             <label for="mensaje" class="form-label">Mensaje:</label>
-                            <textarea class="form-control" id="mensaje" name="mensaje" rows="6" required="required"><?php echo $laPublicacion->mensaje; ?></textarea>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="6" required="required"><?php echo $laPublicacion->getMensaje(); ?></textarea>
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-primary">Publicar</button>
                         </div>
                     </form>
-
-                    <!-- Limpiar los input en caso de error -->
-                    <?php if ($hasError): ?>
-                        <script>
-                            document.getElementById("mensaje").value = "";
-                        </script>
-                    <?php endif; ?>
-
-                    <!-- mostrar el mensaje de error -->
-                    <?php if ($error): ?>
-                        <div class="alert alert-danger mt-3">
-                            <p><?php echo $error; ?></p>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>

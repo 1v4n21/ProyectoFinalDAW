@@ -131,7 +131,7 @@
             $usuario = $usuarioDAO->getById($post->getIdUsuario());
 
             $megustaDAO = new MeGustaDAO($conn);
-            $meGusta = $megustaDAO->getByIdPublicacionYIdUsuario($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
+            $meGusta = $megustaDAO->existeMeGusta($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
             $claseIconoM = $meGusta ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
 
             $guardadoDAO = new GuardadoDAO($conn);
@@ -173,7 +173,7 @@
 
 <!-- Añadir post -->
 <div class="fixed-logo">
-    <a href="index.php?accion=publicacion">
+    <a href="index.php?accion=publicacion&id=0">
         <i class="fa-solid fa-square-plus fa-2x"></i>
     </a>
 </div>

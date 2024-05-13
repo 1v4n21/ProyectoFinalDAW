@@ -41,7 +41,7 @@ class MeGustaDAO {
      */
     public function delete(int $id): bool {
         // Prepara la consulta SQL para eliminar el registro de MeGusta por su ID
-        if(!$stmt = $this->conn->prepare("DELETE FROM megustas WHERE idmegusta = ?")) {
+        if(!$stmt = $this->conn->prepare("DELETE FROM megustas WHERE idmg = ?")) {
             echo "Error al preparar la consulta delete: " . $this->conn->error;
             return false;
         }
@@ -168,7 +168,30 @@ class MeGustaDAO {
      * @param int $idUsuario El ID del usuario
      * @return MeGusta|null Devuelve el objeto MeGusta si se encuentra, de lo contrario devuelve null
      */
-    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): bool {
+    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): ?MeGusta {
+        // Prepara la consulta SQL para obtener el registro de MeGusta por ID de publicación y usuario
+        if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idpublicacion = ? AND idusuario = ?")) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return null;
+        }
+
+        // Asocia los parámetros a la consulta SQL
+        $stmt->bind_param('ii', $idPublicacion, $idUsuario);
+        // Ejecuta la consulta
+        $stmt->execute();
+        // Obtiene el resultado
+        $result = $stmt->get_result();
+
+        // Comprueba si se encontró algún resultado
+        if($result->num_rows >= 1) {
+            $megusta = $result->fetch_object('MeGusta'); // Convierte el resultado en objeto MeGusta
+            return $megusta;
+        } else {
+            return null;
+        }
+    }
+
+    public function existeMeGusta(int $idPublicacion, int $idUsuario): bool {
         // Prepara la consulta SQL para obtener el registro de MeGusta por ID de publicación y usuario
         if(!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idpublicacion = ? AND idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
