@@ -154,4 +154,47 @@ class PublicacionDAO {
     
         return $publicacionesGuardadas;
     }
+
+    /**
+     * Busca publicaciones por nombre de usuario
+     * @param string $nombreUsuario El nombre de usuario para buscar publicaciones
+     * @return array Un array de objetos Publicacion encontrados para el usuario dado
+     */
+    public function buscarPublicacionesPorNombreUsuario($nombreUsuario) {
+        $publicaciones = array();
+
+        // Prepara la consulta SQL para obtener las publicaciones de un usuario por su nombre de usuario
+        $sql = "SELECT p.idpublicacion, p.mensaje, p.fecha, p.idusuario 
+                FROM publicaciones p
+                INNER JOIN usuarios u ON p.idusuario = u.idusuario
+                WHERE u.nombreusuario LIKE ?";
+        
+        // Prepara y ejecuta la consulta con el nombre de usuario proporcionado
+        if ($stmt = $this->conn->prepare($sql)) {
+            $stmt->bind_param("s", $nombreUsuario);
+            $stmt->execute();
+            
+            // Vincula variables de resultado
+            $stmt->bind_result($idPublicacion, $mensaje, $fecha, $idUsuario);
+            
+            $publicacion = new Publicacion();
+
+            // Recorre los resultados y crea objetos Publicacion
+            while ($stmt->fetch()) {
+                $publicacion->setIdpublicacion($idPublicacion);
+                $publicacion->setMensaje($mensaje);
+                $publicacion->setFecha($fecha);
+                $publicacion->setIdusuario($idUsuario);
+
+                $publicaciones[] = $publicacion;
+            }
+
+            // Cierra la consulta
+            $stmt->close();
+        } else {
+            echo "Error al preparar la consulta: " . $this->conn->error;
+        }
+
+        return $publicaciones;
+    }
 }

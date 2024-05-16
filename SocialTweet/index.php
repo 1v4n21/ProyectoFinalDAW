@@ -73,6 +73,11 @@ $mapa = array(
         'metodo' => 'borrarPost',
         'privada' => true
     ),
+    'buscarPublicaciones' => array(
+        'controlador' => 'ControladorPublicaciones',
+        'metodo' => 'buscarPublicaciones',
+        'privada' => true
+    ),
     'guardados' => array(
         'controlador' => 'ControladorGuardados',
         'metodo' => 'guardados',

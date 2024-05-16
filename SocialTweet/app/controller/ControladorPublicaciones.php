@@ -90,4 +90,59 @@ class ControladorPublicaciones{
         //     return ResponseEntity.notFound().build();
         // }
     }
+
+    public function buscarPublicaciones(){
+        //Creamos la conexión utilizando la clase que hemos creado
+        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        $publicacionDAO = new PublicacionDAO($conn);
+        $usuarioDAO = new UsuarioDAO($conn);
+        $mgDAO = new MeGustaDAO($conn);
+        $guardadoDAO = new GuardadoDAO($conn);
+
+        // Obtener la información del usuario logueado desde la sesión
+        $usuarioLogueado = Sesion::getUsuario();
+        $idUsuario = $usuarioLogueado->getIdusuario();
+        $rolUsuario = $usuarioLogueado->getRol();
+        $username = htmlentities($_GET['username']);
+
+        // Obtener la publicación
+        $publicaciones = $publicacionDAO->buscarPublicacionesPorNombreUsuario($username . "%");
+
+        // Construir manualmente el JSON
+        $jsonBuilder = "{";
+        $jsonBuilder .= "\"usuarioActual\":{";
+        $jsonBuilder .= "\"id\":" . $idUsuario . ",";
+        $jsonBuilder .= "\"rol\":\"" . $rolUsuario . "\"";
+        $jsonBuilder .= "},";
+        $jsonBuilder .= "\"publicaciones\":[";
+
+        foreach ($publicaciones as $publicacion) {
+            $usuario = $usuarioDAO->getById($publicacion->getIdusuario());
+            $jsonBuilder .= "{";
+            $jsonBuilder .= "\"idPublicacion\":" . $publicacion->getIdpublicacion() . ",";
+            $jsonBuilder .= "\"mensaje\":\"" . $publicacion->getMensaje() . "\",";
+            $jsonBuilder .= "\"fecha\":\"" . $publicacion->obtenerTiempoTranscurrido() . "\",";
+            $jsonBuilder .= "\"idUsuario\":" . $publicacion->getIdusuario() . ",";
+            $jsonBuilder .= "\"nombreUsuario\":\"" . $usuario->getNombreusuario() . "\",";
+            $jsonBuilder .= "\"megustas\":" . count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())) . ",";
+            $jsonBuilder .= "\"guardados\":" . count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())) . ",";
+            $jsonBuilder .= "\"usuarioHaDadoMeGusta\":" . $mgDAO->existeMeGusta($publicacion->getIdpublicacion(), $idUsuario) . ",";
+            $jsonBuilder .= "\"usuarioHaGuardado\":" . $guardadoDAO->existeGuardado($publicacion->getIdpublicacion(), $idUsuario);
+            $jsonBuilder .= "},";
+        }
+
+        if (!empty($publicaciones)) {
+            $jsonBuilder = substr($jsonBuilder, 0, -1); // Eliminar la última coma
+        }
+
+        $jsonBuilder .= "]}";
+
+        // Devolver el JSON
+        echo json_encode($jsonBuilder);
+
+        // También puedes devolverlo como respuesta HTTP si es necesario
+        // header("Content-Type: application/json");
+        // echo json_encode($jsonBuilder);
+    }
 }

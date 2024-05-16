@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var username = searchInput.value;
 
         // Actualiza la URL para buscar publicaciones por nombre de usuario
-        fetch(`buscarPublicaciones?username=${username}`, {
+        fetch(`index.php?accion=buscarPublicaciones&username=${username}`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
