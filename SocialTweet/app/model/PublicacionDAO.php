@@ -106,4 +106,24 @@ class PublicacionDAO {
         }
         return $publicaciones;
     }
+
+    public function getPublicacionesGuardadasUsuario($idUsuario) {
+        $guardadoDAO = new GuardadoDAO($this->conn);
+        $guardados = $guardadoDAO->getByIdUsuario($idUsuario);
+
+        $publicacionDAO = new PublicacionDAO($this->conn);
+    
+        // Extraer los objetos Publicacion de las publicaciones guardadas
+        $publicacionesGuardadas = array();
+        foreach ($guardados as $guardado) {
+            $publicacionesGuardadas[] = $publicacionDAO->getById($guardado->getIdpublicacion());
+        }
+    
+        // Ordenar la lista de publicaciones guardadas por fecha (de más reciente a más antiguo)
+        usort($publicacionesGuardadas, function($a, $b) {
+            return strtotime($b->getFecha()) - strtotime($a->getFecha());
+        });
+    
+        return $publicacionesGuardadas;
+    }
 }

@@ -37,4 +37,15 @@ class ControladorGuardados{
 
         }
     }
+
+    public function guardados(){
+        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $publicacionDAO = new PublicacionDAO($conn);
+        $lasPublicaciones = $publicacionDAO->getPublicacionesGuardadasUsuario(Sesion::getUsuario()->getIdusuario());
+
+        //Incluyo la vista
+        require 'app/views/inicio.php';
+    }
 }
