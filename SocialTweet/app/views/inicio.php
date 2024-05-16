@@ -135,7 +135,7 @@
             $claseIconoM = $meGusta ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up';
 
             $guardadoDAO = new GuardadoDAO($conn);
-            $guardado = $guardadoDAO->getByIdPublicacionYIdUsuario($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
+            $guardado = $guardadoDAO->existeGuardado($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
             $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
         ?>
         <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
