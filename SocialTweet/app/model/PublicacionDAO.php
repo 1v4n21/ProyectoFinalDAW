@@ -36,6 +36,34 @@ class PublicacionDAO {
     }
 
     /**
+     * Actualiza una publicación en la base de datos
+     * @param Publicacion $publicacion La publicación a actualizar
+     * @return bool Devuelve true si la actualización tiene éxito, de lo contrario devuelve false
+     */
+    public function editar(Publicacion $publicacion): bool {
+        // Prepara la consulta SQL
+        if(!$stmt = $this->conn->prepare("UPDATE publicaciones SET fecha = ?, mensaje = ? WHERE idpublicacion = ?")) {
+            echo "Error al preparar la consulta update: " . $this->conn->error;
+            return false;
+        }
+        
+        // Obtiene los datos de la publicación
+        $fecha = $publicacion->getFecha();
+        $mensaje = $publicacion->getMensaje();
+        $id = $publicacion->getIdpublicacion(); // Suponiendo que tienes un método getId() en la clase Publicacion para obtener el ID
+        
+        // Asocia los parámetros a la consulta SQL
+        $stmt->bind_param('ssi', $fecha, $mensaje, $id);
+        
+        // Ejecuta la consulta
+        if($stmt->execute()) {
+            return true; // La actualización tuvo éxito
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Elimina una publicación de la base de datos por su ID
      * @param int $id El ID de la publicación a eliminar
      * @return bool Devuelve true si se elimina correctamente, de lo contrario devuelve false

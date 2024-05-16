@@ -54,7 +54,7 @@
             <div class="card">
                 <div class="card-header bg-primary text-white"><?php echo $form; ?> Publicación</div>
                 <div class="card-body">
-                    <form action="/crearPublicacion" method="post">
+                    <form action="index.php?accion=publicacion&id=<?php echo $laPublicacion->getIdpublicacion() ?>" method="post">
                         <input type="hidden" name="idPublicacion" value="<?php echo $laPublicacion->getIdpublicacion(); ?>" />
                         <div class="mb-3">
                             <label for="mensaje" class="form-label">Mensaje:</label>

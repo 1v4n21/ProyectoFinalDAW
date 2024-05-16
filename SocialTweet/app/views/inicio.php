@@ -162,7 +162,7 @@
 
                 <!-- Mostrar íconos de editar y eliminar si el usuario es el creador del post o tiene rol admin -->
                 <?php if ($post->getIdusuario() == Sesion::getUsuario()->getIdusuario() || Sesion::getUsuario()->getRol() == 'admin'): ?>
-                    <a href="publicacion?id=<?php echo $post->getIdpublicacion(); ?>" style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
+                    <a href="index.php?accion=publicacion&id=<?php echo $post->getIdpublicacion(); ?>" style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
                     &nbsp;&nbsp;&nbsp;
                     <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->getIdpublicacion(); ?>)"></i>
                 <?php endif; ?>

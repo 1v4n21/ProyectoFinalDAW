@@ -19,7 +19,7 @@ class ControladorPublicaciones{
         $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
-        $id =htmlentities($_GET['id']);
+        $id = intval(htmlentities($_GET['id']));
 
         //Obtenemos las publicaciones
         $publicacionDAO = new PublicacionDAO($conn);
@@ -32,7 +32,38 @@ class ControladorPublicaciones{
             $form = "Crear";
         }
 
-        //Incluyo la vista
-        require 'app/views/publicacion.php';
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+
+            //Obtenemos los campos del formulario
+            $idPublicacion = htmlspecialchars($_POST['idPublicacion']);
+            $mensaje = htmlspecialchars($_POST['mensaje']);
+
+            $usuariosDAO = new UsuarioDAO($conn);
+
+            if($id != 0){
+                $publicacion = $publicacionDAO->getById($id);
+                $publicacion->setFecha(date("Y-m-d H:i:s"));
+                $publicacion->setMensaje($mensaje." (Editado)");
+
+                $publicacionDAO->editar($publicacion);
+                guardarMensajeC("Publicación modificada con éxito");
+            }else{
+                $publicacion = new Publicacion();
+                $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
+                $publicacion->setMensaje($mensaje);
+                $publicacion->setFecha(date("Y-m-d H:i:s"));
+
+                $publicacionDAO->insert($publicacion);
+                guardarMensajeC("Publicación creada con éxito");
+            }
+
+            //Incluyo la vista
+            header('location: index.php');
+        }else{
+            //Incluyo la vista
+            require 'app/views/publicacion.php';
+        }
     }
 }
