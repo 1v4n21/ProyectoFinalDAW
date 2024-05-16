@@ -1,6 +1,6 @@
 <?php
 class MeGusta{
-    private $idmegusta;
+    private $idmg;
     private $idpublicacion;
     private $idusuario;
     
@@ -9,7 +9,7 @@ class MeGusta{
      */
     public function getIdmegusta()
     {
-        return $this->idmegusta;
+        return $this->idmg;
     }
 
     /**
@@ -17,7 +17,7 @@ class MeGusta{
      */
     public function setIdmegusta($idmegusta): self
     {
-        $this->idmegusta = $idmegusta;
+        $this->idmg = $idmegusta;
 
         return $this;
     }

@@ -63,6 +63,11 @@ $mapa = array(
         'metodo' => 'darLike',
         'privada' => true
     ),
+    'darGuardado' => array(
+        'controlador' => 'ControladorGuardados',
+        'metodo' => 'darGuardado',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

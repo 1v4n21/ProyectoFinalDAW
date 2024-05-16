@@ -27,8 +27,8 @@ function darLike(postId, userId, event) {
 }
 
 //Funcion al guardar la publicacion
-function guardarPost(postId, userId, event) {
-    fetch(`guardarPost?postId=${postId}&userId=${userId}`, {
+function darGuardado(postId, userId, event) {
+    fetch(`index.php?accion=darGuardado&postId=${postId}&userId=${userId}`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {

@@ -168,7 +168,30 @@ class GuardadoDAO {
      * @param int $idUsuario El ID del usuario
      * @return Guardado|null Devuelve el objeto Guardado si se encuentra, de lo contrario devuelve null
      */
-    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): bool{
+    public function getByIdPublicacionYIdUsuario(int $idPublicacion, int $idUsuario): ?Guardado{
+        // Prepara la consulta SQL para obtener el registro de Guardado por ID de publicación y usuario
+        if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idpublicacion = ? AND idusuario = ?")) {
+            echo "Error en la SQL: " . $this->conn->error;
+            return null;
+        }
+
+        // Asocia los parámetros a la consulta SQL
+        $stmt->bind_param('ii', $idPublicacion, $idUsuario);
+        // Ejecuta la consulta
+        $stmt->execute();
+        // Obtiene el resultado
+        $result = $stmt->get_result();
+
+        // Comprueba si se encontró algún resultado
+        if($result->num_rows >= 1) {
+            $guardado = $result->fetch_object('Guardado'); // Convierte el resultado en objeto Guardado
+            return $guardado;
+        } else {
+            return null;
+        }
+    }
+
+    public function existeGuardado(int $idPublicacion, int $idUsuario): bool {
         // Prepara la consulta SQL para obtener el registro de Guardado por ID de publicación y usuario
         if(!$stmt = $this->conn->prepare("SELECT * FROM guardados WHERE idpublicacion = ? AND idusuario = ?")) {
             echo "Error en la SQL: " . $this->conn->error;

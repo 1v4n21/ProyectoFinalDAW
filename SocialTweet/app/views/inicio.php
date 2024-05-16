@@ -155,7 +155,7 @@
 
                 <!-- Botón de Guardar -->
                 <i class="<?php echo $claseIconoG; ?>"
-                   onclick="guardarPost(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                   onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
                 <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
