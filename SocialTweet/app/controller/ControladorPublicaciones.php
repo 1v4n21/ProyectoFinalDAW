@@ -109,37 +109,37 @@ class ControladorPublicaciones{
         // Obtener la publicación
         $publicaciones = $publicacionDAO->buscarPublicacionesPorNombreUsuario($username . "%");
 
-        // Construir manualmente el JSON
-        $jsonBuilder = "{";
-        $jsonBuilder .= "\"usuarioActual\":{";
-        $jsonBuilder .= "\"id\":" . $idUsuario . ",";
-        $jsonBuilder .= "\"rol\":\"" . $rolUsuario . "\"";
-        $jsonBuilder .= "},";
-        $jsonBuilder .= "\"publicaciones\":[";
+        // Construir el array asociativo
+        $jsonData = array(
+            "usuarioActual" => array(
+                "id" => $idUsuario,
+                "rol" => $rolUsuario
+            ),
+            "publicaciones" => array()
+        );
 
         foreach ($publicaciones as $publicacion) {
             $usuario = $usuarioDAO->getById($publicacion->getIdusuario());
-            $jsonBuilder .= "{";
-            $jsonBuilder .= "\"idPublicacion\":" . $publicacion->getIdpublicacion() . ",";
-            $jsonBuilder .= "\"mensaje\":\"" . $publicacion->getMensaje() . "\",";
-            $jsonBuilder .= "\"fecha\":\"" . $publicacion->obtenerTiempoTranscurrido() . "\",";
-            $jsonBuilder .= "\"idUsuario\":" . $publicacion->getIdusuario() . ",";
-            $jsonBuilder .= "\"nombreUsuario\":\"" . $usuario->getNombreusuario() . "\",";
-            $jsonBuilder .= "\"megustas\":" . count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())) . ",";
-            $jsonBuilder .= "\"guardados\":" . count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())) . ",";
-            $jsonBuilder .= "\"usuarioHaDadoMeGusta\":" . $mgDAO->existeMeGusta($publicacion->getIdpublicacion(), $idUsuario) . ",";
-            $jsonBuilder .= "\"usuarioHaGuardado\":" . $guardadoDAO->existeGuardado($publicacion->getIdpublicacion(), $idUsuario);
-            $jsonBuilder .= "},";
+            $publicacionData = array(
+                "idPublicacion" => $publicacion->getIdpublicacion(),
+                "mensaje" => $publicacion->getMensaje(),
+                "fecha" => $publicacion->obtenerTiempoTranscurrido(),
+                "idUsuario" => $publicacion->getIdusuario(),
+                "nombreUsuario" => $usuario->getNombreusuario(),
+                "megustas" => count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
+                "guardados" => count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
+                "usuarioHaDadoMeGusta" => $mgDAO->existeMeGusta($publicacion->getIdpublicacion(), $idUsuario),
+                "usuarioHaGuardado" => $guardadoDAO->existeGuardado($publicacion->getIdpublicacion(), $idUsuario)
+            );
+            $jsonData["publicaciones"][] = $publicacionData;
         }
 
-        if (!empty($publicaciones)) {
-            $jsonBuilder = substr($jsonBuilder, 0, -1); // Eliminar la última coma
-        }
-
-        $jsonBuilder .= "]}";
+        // Convertir el array asociativo a JSON
+        $json = json_encode($jsonData);
 
         // Devolver el JSON
-        echo json_encode($jsonBuilder);
+        echo $json;
+
 
         // También puedes devolverlo como respuesta HTTP si es necesario
         // header("Content-Type: application/json");
