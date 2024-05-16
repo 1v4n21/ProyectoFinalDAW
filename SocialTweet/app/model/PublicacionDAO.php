@@ -176,11 +176,10 @@ class PublicacionDAO {
             
             // Vincula variables de resultado
             $stmt->bind_result($idPublicacion, $mensaje, $fecha, $idUsuario);
-            
-            $publicacion = new Publicacion();
 
             // Recorre los resultados y crea objetos Publicacion
             while ($stmt->fetch()) {
+                $publicacion = new Publicacion();
                 $publicacion->setIdpublicacion($idPublicacion);
                 $publicacion->setMensaje($mensaje);
                 $publicacion->setFecha($fecha);

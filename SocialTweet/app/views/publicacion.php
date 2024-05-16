@@ -34,7 +34,7 @@
                     <a class="nav-link" href="/ajustes?id=<?php echo Sesion::getUsuario()->getIdusuario(); ?>">Ajustes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/guardados">Guardados</a>
+                    <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                 </li>
             </ul>
             <!-- Campo de búsqueda -->

@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         ? "fa-solid fa-bookmark"
                         : "fa-regular fa-bookmark";
                     bookmarkIcon.onclick = function () {
-                        guardarPost(publicacion.idPublicacion, data.usuarioActual.id, event);
+                        darGuardado(publicacion.idPublicacion, data.usuarioActual.id, event);
                     };
 
                     // Contador de guardados

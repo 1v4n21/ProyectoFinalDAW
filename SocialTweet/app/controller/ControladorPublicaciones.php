@@ -26,6 +26,8 @@ class ControladorPublicaciones{
 
         if($id != 0){
             $laPublicacion = $publicacionDAO->getById($id);
+            $texto = $laPublicacion->getMensaje();
+            $laPublicacion->setMensaje(str_replace(" (Editado)", "", $texto));
             $form = "Editar";
         }else{
             $laPublicacion = new Publicacion();
