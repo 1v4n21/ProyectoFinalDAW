@@ -68,7 +68,7 @@ CREATE TABLE `Mensajes` (
 
 CREATE TABLE `Publicaciones` (
   `idpublicacion` int NOT NULL,
-  `fecha` date DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
   `mensaje` text COLLATE utf8mb4_spanish_ci,
   `idusuario` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;

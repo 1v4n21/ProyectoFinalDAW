@@ -56,7 +56,7 @@ function darGuardado(postId, userId, event) {
 
 //Funcion para borrar publicación
 function borrarPost(postId) {
-    fetch(`borrarPost?postId=${postId}`, {
+    fetch(`index.php?accion=borrarPost&postId=${postId}`, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {

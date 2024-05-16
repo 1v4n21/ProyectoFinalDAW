@@ -68,6 +68,11 @@ $mapa = array(
         'metodo' => 'darGuardado',
         'privada' => true
     ),
+    'borrarPost' => array(
+        'controlador' => 'ControladorPublicaciones',
+        'metodo' => 'borrarPost',
+        'privada' => true
+    ),
     'guardados' => array(
         'controlador' => 'ControladorGuardados',
         'metodo' => 'guardados',

@@ -66,4 +66,28 @@ class ControladorPublicaciones{
             require 'app/views/publicacion.php';
         }
     }
+
+    public function borrarPost(){
+        //Creamos la conexión utilizando la clase que hemos creado
+        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+        $publicacionDAO = new PublicacionDAO($conn);
+
+        $postId = htmlentities($_GET['postId']);
+
+        // Obtener la publicación
+        $publicacion = $publicacionDAO->getById($postId);
+
+        // Verificar si la publicación existe
+        if ($publicacion != null) {
+            //Borramos el post
+            $publicacionDAO->delete($publicacion->getIdpublicacion());
+
+            // Devolver el estado como JSON
+            print json_encode(['respuesta'=>'ok']);
+        }// else {
+        //     // Si la publicación o el usuario no existen, devolver un error 404
+        //     return ResponseEntity.notFound().build();
+        // }
+    }
 }

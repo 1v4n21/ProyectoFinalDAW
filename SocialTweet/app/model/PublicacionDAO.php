@@ -116,7 +116,7 @@ class PublicacionDAO {
      */
     public function getAll(): array {
         // Prepara la consulta SQL para obtener todas las publicaciones
-        if(!$stmt = $this->conn->prepare("SELECT * FROM publicaciones")) {
+        if(!$stmt = $this->conn->prepare("SELECT * FROM publicaciones ORDER BY fecha DESC")) {
             echo "Error en la SQL: " . $this->conn->error;
             return array();
         }
