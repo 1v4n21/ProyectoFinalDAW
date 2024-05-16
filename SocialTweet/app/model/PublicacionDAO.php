@@ -167,7 +167,8 @@ class PublicacionDAO {
         $sql = "SELECT p.idpublicacion, p.mensaje, p.fecha, p.idusuario 
                 FROM publicaciones p
                 INNER JOIN usuarios u ON p.idusuario = u.idusuario
-                WHERE u.nombreusuario LIKE ?";
+                WHERE u.nombreusuario LIKE ?
+                ORDER BY p.fecha DESC";
         
         // Prepara y ejecuta la consulta con el nombre de usuario proporcionado
         if ($stmt = $this->conn->prepare($sql)) {

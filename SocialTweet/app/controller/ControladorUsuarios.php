@@ -117,7 +117,12 @@ class ControladorUsuarios{
                     //$usuario->setFoto($foto);
                     $usuario->setSid(sha1(rand() + time()), true);
 
-                    if ($usuariosDAO->insert($usuario)) {
+                    if ($iduser= $usuariosDAO->insert($usuario)) {
+                        //Iniciamos sesion
+                        $usuario->setIdusuario($iduser);
+                        Sesion::iniciarSesion($usuario);
+                        setcookie('sid', $usuario->getSid(), time() + 24 * 60 * 60, '/');
+
                         header("location: index.php");
                         die();
                     } else {
