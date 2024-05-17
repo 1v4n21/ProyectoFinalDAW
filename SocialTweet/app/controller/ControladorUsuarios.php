@@ -50,14 +50,27 @@ class ControladorUsuarios{
         require 'app/views/login.php';
     }
 
-
+    /**
+     * Maneja el registro de un nuevo usuario.
+     * Si se envía un formulario POST para registrarse, valida los datos del usuario y lo registra si son correctos.
+     * Si algún dato es incorrecto o falta, muestra un mensaje de error.
+     * Si el registro es exitoso, sube la foto de perfil, encripta la contraseña, guarda el usuario en la base de datos, y crea una sesión para el usuario.
+     * Si ya existe un usuario con el mismo nombre de usuario, muestra un mensaje de error.
+     */
     public function registro()
     {
+        if (Sesion::existeSesion()) {
+            header('location: index.php?accion=inicio');
+            guardarMensaje("No puedes acceder aquí si ya has iniciado sesión");
+            die();
+        }
+
         $error = $nombre = $apellidos = $localidad = $email = $nombreUsuario = $password = '';
 
+        //Envio de formulario POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            // Limpiamos los datos
+            // Limpiamos datos
             $nombre = htmlentities($_POST['nombre']);
             $apellidos = htmlentities($_POST['apellidos']);
             $localidad = htmlentities($_POST['localidad']);
@@ -79,13 +92,11 @@ class ControladorUsuarios{
                 $error = 'La contraseña debe tener más de 6 caracteres.';
             }
 
-            // Si no hay errores hasta ahora, continuamos con el registro
             if ($error == '') {
-                // Conectamos con la BD
                 $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
                 $conn = $connexionDB->getConnexion();
 
-                // Compruebo que no haya un usuario registrado con el mismo nombre de usuario
+                // Validacion nombre de usuario
                 $usuariosDAO = new UsuarioDAO($conn);
                 if ($usuariosDAO->getByNombreUsuario($nombreUsuario) != null) {
                     $error = "Ya hay un usuario con ese nombre";
@@ -111,8 +122,8 @@ class ControladorUsuarios{
                         }
                     } 
 
-                    if ($error == '') { // Si no hay error
-                        // Insertamos en la BD
+                    if ($error == '') { 
+
                         $usuario = new Usuario();
                         $usuario->setNombre($nombre);
                         $usuario->setApellidos($apellidos);
@@ -124,7 +135,6 @@ class ControladorUsuarios{
                         // Encriptamos el password
                         $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
                         $usuario->setPassword($passwordCifrado);
-                        // $usuario->setFoto($foto);
                         $usuario->setSid(sha1(rand() + time()), true);
 
                         if ($iduser = $usuariosDAO->insert($usuario)) {
@@ -149,7 +159,6 @@ class ControladorUsuarios{
             guardarMensaje($error);
         }
 
-        // Pasamos los datos actuales del formulario a la vista
         require 'app/views/registro.php';
     }
 
