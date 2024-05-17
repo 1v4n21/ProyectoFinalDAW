@@ -114,6 +114,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     postDiv.className = "post";
                     postDiv.dataset.id = publicacion.idPublicacion;
 
+                    const userImage = document.createElement("img");
+                    userImage.src = "web/fotosUsuarios/"+publicacion.imagenUsuario;
+                    userImage.alt = "Foto de perfil";
+                    userImage.className = "perfil-imagen";
+
                     const postTitle = document.createElement("div");
                     postTitle.className = "post-title";
                     postTitle.textContent = `@${publicacion.nombreUsuario}`;
@@ -158,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     bookmarkCount.textContent = publicacion.guardados;
 
                     // Agregar elementos al div del post
+                    postDiv.appendChild(userImage);
                     postDiv.appendChild(postTitle);
                     postDiv.appendChild(postTime);
                     postDiv.appendChild(postContent);

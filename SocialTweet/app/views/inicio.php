@@ -69,9 +69,7 @@
     $(document).ready(function() {
         $(".error").fadeIn().delay(5000).fadeOut();
     });
-</script>
 
-<script>
     // Muestra el mensaje de correcto al cargar la página
     $(document).ready(function() {
         $(".correcto").fadeIn().delay(5000).fadeOut();
@@ -81,25 +79,39 @@
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
+
+        <!-- Logo de SocialTweet -->
         <a class="navbar-brand" href="index.php?accion=inicio">
             SocialTweet
             <img src="web/images/gorjeo.png" alt="Logo SocialTweet">
         </a>
+
+        <!-- Boton BARS para responsive -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa-solid fa-bars"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav ms-auto">
                 <?php if (Sesion::getUsuario()->getRol() == 'admin'): ?>
+
+                    <!-- Panel de Admin -->
                     <li class="nav-item">
                         <a class="nav-link" href="admin">Admin</a>
                     </li>
+
                 <?php else: ?>
+
+                    <!-- Panel de ajustes de usuario -->
                     <li class="nav-item">
                         <a class="nav-link" href="ajustes?id=<?php echo Sesion::getUsuario()->getIdusuario(); ?>">Ajustes</a>
                     </li>
+
                 <?php endif; ?>
+
+                <!-- Panel de guardados -->
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                 </li>
@@ -118,7 +130,7 @@
     </div>
 </nav>
 
-<!-- Nombre de usuario -->
+<!-- Nombre de usuario y foto -->
 <br>
 <div class="text-center display-6 d-flex align-items-center justify-content-center">
     <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
@@ -126,7 +138,6 @@
 </div>
 <br>
 
-<!-- Posts -->
 <!-- Posts -->
 <div class="container" id="resultadosContainer">
     <?php foreach ($lasPublicaciones as $post): ?>
@@ -143,10 +154,12 @@
             $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
         ?>
         <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
+
             <!-- Mostrar la foto de perfil del usuario -->
             <div class="perfil-image">
                 <img src="web/fotosUsuarios/<?php echo $usuario->getFoto(); ?>" alt="Foto de perfil">
             </div>
+
             <!-- Nombre de usuario y contenido del post -->
             <div class="post-content">
                 <div class="post-title">
@@ -155,9 +168,12 @@
                 <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
                 <div><?php echo $post->getMensaje(); ?></div>
             </div>
+
             <br>
+
             <!-- Acciones del post -->
             <div class="post-actions">
+
                 <!-- Botón de Me Gusta -->
                 <i class="<?php echo $claseIconoM; ?>"
                     onclick="darLike(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
@@ -178,6 +194,7 @@
                     &nbsp;&nbsp;&nbsp;
                     <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->getIdpublicacion(); ?>)"></i>
                 <?php endif; ?>
+                
             </div>
         </div>
     <?php endforeach; ?>

@@ -128,6 +128,7 @@ class ControladorPublicaciones{
                 "fecha" => $publicacion->obtenerTiempoTranscurrido(),
                 "idUsuario" => $publicacion->getIdusuario(),
                 "nombreUsuario" => $usuario->getNombreusuario(),
+                "imagenUsuario" => $usuario->getFoto(),
                 "megustas" => count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
                 "guardados" => count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
                 "usuarioHaDadoMeGusta" => $mgDAO->existeMeGusta($publicacion->getIdpublicacion(), $idUsuario),
