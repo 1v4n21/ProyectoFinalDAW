@@ -70,12 +70,18 @@
     $(document).ready(function() {
         $(".error").fadeIn().delay(5000).fadeOut();
     });
-</script>
 
-<script>
     // Muestra el mensaje de correcto al cargar la página
     $(document).ready(function() {
         $(".correcto").fadeIn().delay(5000).fadeOut();
+    });
+
+    // Actualiza el nombre del archivo seleccionado
+    $(document).ready(function() {
+        $('input[type="file"]').change(function(e) {
+            var fileName = e.target.files[0].name;
+            $('.file-name').text(fileName);
+        });
     });
 </script>
 
@@ -88,62 +94,57 @@
         SocialTweet
     </div>
 
-    <form action="index.php?accion=registro" method="post" class="p-3 mt-3">
+    <form action="index.php?accion=registro" method="post" enctype="multipart/form-data" class="p-3 mt-3">
         <!-- Nombre -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user-pen"></span>
-            <input name="nombre" id="nombre" placeholder="Nombre" />
+            <input name="nombre" id="nombre" placeholder="Nombre" value="<?php echo htmlentities($nombre); ?>" />
             <span class="required-asterisk">*</span>
         </div>
 
         <!-- Apellidos (no obligatoria) -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user-pen"></span>
-            <input name="apellidos" id="apellidos" placeholder="Apellidos" />
+            <input name="apellidos" id="apellidos" placeholder="Apellidos" value="<?php echo htmlentities($apellidos); ?>" />
         </div>
 
         <!-- Localidad (no obligatoria) -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-building-user"></span>
-            <input name="localidad" id="localidad" placeholder="Localidad" />
+            <input name="localidad" id="localidad" placeholder="Localidad" value="<?php echo htmlentities($localidad); ?>" />
         </div>
 
         <!-- Email -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-envelope"></span>
-            <input name="email" id="email" placeholder="Email" />
+            <input name="email" id="email" placeholder="Email" value="<?php echo htmlentities($email); ?>" />
             <span class="required-asterisk">*</span>
         </div>
 
         <!-- Nombre de usuario -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user"></span>
-            <input name="nombreUsuario" id="userName" placeholder="Nombre Usuario" />
+            <input name="nombreUsuario" id="userName" placeholder="Nombre Usuario" value="<?php echo htmlentities($nombreUsuario); ?>" />
             <span class="required-asterisk">*</span>
         </div>
 
         <!-- Contraseña -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-key"></span>
-            <input type="password" name="password" id="pwd" placeholder="Contraseña"/>
+            <input type="password" name="password" id="pwd" placeholder="Contraseña" value="<?php echo htmlentities($password); ?>" />
             <span class="required-asterisk">*</span>
         </div>
 
+        <!-- Imagen -->
+        <div class="form-field d-flex align-items-center">
+            <span class="fa-solid fa-image"></span>
+            <label for="foto" class="custom-file-upload">Seleccionar imagen</label>
+            <input type="file" name="foto" id="foto" accept="image/jpeg, image/gif, image/webp, image/png"><br>
+            <span class="file-name">Ningún archivo seleccionado</span>
+        </div>
         <!-- Boton de envio -->
         <button type="submit" id="registerBtn" class="btn mt-3">Registrarse</button>
     </form>
-
-    <!-- Limpiar los input en caso de error -->
-    <div>
-        <script>
-            document.getElementById("userName").value = "";
-            document.getElementById("pwd").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("localidad").value = "";
-            document.getElementById("apellidos").value = "";
-            document.getElementById("nombre").value = "";
-        </script>
-    </div>
 
     <!-- Link para ir al login -->
     <div class="text-center fs-6">

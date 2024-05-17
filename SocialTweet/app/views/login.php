@@ -69,9 +69,7 @@
     $(document).ready(function() {
         $(".error").fadeIn().delay(5000).fadeOut();
     });
-</script>
 
-<script>
     // Muestra el mensaje de correcto al cargar la página
     $(document).ready(function() {
         $(".correcto").fadeIn().delay(5000).fadeOut();
