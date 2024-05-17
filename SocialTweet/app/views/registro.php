@@ -137,11 +137,11 @@
 
         <!-- Imagen -->
         <div class="form-field d-flex align-items-center">
-            <span class="fa-solid fa-image"></span>
-            <label for="foto" class="custom-file-upload">Seleccionar imagen</label>
+            <label for="foto" class="custom-file-upload"><span class="fa-solid fa-image"></span></label>
             <input type="file" name="foto" id="foto" accept="image/jpeg, image/gif, image/webp, image/png"><br>
             <span class="file-name">Ningún archivo seleccionado</span>
         </div>
+
         <!-- Boton de envio -->
         <button type="submit" id="registerBtn" class="btn mt-3">Registrarse</button>
     </form>

@@ -8,6 +8,7 @@ class Usuario {
     private $nombre;
     private $nombreusuario;
     private $password;
+	private $foto;
     private $rol;
     
     public function getIdusuario() {return $this->idusuario;}
@@ -25,6 +26,9 @@ class Usuario {
 	public function getNombreusuario() {return $this->nombreusuario;}
 
 	public function getPassword() {return $this->password;}
+
+	public function getFoto() {return $this->foto;}
+
 
 	public function getRol() {return $this->rol;}
 
@@ -45,4 +49,7 @@ class Usuario {
 	public function setPassword( $password): void {$this->password = $password;}
 
 	public function setRol( $rol): void {$this->rol = $rol;}
+
+	public function setFoto( $foto): void {$this->foto = $foto;}
+
 }

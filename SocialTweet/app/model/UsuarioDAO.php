@@ -28,6 +28,7 @@ class UsuarioDAO {
         $nombre = $usuario->getNombre();
         $nombreusuario = $usuario->getNombreUsuario();
         $password = $usuario->getPassword();
+        $foto = $usuario->getFoto();
         $rol = $usuario->getRol();
         
         // Asocia los parámetros a la consulta SQL

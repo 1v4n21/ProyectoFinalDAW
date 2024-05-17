@@ -97,7 +97,6 @@ body {
     color: red;
 }
 
-/* Estilos para el input de imagen */
 .form-field input[type="file"] {
     display: none; /* Oculta el input de archivo */
 }
@@ -108,9 +107,13 @@ body {
     background-color: #40E0D0;
     color: white;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
 }
 
 .form-field .custom-file-upload:hover {
@@ -121,6 +124,10 @@ body {
     margin-left: 15px;
     font-style: italic;
     color: #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; 
 }
 
 @media(max-width: 380px) {

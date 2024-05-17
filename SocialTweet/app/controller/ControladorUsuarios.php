@@ -96,7 +96,7 @@ class ControladorUsuarios{
                         $_FILES['foto']['type'] != 'image/webp' &&
                         $_FILES['foto']['type'] != 'image/png'
                     ) {
-                        $error = "La foto no tiene el formato admitido, debe ser jpg o webp";
+                        $error = "La foto no tiene el formato admitido, debe ser png, jpg o webp";
                     } else {
                         // Calculamos un hash para el nombre del archivo
                         $foto = generarNombreArchivo($_FILES['foto']['name']);
@@ -119,6 +119,7 @@ class ControladorUsuarios{
                         $usuario->setLocalidad($localidad);
                         $usuario->setEmail($email);
                         $usuario->setNombreUsuario($nombreUsuario);
+                        $usuario->setFoto($foto);
                         
                         // Encriptamos el password
                         $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
