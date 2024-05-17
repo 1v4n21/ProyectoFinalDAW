@@ -88,6 +88,7 @@ CREATE TABLE `Usuarios` (
   `nombre` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `nombreusuario` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `rol` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
