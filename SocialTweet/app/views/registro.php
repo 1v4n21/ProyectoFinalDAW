@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>SocialTweet - Registro</title>
 
     <!-- Link de estilos bootsrap -->
@@ -143,7 +142,7 @@
         </div>
 
         <!-- Boton de envio -->
-        <button type="submit" id="registerBtn" class="btn mt-3">Registrarse</button>
+        <button type="submit" class="btn mt-3">Registrarse</button>
     </form>
 
     <!-- Link para ir al login -->

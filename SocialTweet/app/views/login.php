@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="web/styles/LoginRegistro.css">
 
     <!-- Icono -->
-    <link rel="icon" type="image/x-icon" href="web/images/gorjeo.png">
+    <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
 
     <!-- Link jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -91,12 +91,14 @@
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user"></span>
             <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" required autofocus />
+            <span class="required-asterisk">*</span>
         </div>
 
         <!-- Contraseña -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-key"></span>
             <input name="password" type="password" id="pwd" placeholder="Contraseña" required />
+            <span class="required-asterisk">*</span>
         </div>
 
         <!-- Boton de envio de formulario -->
