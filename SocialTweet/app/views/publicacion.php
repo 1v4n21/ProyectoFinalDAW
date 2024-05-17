@@ -21,7 +21,7 @@
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="inicio">
+        <a class="navbar-brand" href="index.php?accion=inicio">
             SocialTweet
             <img src="web/images/gorjeo.png" alt="Logo de SocialTweet">
         </a>
@@ -40,7 +40,7 @@
             <!-- Campo de búsqueda -->
             <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar" disabled>
             <!-- Botón de Logout con color rojo y dinámico -->
-            <a class="btn btn-danger" href="/logout">Logout</a>
+            <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
         </div>
     </div>
 </nav>

@@ -97,7 +97,7 @@
         <!-- Nombre -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user-pen"></span>
-            <input name="nombre" id="nombre" placeholder="Nombre" value="<?php echo htmlentities($nombre); ?>" />
+            <input name="nombre" id="nombre" placeholder="Nombre" value="<?php echo htmlentities($nombre); ?>" autofocus/>
             <span class="required-asterisk">*</span>
         </div>
 
