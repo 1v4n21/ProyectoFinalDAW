@@ -117,7 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     const userImage = document.createElement("img");
                     userImage.src = "web/fotosUsuarios/"+publicacion.imagenUsuario;
                     userImage.alt = "Foto de perfil";
-                    userImage.className = "perfil-imagen";
+                    userImage.className = "perfil-image";
+
+                    const perfilImage = document.createElement("div");
+                    perfilImage.className = "perfil-image";
 
                     const postTitle = document.createElement("div");
                     postTitle.className = "post-title";
@@ -163,7 +166,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     bookmarkCount.textContent = publicacion.guardados;
 
                     // Agregar elementos al div del post
-                    postDiv.appendChild(userImage);
+                    perfilImage.appendChild(userImage)
+                    postDiv.appendChild(perfilImage);
                     postDiv.appendChild(postTitle);
                     postDiv.appendChild(postTime);
                     postDiv.appendChild(postContent);
