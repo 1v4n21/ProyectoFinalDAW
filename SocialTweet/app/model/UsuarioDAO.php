@@ -15,7 +15,7 @@ class UsuarioDAO {
      */
     public function insert(Usuario $usuario): int|bool {
         // Prepara la consulta SQL
-        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (sidusuario, apellidos, email, localidad, nombre, nombreusuario, password, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+        if(!$stmt = $this->conn->prepare("INSERT INTO usuarios (sidusuario, apellidos, email, localidad, nombre, nombreusuario, password, foto, rol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
             echo "Error al preparar la consulta insert: " . $this->conn->error;
             return false;
         }
@@ -32,7 +32,7 @@ class UsuarioDAO {
         $rol = $usuario->getRol();
         
         // Asocia los parámetros a la consulta SQL
-        $stmt->bind_param('ssssssss', $sid, $apellidos, $email, $localidad, $nombre, $nombreusuario, $password, $rol);
+        $stmt->bind_param('sssssssss', $sid, $apellidos, $email, $localidad, $nombre, $nombreusuario, $password, $foto, $rol);
         
         // Ejecuta la consulta
         if($stmt->execute()) {

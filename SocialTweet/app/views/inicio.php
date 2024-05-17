@@ -120,9 +120,13 @@
 
 <!-- Nombre de usuario -->
 <br>
-<p class="text-center display-6">Usuario: <span class="text-primary">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span></p>
+<div class="text-center display-6 d-flex align-items-center justify-content-center">
+    <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
+    <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
+</div>
 <br>
 
+<!-- Posts -->
 <!-- Posts -->
 <div class="container" id="resultadosContainer">
     <?php foreach ($lasPublicaciones as $post): ?>
@@ -139,12 +143,20 @@
             $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
         ?>
         <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
-            <div class="post-title">
-                <?php echo '@' . $usuario->getNombreusuario(); ?>
+            <!-- Mostrar la foto de perfil del usuario -->
+            <div class="perfil-image">
+                <img src="web/fotosUsuarios/<?php echo $usuario->getFoto(); ?>" alt="Foto de perfil">
             </div>
-            <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
-            <div class="post-content"><?php echo $post->getMensaje(); ?></div>
+            <!-- Nombre de usuario y contenido del post -->
+            <div class="post-content">
+                <div class="post-title">
+                    <?php echo '@' . $usuario->getNombreusuario(); ?>
+                </div>
+                <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
+                <div><?php echo $post->getMensaje(); ?></div>
+            </div>
             <br>
+            <!-- Acciones del post -->
             <div class="post-actions">
                 <!-- Botón de Me Gusta -->
                 <i class="<?php echo $claseIconoM; ?>"
