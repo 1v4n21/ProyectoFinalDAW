@@ -44,25 +44,40 @@ class ControladorPublicaciones{
 
             $usuariosDAO = new UsuarioDAO($conn);
 
-            if($id != 0){
-                $publicacion = $publicacionDAO->getById($id);
-                $publicacion->setFecha(date("Y-m-d H:i:s"));
-                $publicacion->setMensaje($mensaje." (Editado)");
-
-                $publicacionDAO->editar($publicacion);
-                guardarMensajeC("Publicación modificada con éxito");
+            if(empty($mensaje)){
+                guardarMensaje("El campo mensaje no puede estar vacío.");
+                header('location: index.php?accion=publicacion&id='.$id);
             }else{
-                $publicacion = new Publicacion();
-                $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
-                $publicacion->setMensaje($mensaje);
-                $publicacion->setFecha(date("Y-m-d H:i:s"));
+                if($id != 0){
+                    $publicacion = $publicacionDAO->getById($id);
 
-                $publicacionDAO->insert($publicacion);
-                guardarMensajeC("Publicación creada con éxito");
+                    if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario()) {
+                        header('location: index.php?accion=inicio');
+                        guardarMensaje("No tienes permisos para realizar esta acción");
+                        die();
+                    }
+
+                    $publicacion->setFecha(date("Y-m-d H:i:s"));
+                    $publicacion->setMensaje($mensaje." (Editado)");
+    
+                    $publicacionDAO->editar($publicacion);
+                    guardarMensajeC("Publicación modificada con éxito");
+
+                    //Incluyo la vista
+                    header('location: index.php');
+                }else{
+                    $publicacion = new Publicacion();
+                    $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
+                    $publicacion->setMensaje($mensaje);
+                    $publicacion->setFecha(date("Y-m-d H:i:s"));
+    
+                    $publicacionDAO->insert($publicacion);
+                    guardarMensajeC("Publicación creada con éxito");
+
+                    //Incluyo la vista
+                    header('location: index.php');
+                }
             }
-
-            //Incluyo la vista
-            header('location: index.php');
         }else{
             //Incluyo la vista
             require 'app/views/publicacion.php';
@@ -79,6 +94,12 @@ class ControladorPublicaciones{
 
         // Obtener la publicación
         $publicacion = $publicacionDAO->getById($postId);
+
+        if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario()) {
+            header('location: index.php?accion=inicio');
+            guardarMensaje("No tienes permisos para realizar esta acción");
+            die();
+        }
 
         // Verificar si la publicación existe
         if ($publicacion != null) {
