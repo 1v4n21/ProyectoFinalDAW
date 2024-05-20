@@ -90,14 +90,14 @@
         <!-- Nombre de Usuario -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user"></span>
-            <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" required autofocus />
+            <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" autofocus />
             <span class="required-asterisk">*</span>
         </div>
 
         <!-- Contraseña -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-key"></span>
-            <input name="password" type="password" id="pwd" placeholder="Contraseña" required />
+            <input name="password" type="password" id="pwd" placeholder="Contraseña"/>
             <span class="required-asterisk">*</span>
         </div>
 

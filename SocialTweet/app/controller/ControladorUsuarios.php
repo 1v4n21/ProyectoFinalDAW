@@ -26,13 +26,6 @@ class ControladorUsuarios{
             $nombreusuario = htmlspecialchars($_POST['nombreUsuario']);
             $password = htmlspecialchars($_POST['password']);
 
-            // Validación de campos obligatorios
-            if (empty($nombreusuario)) {
-                GuardarMensaje('El campo nombre usuario es obligatorio.');
-            } elseif (empty($password)) {
-                GuardarMensaje('El campo contraseña es obligatorio.');
-            }
-
             $usuariosDAO = new UsuarioDAO($conn);
 
             //Comprobamos credenciales
