@@ -43,6 +43,42 @@ class UsuarioDAO {
     }
 
     /**
+     * Actualiza un usuario existente en la base de datos
+     * @param Usuario $usuario El objeto Usuario con los datos actualizados
+     * @return bool Devuelve true si la actualización tiene éxito, de lo contrario devuelve false
+     */
+    public function update(Usuario $usuario): bool {
+        // Prepara la consulta SQL para actualizar el usuario
+        if(!$stmt = $this->conn->prepare("UPDATE usuarios SET sidusuario = ?, apellidos = ?, email = ?, localidad = ?, nombre = ?, nombreusuario = ?, password = ?, foto = ?, rol = ? WHERE idusuario = ?")) {
+            echo "Error al preparar la consulta update: " . $this->conn->error;
+            return false;
+        }
+
+        // Obtiene los datos del usuario
+        $sid = $usuario->getSid();
+        $apellidos = $usuario->getApellidos();
+        $email = $usuario->getEmail();
+        $localidad = $usuario->getLocalidad();
+        $nombre = $usuario->getNombre();
+        $nombreusuario = $usuario->getNombreUsuario();
+        $password = $usuario->getPassword();
+        $foto = $usuario->getFoto();
+        $rol = $usuario->getRol();
+        $idusuario = $usuario->getIdUsuario(); // Asegúrate de tener un método getIdUsuario() en tu clase Usuario
+
+        // Asocia los parámetros a la consulta SQL
+        $stmt->bind_param('sssssssssi', $sid, $apellidos, $email, $localidad, $nombre, $nombreusuario, $password, $foto, $rol, $idusuario);
+
+        // Ejecuta la consulta
+        if($stmt->execute()) {
+            return true; // Devuelve true si la actualización tiene éxito
+        } else {
+            return false; // Devuelve false si la actualización falla
+        }
+    }
+
+
+    /**
      * Elimina un usuario de la base de datos por su ID
      * @param int $id El ID del usuario a eliminar
      * @return bool Devuelve true si se elimina correctamente, de lo contrario devuelve false

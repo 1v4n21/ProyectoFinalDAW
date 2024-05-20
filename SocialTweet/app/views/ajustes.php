@@ -16,8 +16,64 @@
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
+
+    <!-- Link jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        .error {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .correcto {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #28a745;
+            border: 1px solid #218838;
+            color: black;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+
+<!-- Mensaje de error -->
+<?php imprimirMensaje(); ?>
+
+<!-- Mensaje de correcto -->
+<?php imprimirMensajeC(); ?>
+
+<!--JavaScript-->
+<script>
+    // Muestra el mensaje de error al cargar la página
+    $(document).ready(function() {
+        $(".error").fadeIn().delay(5000).fadeOut();
+    });
+
+    // Muestra el mensaje de correcto al cargar la página
+    $(document).ready(function() {
+        $(".correcto").fadeIn().delay(5000).fadeOut();
+    });
+</script>
+
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
@@ -59,12 +115,7 @@
     <h2 class="mb-4">Ajustes de Usuario</h2>
 
     <!-- Formulario de ajustes de usuario -->
-    <form id="ajustes" action="/ajustes" method="post">
-        <input type="hidden" name="idUsuario" value="<?php echo $elUsuario->getIdUsuario(); ?>" />
-        <input type="hidden" name="nombre" value="<?php echo $elUsuario->getNombre(); ?>" />
-        <input type="hidden" name="apellidos" value="<?php echo $elUsuario->getApellidos(); ?>" />
-        <input type="hidden" name="localidad" value="<?php echo $elUsuario->getLocalidad(); ?>" />
-        <input type="hidden" name="rol" value="<?php echo $elUsuario->getRol(); ?>" />
+    <form id="ajustes" action="index.php?accion=ajustes" method="post">
 
         <!-- Nuevo Nombre de Usuario -->
         <div class="mb-3">

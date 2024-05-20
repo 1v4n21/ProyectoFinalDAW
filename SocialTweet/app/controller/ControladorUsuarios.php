@@ -191,8 +191,45 @@ class ControladorUsuarios{
         $usuariosDAO = new UsuarioDAO($conn);
         $elUsuario = $usuariosDAO->getById(Sesion::getUsuario()->getIdusuario());
 
+        $error = '';
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
+
+            //Obtenemos los campos del formulario
+            $nombreusuario = htmlspecialchars($_POST['nombreUsuario']);
+            $email = htmlspecialchars($_POST['email']);
+            $password = htmlspecialchars($_POST['password']);
+
+            if (empty($nombreusuario)) {
+                $error = 'El campo email es obligatorio.';
+            } elseif (empty($email)) {
+                $error = 'El campo nombre de usuario es obligatorio.';
+            } elseif (empty($password)) {
+                $error = 'El campo contraseña es obligatorio.';
+            } elseif (strlen($password) <= 6) {
+                $error = 'La contraseña debe tener más de 6 caracteres.';
+            } elseif ($usuariosDAO->getByNombreUsuario($nombreusuario) != null) {
+                $error = "Ya hay un usuario con ese nombre";
+            }
+
+            if($error == ''){
+                $elUsuario->setNombreusuario( $nombreusuario );
+                $elUsuario->setEmail( $email );
+                $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
+                $elUsuario->setPassword( $passwordCifrado );
+                $usuariosDAO->update($elUsuario);
+
+                Sesion::iniciarSesion($elUsuario);
+                setcookie('sid', $elUsuario->getSid(), time() + 24 * 60 * 60, '/');
+
+                guardarMensajeC("Usuario editado con exito");
+                header("location: index.php");
+                die();
+            }
+        }
+
+        if($error != ''){
+            guardarMensaje($error);
         }
 
         require 'app/views/ajustes.php';
