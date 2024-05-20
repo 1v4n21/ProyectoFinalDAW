@@ -77,7 +77,7 @@
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="inicio">
+        <a class="navbar-brand" href="index.php?accion=inicio">
             SocialTweet
             <img src="web/images/gorjeo.png" alt="Logo de SocialTweet">
         </a>
@@ -87,17 +87,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="ajustes?id=<?php echo $elUsuario->getIdUsuario(); ?>">Ajustes</a>
+                    <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="guardados">Guardados</a>
+                    <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                 </li>
             </ul>
             <!-- Campo de búsqueda -->
             <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar" disabled>
 
             <!-- Botón de Logout con color rojo y dinámico -->
-            <a class="btn btn-danger" href="logout">Logout</a>
+            <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
         </div>
     </div>
 </nav>
