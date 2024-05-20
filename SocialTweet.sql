@@ -175,22 +175,22 @@ ALTER TABLE `Usuarios`
 -- Filtros para la tabla `Guardados`
 --
 ALTER TABLE `Guardados`
-  ADD CONSTRAINT `Guardados_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`),
-  ADD CONSTRAINT `Guardados_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`);
+  ADD CONSTRAINT `Guardados_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Guardados_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Megustas`
 --
 ALTER TABLE `Megustas`
-  ADD CONSTRAINT `Megustas_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`),
-  ADD CONSTRAINT `Megustas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`);
+  ADD CONSTRAINT `Megustas_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Megustas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Mensajes`
 --
 ALTER TABLE `Mensajes`
-  ADD CONSTRAINT `Mensajes_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`),
-  ADD CONSTRAINT `Mensajes_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`);
+  ADD CONSTRAINT `Mensajes_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `Mensajes_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Publicaciones`
