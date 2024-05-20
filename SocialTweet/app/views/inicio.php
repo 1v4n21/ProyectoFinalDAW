@@ -106,7 +106,7 @@
 
                     <!-- Panel de ajustes de usuario -->
                     <li class="nav-item">
-                        <a class="nav-link" href="ajustes?id=<?php echo Sesion::getUsuario()->getIdusuario(); ?>">Ajustes</a>
+                        <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
                     </li>
 
                 <?php endif; ?>

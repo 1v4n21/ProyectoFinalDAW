@@ -90,14 +90,14 @@
         <!-- Nombre de Usuario -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-user"></span>
-            <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" autofocus />
+            <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" autofocus value="<?php echo htmlentities($nombreusuario); ?>"/>
             <span class="required-asterisk">*</span>
         </div>
 
         <!-- Contraseña -->
         <div class="form-field d-flex align-items-center">
             <span class="fa-solid fa-key"></span>
-            <input name="password" type="password" id="pwd" placeholder="Contraseña"/>
+            <input name="password" type="password" id="pwd" placeholder="Contraseña" value="<?php echo htmlentities($password); ?>"/>
             <span class="required-asterisk">*</span>
         </div>
 

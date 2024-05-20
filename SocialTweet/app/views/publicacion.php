@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/ajustes?id=<?php echo Sesion::getUsuario()->getIdusuario(); ?>">Ajustes</a>
+                    <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?accion=guardados">Guardados</a>

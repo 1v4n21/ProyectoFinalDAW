@@ -48,7 +48,10 @@
 
 <!-- Nombre de usuario -->
 <br>
-<p class="text-center display-6">Usuario: <span class="text-primary"><?php echo $elUsuario->getNombreUsuario(); ?></span></p>
+<div class="text-center display-6 d-flex align-items-center justify-content-center">
+    <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
+    <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
+</div>
 <br>
 
 <!-- Formulario de Ajustes -->
@@ -66,31 +69,24 @@
         <!-- Nuevo Nombre de Usuario -->
         <div class="mb-3">
             <label for="nombreUsuario" class="form-label">Nuevo Nombre de Usuario</label>
-            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" />
+            <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="<?php echo $elUsuario->getNombreusuario(); ?>"/>
         </div>
 
         <!-- Nuevo Email -->
         <div class="mb-3">
             <label for="email" class="form-label">Nuevo Email</label>
-            <input type="email" class="form-control" id="email" name="email" />
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo $elUsuario->getEmail(); ?>"/>
         </div>
 
         <!-- Nueva Contraseña -->
         <div class="mb-3">
             <label for="password" class="form-label">Nueva Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" />
+            <input type="password" class="form-control" id="password" name="password" value="<?php echo $elUsuario->getPassword(); ?>" />
         </div>
 
         <!-- Botón de guardar cambios -->
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
-
-    <!-- mostrar el mensaje de error -->
-    <?php if (!empty($error)): ?>
-        <div class="alert alert-danger mt-3">
-            <p><?php echo $error; ?></p>
-        </div>
-    <?php endif; ?>
 </div>
 
 <!-- Scripts de Bootstrap -->

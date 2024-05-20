@@ -17,6 +17,8 @@ class ControladorUsuarios{
             die();
         }
 
+        $nombreusuario = $password = '';
+
         //Envio de formulario POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
@@ -180,5 +182,19 @@ class ControladorUsuarios{
         setcookie('sid', '', 0, '/');
         guardarMensajeC("Sesion cerrada con éxito");
         header('location: index.php');
+    }
+
+    public function ajustes(){
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $usuariosDAO = new UsuarioDAO($conn);
+        $elUsuario = $usuariosDAO->getById(Sesion::getUsuario()->getIdusuario());
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            
+        }
+
+        require 'app/views/ajustes.php';
     }
 }

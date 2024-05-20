@@ -83,6 +83,11 @@ $mapa = array(
         'metodo' => 'guardados',
         'privada' => true
     ),
+    'ajustes' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'ajustes',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta
