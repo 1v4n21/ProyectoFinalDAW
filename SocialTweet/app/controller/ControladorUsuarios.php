@@ -26,6 +26,13 @@ class ControladorUsuarios{
             $nombreusuario = htmlspecialchars($_POST['nombreUsuario']);
             $password = htmlspecialchars($_POST['password']);
 
+            // Validación de campos obligatorios
+            if (empty($nombreusuario)) {
+                GuardarMensaje('El campo nombre usuario es obligatorio.');
+            } elseif (empty($password)) {
+                GuardarMensaje('El campo contraseña es obligatorio.');
+            }
+
             $usuariosDAO = new UsuarioDAO($conn);
 
             //Comprobamos credenciales
@@ -170,6 +177,12 @@ class ControladorUsuarios{
      */
     public function logout()
     {
+        if (!Sesion::existeSesion()) {
+            header('location: index.php?accion=inicio');
+            guardarMensaje("No puedes acceder aquí si no has iniciado sesión");
+            die();
+        }
+
         Sesion::cerrarSesion();
         setcookie('sid', '', 0, '/');
         guardarMensajeC("Sesion cerrada con éxito");
