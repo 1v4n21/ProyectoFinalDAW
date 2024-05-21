@@ -15,10 +15,11 @@ body {
     max-width: 350px;
     min-height: 500px;
     margin: 80px auto;
-    padding: 40px 30px 30px 30px;
+    padding: 40px;
     background-color: #ecf0f3;
     border-radius: 15px;
     box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+    text-align: center; /* Centra los elementos */
 }
 
 .logo {
@@ -46,18 +47,18 @@ body {
 }
 
 .wrapper .form-field input {
-    width: 100%;
+    width: calc(100% - 20px); /* Resta 20px para los padding */
     display: block;
     border: none;
     outline: none;
     background: none;
     font-size: 1.2rem;
     color: #666;
-    padding: 10px 15px 10px 10px;
+    padding: 10px;
+    margin: 10px auto; /* Alinea verticalmente */
 }
 
 .wrapper .form-field {
-    padding-left: 10px;
     margin-bottom: 20px;
     border-radius: 20px;
     box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
@@ -69,7 +70,7 @@ body {
 
 .wrapper .btn {
     box-shadow: none;
-    width: 100%;
+    width: calc(100% - 20px); /* Resta 20px para los padding */
     height: 40px;
     background-color: #40E0D0;
     color: #fff;
@@ -77,6 +78,8 @@ body {
     box-shadow: 3px 3px 3px #b1b1b1,
     -3px -3px 3px #fff;
     letter-spacing: 1.3px;
+    display: block;
+    margin: 10px auto; /* Alinea verticalmente */
 }
 
 .wrapper .btn:hover {
@@ -132,8 +135,8 @@ body {
 
 @media(max-width: 380px) {
     .wrapper {
-        margin: 30px 20px;
-        padding: 40px 15px 15px 15px;
+        margin: 30px auto; /* Centra el formulario */
+        padding: 20px; /* Reduce el padding */
     }
     .wrapper .name {
         font-size: 1.2rem;
