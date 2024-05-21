@@ -165,6 +165,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     bookmarkCount.style.display = "inline";
                     bookmarkCount.textContent = publicacion.guardados;
 
+                    // Icono de chat
+                    const chatIcon = document.createElement("i");
+                    chatIcon.className = "fa-regular fa-comment";
+                    chatIcon.onclick = function () {
+                        openChatModal(publicacion.idPublicacion, event);
+                    };
+
+                    // Contador de chat
+                    const chatCount = document.createElement("span");
+                    chatCount.style.display = "inline";
+                    chatCount.textContent = publicacion.mensajes;
+
                     // Agregar elementos al div del post
                     perfilImage.appendChild(userImage)
                     postDiv.appendChild(perfilImage);
@@ -180,6 +192,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     postActions.appendChild(bookmarkIcon);
                     postActions.appendChild(document.createTextNode("\u00A0"));
                     postActions.appendChild(bookmarkCount);
+                    postActions.appendChild(document.createTextNode("\u00A0\u00A0\u00A0\u00A0\u00A0"));
+                    postActions.appendChild(chatIcon);
+                    postActions.appendChild(document.createTextNode("\u00A0"));
+                    postActions.appendChild(chatCount);
 
                     // Agregar el div del post al contenedor
                     resultadosContainer.appendChild(postDiv);

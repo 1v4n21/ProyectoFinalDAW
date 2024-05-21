@@ -122,6 +122,7 @@ class ControladorPublicaciones{
         $usuarioDAO = new UsuarioDAO($conn);
         $mgDAO = new MeGustaDAO($conn);
         $guardadoDAO = new GuardadoDAO($conn);
+        $mensajeDAO = new MensajeDAO($conn);
 
         // Obtener la información del usuario logueado desde la sesión
         $usuarioLogueado = Sesion::getUsuario();
@@ -152,6 +153,7 @@ class ControladorPublicaciones{
                 "imagenUsuario" => $usuario->getFoto(),
                 "megustas" => count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
                 "guardados" => count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
+                "mensajes" => count($mensajeDAO->getByPublicacionId($publicacion->getIdpublicacion())),
                 "usuarioHaDadoMeGusta" => $mgDAO->existeMeGusta($publicacion->getIdpublicacion(), $idUsuario),
                 "usuarioHaGuardado" => $guardadoDAO->existeGuardado($publicacion->getIdpublicacion(), $idUsuario)
             );
