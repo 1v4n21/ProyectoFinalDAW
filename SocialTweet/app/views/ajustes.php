@@ -132,7 +132,7 @@
         <!-- Nueva Contraseña -->
         <div class="mb-3">
             <label for="password" class="form-label">Nueva Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" value="<?php echo $elUsuario->getPassword(); ?>" />
+            <input type="password" class="form-control" id="password" name="password" />
         </div>
 
         <!-- Botón de guardar cambios -->

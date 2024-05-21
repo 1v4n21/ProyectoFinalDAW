@@ -186,6 +186,13 @@
                    onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
                 <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
+                &nbsp;&nbsp;&nbsp;
+
+                <!-- Botón de Mensaje -->
+                <i class="fa-regular fa-comment"
+                   onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
+
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <!-- Mostrar íconos de editar y eliminar si el usuario es el creador del post o tiene rol admin -->

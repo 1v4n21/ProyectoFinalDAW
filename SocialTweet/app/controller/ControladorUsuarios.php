@@ -201,14 +201,14 @@ class ControladorUsuarios{
             $password = htmlspecialchars($_POST['password']);
 
             if (empty($nombreusuario)) {
-                $error = 'El campo email es obligatorio.';
+                $error = 'El campo nombre de usuario es obligatorio.';             
             } elseif (empty($email)) {
-                $error = 'El campo nombre de usuario es obligatorio.';
+                $error = 'El campo email es obligatorio.';
             } elseif (empty($password)) {
                 $error = 'El campo contraseña es obligatorio.';
             } elseif (strlen($password) <= 6) {
                 $error = 'La contraseña debe tener más de 6 caracteres.';
-            } elseif ($usuariosDAO->getByNombreUsuario($nombreusuario) != null) {
+            } elseif ($usuariosDAO->getByNombreUsuario($nombreusuario) != null && $nombreusuario != Sesion::getUsuario()->getNombreusuario()) {
                 $error = "Ya hay un usuario con ese nombre";
             }
 
