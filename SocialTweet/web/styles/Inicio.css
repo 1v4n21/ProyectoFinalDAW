@@ -99,4 +99,22 @@ body {
     height: 100%;
     object-fit: cover;
 }
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #e1e8ed;
+    padding: 15px;
+}
 
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.message-user {
+    font-weight: bold;
+    color: #1da1f2;
+}
+
+.message-text {
+    margin-top: 5px;
+    color: #333;
+}

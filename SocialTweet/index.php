@@ -88,6 +88,16 @@ $mapa = array(
         'metodo' => 'ajustes',
         'privada' => true
     ),
+    'obtenerMensajes' => array(
+        'controlador' => 'ControladorMensajes',
+        'metodo' => 'obtenerMensajes',
+        'privada' => true
+    ),
+    'enviarMensaje' => array(
+        'controlador' => 'ControladorMensajes',
+        'metodo' => 'enviarMensaje',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

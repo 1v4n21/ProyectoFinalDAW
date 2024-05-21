@@ -152,6 +152,8 @@
             $guardadoDAO = new GuardadoDAO($conn);
             $guardado = $guardadoDAO->existeGuardado($post->getIdpublicacion(), Sesion::getUsuario()->getIdusuario());
             $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+
+            $mensajeDAO = new MensajeDAO($conn);
         ?>
         <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
 
@@ -190,8 +192,9 @@
 
                 <!-- Botón de Mensaje -->
                 <i class="fa-regular fa-comment"
-                   onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
-                <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
+                    onclick="openChatModal(<?php echo $post->getIdpublicacion(); ?>)"></i>
+                <span style="display: inline;"><?php echo count($mensajeDAO->getByPublicacionId($post->getIdpublicacion())); ?></span>
+
 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -215,6 +218,29 @@
 </div>
 
 <br>
+
+<!-- Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Mensajes del Chat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="postId" value="">
+                <div id="chatMessages" class="list-group">
+                    <!-- Los mensajes se insertarán aquí dinámicamente -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="text" id="newMessage" class="form-control" placeholder="Escribe un mensaje...">
+                <button type="button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Scripts de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>

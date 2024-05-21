@@ -192,3 +192,57 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Error al realizar la solicitud fetch:', error));
     });
 });
+
+function openChatModal(postId) {
+    // Establecer la ID de la publicación en el campo oculto
+    document.getElementById('postId').value = postId;
+    // Cargar los mensajes para la publicación
+    loadMessages(postId);
+    // Mostrar el modal
+    var chatModal = new bootstrap.Modal(document.getElementById('chatModal'));
+    chatModal.show();
+}
+
+function loadMessages(postId) {
+    $.ajax({
+        url: 'index.php?accion=obtenerMensajes',
+        method: 'GET',
+        data: { postId: postId },
+        dataType: 'json',
+        success: function(data) {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+            data.mensajes.forEach(message => {
+                const messageItem = document.createElement('div');
+                messageItem.className = 'list-group-item';
+                messageItem.innerHTML = `
+                    <div class="message-user">@${message.usuario}</div>
+                    <div class="message-text">${message.texto}</div>
+                `;
+                chatMessages.appendChild(messageItem);
+            });
+        }
+    });
+}
+
+function sendMessage() {
+    const newMessageInput = document.getElementById('newMessage');
+    const newMessageText = newMessageInput.value.trim();
+    const postId = document.getElementById('postId').value;
+    if (newMessageText) {
+        // Aquí se podría añadir lógica para enviar el mensaje al servidor
+        $.ajax({
+            url: 'index.php?accion=enviarMensaje', // Archivo PHP para manejar el envío de mensajes
+            method: 'POST',
+            data: {
+                postId: postId,
+                texto: newMessageText,
+            },
+            success: function() {
+                // Después de enviar el mensaje, recargar los mensajes
+                loadMessages(postId);
+                newMessageInput.value = '';
+            }
+        });
+    }
+}
