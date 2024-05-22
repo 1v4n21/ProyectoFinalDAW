@@ -241,10 +241,11 @@ class ControladorUsuarios{
 
         if ($usuario->getRol() !== 'admin') {
             header("Location: index.php");
+            guardarMensaje("Necesitas permisos para acceder aqui");
             die();
         }
 
-        $funcion = htmlspecialchars($_POST['funcion']);
+        $funcion = htmlspecialchars($_GET['funcion']);
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
@@ -258,18 +259,20 @@ class ControladorUsuarios{
                 $publicaciones = $publicacionesDAO->getAll();
                 break;
             case 'megustas':
-                // Obtener todos los Me Gusta (esto es un ejemplo, ajusta según tu lógica de negocio)
-                $meGustas = obtenerTodosLosMeGustas();
+                $meGustasDAO = new MeGustaDAO($conn);
+                $meGustas = $meGustasDAO->getAll();
                 break;
             case 'guardados':
-                // Obtener todos los guardados (esto es un ejemplo, ajusta según tu lógica de negocio)
-                $guardados = obtenerTodosLosGuardados();
+                $guardadosDAO = new GuardadoDAO($conn);
+                $guardados = $guardadosDAO->getAll();
                 break;
-            default:
-                // Acción no válida, redirigir a la página de administrador con usuarios por defecto
-                header("Location: /admin?accion=usuarios");
-                exit();
+            case 'mensajes':
+                $mensajesDAO = new MensajeDAO($conn);
+                $mensajes = $mensajesDAO->getAll();
+                break;
         }
+
+        require 'app/views/admin.php';
 
     }
 }

@@ -99,7 +99,7 @@
 
                     <!-- Panel de Admin -->
                     <li class="nav-item">
-                        <a class="nav-link" href="admin">Admin</a>
+                        <a class="nav-link" href="index.php?accion=admin&funcion=usuarios">Admin</a>
                     </li>
 
                 <?php else: ?>

@@ -20,72 +20,103 @@
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
 </head>
 <body>
+
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="inicio">
+
+        <!-- Logo de SocialTweet -->
+        <a class="navbar-brand" href="index.php?accion=inicio">
             SocialTweet
-            <img src="web/images/gorjeo.png" alt="Logo de SocialTweet">
+            <img src="web/images/gorjeo.png" alt="Logo SocialTweet">
         </a>
+
+        <!-- Boton BARS para responsive -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa-solid fa-bars"></i>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
+
             <ul class="navbar-nav ms-auto">
+                <?php if (Sesion::getUsuario()->getRol() == 'admin'): ?>
+
+                    <!-- Panel de Admin -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?accion=admin&funcion=usuarios">Admin</a>
+                    </li>
+
+                <?php else: ?>
+
+                    <!-- Panel de ajustes de usuario -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
+                    </li>
+
+                <?php endif; ?>
+
+                <!-- Panel de guardados -->
                 <li class="nav-item">
-                    <a class="nav-link" href="admin">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="guardados">Guardados</a>
+                    <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                 </li>
             </ul>
-            <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar"
-                   disabled>
-            <a class="btn btn-danger" href="logout">Logout</a>
+
+            <br>
+
+            <!-- Campo de búsqueda -->
+            <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar">
+
+            <br>
+
+            <!-- Botón de Logout con color rojo y dinámico -->
+            <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
         </div>
     </div>
 </nav>
 
-<!-- Nombre de usuario -->
+<!-- Nombre de usuario y foto -->
 <br>
-<p class="text-center display-6">Usuario: <span class="text-primary"><?php echo htmlspecialchars($usuarioLogueado['nombreUsuario']); ?></span></p>
+<div class="text-center display-6 d-flex align-items-center justify-content-center">
+    <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
+    <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
+</div>
 <br>
 
 <!-- Menú de administrador -->
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="<?php echo ($accion == 'usuarios') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=usuarios">Usuarios</a>
+            <a class="<?php echo ($funcion == 'usuarios') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=usuarios">Usuarios</a>
         </li>
         <li class="nav-item">
-            <a class="<?php echo ($accion == 'publicaciones') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=publicaciones">Publicaciones</a>
+            <a class="<?php echo ($funcion == 'publicaciones') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=publicaciones">Publicaciones</a>
         </li>
         <li class="nav-item">
-            <a class="<?php echo ($accion == 'megustas') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=megustas">Me Gusta</a>
+            <a class="<?php echo ($funcion == 'megustas') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=megustas">Me Gusta</a>
         </li>
         <li class="nav-item">
-            <a class="<?php echo ($accion == 'guardados') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=guardados">Guardados</a>
+            <a class="<?php echo ($funcion == 'guardados') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=guardados">Guardados</a>
         </li>
         <li class="nav-item">
-            <a class="<?php echo ($accion == 'mensajes') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=mensajes">Mensajes</a>
+            <a class="<?php echo ($funcion == 'mensajes') ? 'nav-link active' : 'nav-link'; ?>" href="admin?accion=mensajes">Mensajes</a>
         </li>
     </ul>
 </div>
 
 <!-- Lista de elementos según la acción -->
 <div class="container mt-3">
-    <?php if ($accion == 'usuarios'): ?>
+    <?php if ($funcion == 'usuarios'): ?>
         <!-- Lista de usuarios -->
         <ul class="list-group">
             <?php foreach ($usuarios as $usuario): ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span><?php echo htmlspecialchars($usuario['nombreUsuario']); ?></span>
+                    <span><?php echo htmlspecialchars($usuario->getNombreusuario()); ?></span>
                     <div class="btn-group" role="group">
-                        <?php if ($usuario['rol'] != 'admin'): ?>
+                        <?php if ($usuario->getRol() != 'admin'): ?>
                             <!-- Mostrar botones solo si el usuario no es admin -->
-                            <a href="formUsuario?id=<?php echo $usuario['idUsuario']; ?>&accion=editar" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="borrarUsuarioAdmin?userId=<?php echo $usuario['idUsuario']; ?>" class="btn btn-danger btn-sm">Eliminar</a>
+                            <a href="formUsuario?id=<?php echo $usuario->getIdusuario(); ?>&accion=editar" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="borrarUsuarioAdmin?userId=<?php echo $usuario->getIdusuario(); ?>" class="btn btn-danger btn-sm">Eliminar</a>
                         <?php else: ?>
                             <!-- Puedes agregar un mensaje de depuración o simplemente dejar vacío si prefieres -->
                             <span>Usuario admin, no se pueden realizar cambios</span>
@@ -101,7 +132,7 @@
                 <i class="fa-solid fa-square-plus fa-2x"></i>
             </a>
         </div>
-    <?php elseif ($accion == 'publicaciones'): ?>
+    <?php elseif ($funcion == 'publicaciones'): ?>
         <!-- Lista de publicaciones -->
         <ul class="list-group">
             <?php foreach ($publicaciones as $publicacion): ?>
@@ -126,7 +157,7 @@
                 <i class="fa-solid fa-square-plus fa-2x"></i>
             </a>
         </div>
-    <?php elseif ($accion == 'megustas'): ?>
+    <?php elseif ($funcion == 'megustas'): ?>
         <!-- Lista de Me Gusta -->
         <ul class="list-group">
             <?php foreach ($megustas as $megusta): ?>
@@ -143,7 +174,7 @@
                 </li>
             <?php endforeach; ?>
         </ul>
-    <?php elseif ($accion == 'guardados'): ?>
+    <?php elseif ($funcion == 'guardados'): ?>
         <!-- Lista de elementos guardados -->
         <ul class="list-group">
             <?php foreach ($guardados as $guardado): ?>

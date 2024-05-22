@@ -98,6 +98,11 @@ $mapa = array(
         'metodo' => 'enviarMensaje',
         'privada' => true
     ),
+    'admin' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'admin',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta
