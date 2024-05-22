@@ -234,4 +234,42 @@ class ControladorUsuarios{
 
         require 'app/views/ajustes.php';
     }
+
+    public function admin(){
+
+        $usuario = Sesion::getUsuario();
+
+        if ($usuario->getRol() !== 'admin') {
+            header("Location: index.php");
+            die();
+        }
+
+        $funcion = htmlspecialchars($_POST['funcion']);
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        switch ($funcion) {
+            case 'usuarios':
+                $usuariosDAO = new UsuarioDAO($conn);
+                $usuarios = $usuariosDAO->getAll();
+                break;
+            case 'publicaciones':
+                $publicacionesDAO = new PublicacionDAO($conn);
+                $publicaciones = $publicacionesDAO->getAll();
+                break;
+            case 'megustas':
+                // Obtener todos los Me Gusta (esto es un ejemplo, ajusta según tu lógica de negocio)
+                $meGustas = obtenerTodosLosMeGustas();
+                break;
+            case 'guardados':
+                // Obtener todos los guardados (esto es un ejemplo, ajusta según tu lógica de negocio)
+                $guardados = obtenerTodosLosGuardados();
+                break;
+            default:
+                // Acción no válida, redirigir a la página de administrador con usuarios por defecto
+                header("Location: /admin?accion=usuarios");
+                exit();
+        }
+
+    }
 }
