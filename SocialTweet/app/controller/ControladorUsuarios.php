@@ -260,7 +260,7 @@ class ControladorUsuarios{
                 break;
             case 'megustas':
                 $meGustasDAO = new MeGustaDAO($conn);
-                $meGustas = $meGustasDAO->getAll();
+                $megustas = $meGustasDAO->getAll();
                 break;
             case 'guardados':
                 $guardadosDAO = new GuardadoDAO($conn);
