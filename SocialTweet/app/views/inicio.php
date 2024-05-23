@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,10 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Link fontawesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Hoja de estilos -->
     <link href="web/styles/Inicio.css" rel="stylesheet">
@@ -56,92 +56,94 @@
         }
     </style>
 </head>
+
 <body>
-<!-- Mensaje de error -->
-<?php imprimirMensaje(); ?>
+    <!-- Mensaje de error -->
+    <?php imprimirMensaje(); ?>
 
-<!-- Mensaje de correcto -->
-<?php imprimirMensajeC(); ?>
+    <!-- Mensaje de correcto -->
+    <?php imprimirMensajeC(); ?>
 
-<!--JavaScript-->
-<script>
-    // Muestra el mensaje de error al cargar la página
-    $(document).ready(function() {
-        $(".error").fadeIn().delay(5000).fadeOut();
-    });
+    <!--JavaScript-->
+    <script>
+        // Muestra el mensaje de error al cargar la página
+        $(document).ready(function () {
+            $(".error").fadeIn().delay(5000).fadeOut();
+        });
 
-    // Muestra el mensaje de correcto al cargar la página
-    $(document).ready(function() {
-        $(".correcto").fadeIn().delay(5000).fadeOut();
-    });
-</script>
+        // Muestra el mensaje de correcto al cargar la página
+        $(document).ready(function () {
+            $(".correcto").fadeIn().delay(5000).fadeOut();
+        });
+    </script>
 
-<!-- Cabecera -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
+    <!-- Cabecera -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
 
-        <!-- Logo de SocialTweet -->
-        <a class="navbar-brand" href="index.php?accion=inicio">
-            SocialTweet
-            <img src="web/images/gorjeo.png" alt="Logo SocialTweet">
-        </a>
+            <!-- Logo de SocialTweet -->
+            <a class="navbar-brand" href="index.php?accion=inicio">
+                SocialTweet
+                <img src="web/images/gorjeo.png" alt="Logo SocialTweet">
+            </a>
 
-        <!-- Boton BARS para responsive -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <!-- Boton BARS para responsive -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
 
-            <ul class="navbar-nav ms-auto">
-                <?php if (Sesion::getUsuario()->getRol() == 'admin'): ?>
+                <ul class="navbar-nav ms-auto">
+                    <?php if (Sesion::getUsuario()->getRol() == 'admin'): ?>
 
-                    <!-- Panel de Admin -->
+                        <!-- Panel de Admin -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?accion=admin&funcion=usuarios">Admin</a>
+                        </li>
+
+                    <?php else: ?>
+
+                        <!-- Panel de ajustes de usuario -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
+                        </li>
+
+                    <?php endif; ?>
+
+                    <!-- Panel de guardados -->
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?accion=admin&funcion=usuarios">Admin</a>
+                        <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                     </li>
+                </ul>
 
-                <?php else: ?>
+                <br>
 
-                    <!-- Panel de ajustes de usuario -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?accion=ajustes">Ajustes</a>
-                    </li>
+                <!-- Campo de búsqueda -->
+                <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario"
+                    aria-label="Buscar">
 
-                <?php endif; ?>
+                <br>
 
-                <!-- Panel de guardados -->
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
-                </li>
-            </ul>
-
-            <br>
-
-            <!-- Campo de búsqueda -->
-            <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar">
-
-            <br>
-
-            <!-- Botón de Logout con color rojo y dinámico -->
-            <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
+                <!-- Botón de Logout con color rojo y dinámico -->
+                <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
+            </div>
         </div>
+    </nav>
+
+    <!-- Nombre de usuario y foto -->
+    <br>
+    <div class="text-center display-6 d-flex align-items-center justify-content-center">
+        <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
+        <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
     </div>
-</nav>
+    <br>
 
-<!-- Nombre de usuario y foto -->
-<br>
-<div class="text-center display-6 d-flex align-items-center justify-content-center">
-    <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
-    <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
-</div>
-<br>
-
-<!-- Posts -->
-<div class="container" id="resultadosContainer">
-    <?php foreach ($lasPublicaciones as $post): ?>
-        <?php 
+    <!-- Posts -->
+    <div class="container" id="resultadosContainer">
+        <?php foreach ($lasPublicaciones as $post): ?>
+            <?php
             $usuarioDAO = new UsuarioDAO($conn);
             $usuario = $usuarioDAO->getById($post->getIdUsuario());
 
@@ -154,98 +156,102 @@
             $claseIconoG = $guardado ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
 
             $mensajeDAO = new MensajeDAO($conn);
-        ?>
-        <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
+            ?>
+            <div class="post" data-id="<?php echo $post->getIdpublicacion(); ?>">
 
-            <!-- Mostrar la foto de perfil del usuario -->
-            <div class="perfil-image">
-                <img src="web/fotosUsuarios/<?php echo $usuario->getFoto(); ?>" alt="Foto de perfil">
-            </div>
-
-            <!-- Nombre de usuario y contenido del post -->
-            <div class="post-content">
-                <div class="post-title">
-                    <?php echo '@' . $usuario->getNombreusuario(); ?>
+                <!-- Mostrar la foto de perfil del usuario -->
+                <div class="perfil-image">
+                    <img src="web/fotosUsuarios/<?php echo $usuario->getFoto(); ?>" alt="Foto de perfil">
                 </div>
-                <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
-                <div><?php echo $post->getMensaje(); ?></div>
-            </div>
 
-            <br>
+                <!-- Nombre de usuario y contenido del post -->
+                <div class="post-content">
+                    <div class="post-title">
+                        <?php echo '@' . $usuario->getNombreusuario(); ?>
+                    </div>
+                    <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
+                    <div><?php echo $post->getMensaje(); ?></div>
+                </div>
 
-            <!-- Acciones del post -->
-            <div class="post-actions">
+                <br>
 
-                <!-- Botón de Me Gusta -->
-                <i class="<?php echo $claseIconoM; ?>"
-                    onclick="darLike(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
-                <span style="display: inline;"><?php echo count($megustaDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
+                <!-- Acciones del post -->
+                <div class="post-actions">
 
-                &nbsp;&nbsp;&nbsp;
+                    <!-- Botón de Me Gusta -->
+                    <i class="<?php echo $claseIconoM; ?>"
+                        onclick="darLike(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                    <span
+                        style="display: inline;"><?php echo count($megustaDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
-                <!-- Botón de Guardar -->
-                <i class="<?php echo $claseIconoG; ?>"
-                   onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
-                <span style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
-
-                &nbsp;&nbsp;&nbsp;
-
-                <!-- Botón de Mensaje -->
-                <i class="fa-regular fa-comment"
-                    onclick="openChatModal(<?php echo $post->getIdpublicacion(); ?>)"></i>
-                <span style="display: inline;"><?php echo count($mensajeDAO->getByPublicacionId($post->getIdpublicacion())); ?></span>
-
-
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                <!-- Mostrar íconos de editar y eliminar si el usuario es el creador del post o tiene rol admin -->
-                <?php if ($post->getIdusuario() == Sesion::getUsuario()->getIdusuario() || Sesion::getUsuario()->getRol() == 'admin'): ?>
-                    <a href="index.php?accion=publicacion&id=<?php echo $post->getIdpublicacion(); ?>" style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
                     &nbsp;&nbsp;&nbsp;
-                    <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->getIdpublicacion(); ?>)"></i>
-                <?php endif; ?>
-                
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div>
 
-<!-- Añadir post -->
-<div class="fixed-logo">
-    <a href="index.php?accion=publicacion&id=0">
-        <i class="fa-solid fa-square-plus fa-2x"></i>
-    </a>
-</div>
+                    <!-- Botón de Guardar -->
+                    <i class="<?php echo $claseIconoG; ?>"
+                        onclick="darGuardado(<?php echo $post->getIdpublicacion() . ', ' . Sesion::getUsuario()->getIdusuario() . ', event'; ?>)"></i>
+                    <span
+                        style="display: inline;"><?php echo count($guardadoDAO->getByIdPublicacion($post->getIdpublicacion())); ?></span>
 
-<br>
+                    &nbsp;&nbsp;&nbsp;
 
-<!-- Modal -->
-<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="chatModalLabel">Mensajes del Chat</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="postId" value="">
-                <div id="chatMessages" class="list-group">
-                    <!-- Los mensajes se insertarán aquí dinámicamente -->
+                    <!-- Botón de Mensaje -->
+                    <i class="fa-regular fa-comment" onclick="openChatModal(<?php echo $post->getIdpublicacion(); ?>)"></i>
+                    <span
+                        style="display: inline;"><?php echo count($mensajeDAO->getByPublicacionId($post->getIdpublicacion())); ?></span>
+
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <!-- Mostrar íconos de editar y eliminar si el usuario es el creador del post o tiene rol admin -->
+                    <?php if ($post->getIdusuario() == Sesion::getUsuario()->getIdusuario() || Sesion::getUsuario()->getRol() == 'admin'): ?>
+                        <a href="index.php?accion=publicacion&id=<?php echo $post->getIdpublicacion(); ?>"
+                            style="text-decoration: none; color: inherit;"><i class="fa-solid fa-edit"></i></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <i class="fa-solid fa-trash-alt" onclick="borrarPost(<?php echo $post->getIdpublicacion(); ?>)"></i>
+                    <?php endif; ?>
+
                 </div>
             </div>
-            <div class="modal-footer">
-                <input type="text" id="newMessage" class="form-control" placeholder="Escribe un mensaje...">
-                <button type="button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+        <?php endforeach; ?>
+    </div>
+
+    <!-- Añadir post -->
+    <div class="fixed-logo">
+        <a href="index.php?accion=publicacion&id=0">
+            <i class="fa-solid fa-square-plus fa-2x"></i>
+        </a>
+    </div>
+
+    <br>
+
+    <!-- Modal -->
+    <div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel">Mensajes del Chat</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="postId" value="">
+                    <div id="chatMessages" class="list-group">
+                        <!-- Los mensajes se insertarán aquí dinámicamente -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="text" id="newMessage" class="form-control" placeholder="Escribe un mensaje...">
+                    <button type="button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- Scripts de Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Script de Ajax -->
-<script src="web/js/ajax.js"></script>
+    <!-- Script de Ajax -->
+    <script src="web/js/ajax.js"></script>
 </body>
+
 </html>

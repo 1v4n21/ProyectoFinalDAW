@@ -1,9 +1,10 @@
 <?php
-class MeGusta{
+class MeGusta
+{
     private $idmg;
     private $idpublicacion;
     private $idusuario;
-    
+
     /**
      * Get the value of idmegusta
      */

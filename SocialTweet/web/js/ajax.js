@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     postDiv.dataset.id = publicacion.idPublicacion;
 
                     const userImage = document.createElement("img");
-                    userImage.src = "web/fotosUsuarios/"+publicacion.imagenUsuario;
+                    userImage.src = "web/fotosUsuarios/" + publicacion.imagenUsuario;
                     userImage.alt = "Foto de perfil";
                     userImage.className = "perfil-image";
 
@@ -225,7 +225,7 @@ function loadMessages(postId) {
         method: 'GET',
         data: { postId: postId },
         dataType: 'json',
-        success: function(data) {
+        success: function (data) {
             const chatMessages = document.getElementById('chatMessages');
             chatMessages.innerHTML = '';
             data.mensajes.forEach(message => {
@@ -254,7 +254,7 @@ function sendMessage() {
                 postId: postId,
                 texto: newMessageText,
             },
-            success: function() {
+            success: function () {
                 // Después de enviar el mensaje, recargar los mensajes
                 loadMessages(postId);
                 newMessageInput.value = '';

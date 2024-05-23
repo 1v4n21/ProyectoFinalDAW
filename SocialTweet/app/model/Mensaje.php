@@ -1,10 +1,11 @@
 <?php
-class Mensaje{
+class Mensaje
+{
     private $idmensaje;
     private $mensaje;
     private $idpublicacion;
     private $idusuario;
-    
+
     /**
      * Get the value of idmensaje
      */

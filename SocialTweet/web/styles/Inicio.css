@@ -94,11 +94,13 @@ body {
     overflow: hidden;
     margin-right: 10px;
 }
+
 .perfil-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .list-group-item {
     border: none;
     border-bottom: 1px solid #e1e8ed;

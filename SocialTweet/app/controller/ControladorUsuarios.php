@@ -1,6 +1,7 @@
 <?php
 
-class ControladorUsuarios{
+class ControladorUsuarios
+{
 
     /**
      * Maneja el inicio de sesión de un usuario.
@@ -32,9 +33,9 @@ class ControladorUsuarios{
 
             //Comprobamos credenciales
             if ($usuario = $usuariosDAO->getByNombreUsuario($nombreusuario)) {
-               
+
                 if (password_verify($password, $usuario->getPassword())) {
-                    
+
                     //Iniciamos sesion
                     Sesion::iniciarSesion($usuario);
 
@@ -122,9 +123,9 @@ class ControladorUsuarios{
                         if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
                             die("Error al copiar la foto a la carpeta fotosUsuarios");
                         }
-                    } 
+                    }
 
-                    if ($error == '') { 
+                    if ($error == '') {
 
                         $usuario = new Usuario();
                         $usuario->setNombre($nombre);
@@ -133,7 +134,7 @@ class ControladorUsuarios{
                         $usuario->setEmail($email);
                         $usuario->setNombreUsuario($nombreUsuario);
                         $usuario->setFoto($foto);
-                        
+
                         // Encriptamos el password
                         $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
                         $usuario->setPassword($passwordCifrado);
@@ -184,7 +185,8 @@ class ControladorUsuarios{
         header('location: index.php');
     }
 
-    public function ajustes(){
+    public function ajustes()
+    {
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
@@ -201,7 +203,7 @@ class ControladorUsuarios{
             $password = htmlspecialchars($_POST['password']);
 
             if (empty($nombreusuario)) {
-                $error = 'El campo nombre de usuario es obligatorio.';             
+                $error = 'El campo nombre de usuario es obligatorio.';
             } elseif (empty($email)) {
                 $error = 'El campo email es obligatorio.';
             } elseif (empty($password)) {
@@ -212,11 +214,11 @@ class ControladorUsuarios{
                 $error = "Ya hay un usuario con ese nombre";
             }
 
-            if($error == ''){
-                $elUsuario->setNombreusuario( $nombreusuario );
-                $elUsuario->setEmail( $email );
+            if ($error == '') {
+                $elUsuario->setNombreusuario($nombreusuario);
+                $elUsuario->setEmail($email);
                 $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
-                $elUsuario->setPassword( $passwordCifrado );
+                $elUsuario->setPassword($passwordCifrado);
                 $usuariosDAO->update($elUsuario);
 
                 Sesion::iniciarSesion($elUsuario);
@@ -228,14 +230,15 @@ class ControladorUsuarios{
             }
         }
 
-        if($error != ''){
+        if ($error != '') {
             guardarMensaje($error);
         }
 
         require 'app/views/ajustes.php';
     }
 
-    public function admin(){
+    public function admin()
+    {
 
         $usuario = Sesion::getUsuario();
 

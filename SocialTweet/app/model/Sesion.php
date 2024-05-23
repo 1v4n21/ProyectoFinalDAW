@@ -1,26 +1,31 @@
-<?php 
-class Sesion{
-    static public function getUsuario():Usuario|false{
-        if(isset($_SESSION['usuario'])){
-            return unserialize($_SESSION['usuario']); 
-        }else{
+<?php
+class Sesion
+{
+    static public function getUsuario(): Usuario|false
+    {
+        if (isset($_SESSION['usuario'])) {
+            return unserialize($_SESSION['usuario']);
+        } else {
             return false;
         }
     }
 
-    static public function iniciarSesion($usuario){
+    static public function iniciarSesion($usuario)
+    {
         $_SESSION['usuario'] = serialize($usuario);
     }
 
-    static public function cerrarSesion(){
+    static public function cerrarSesion()
+    {
         unset($_SESSION['usuario']);
-        
+
     }
 
-    static public function existeSesion(){
-        if(isset($_SESSION['usuario'])){
+    static public function existeSesion()
+    {
+        if (isset($_SESSION['usuario'])) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

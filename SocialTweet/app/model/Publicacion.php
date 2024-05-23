@@ -1,10 +1,11 @@
 <?php
-class Publicacion{
+class Publicacion
+{
     private $idpublicacion;
     private $fecha;
     private $mensaje;
     private $idusuario;
-    
+
     /**
      * Get the value of idpublicacion
      */
@@ -77,7 +78,8 @@ class Publicacion{
         return $this;
     }
 
-    public function obtenerTiempoTranscurrido() {
+    public function obtenerTiempoTranscurrido()
+    {
         if ($this->fecha != null) {
             // Verificar si $this->fecha es una cadena de texto o un objeto Date
             if (is_string($this->fecha)) {
@@ -88,15 +90,15 @@ class Publicacion{
                 // $this->fecha es un objeto Date
                 $tiempoPublicacion = $this->fecha->getTime(); // Obtener el tiempo en milisegundos de la fecha de publicación
             }
-            
+
             $tiempoActual = round(microtime(true) * 1000); // Obtener el tiempo actual en milisegundos
-    
+
             $diferencia = $tiempoActual - $tiempoPublicacion;
             $segundos = $diferencia / 1000;
             $minutos = $segundos / 60;
             $horas = $minutos / 60;
             $dias = $horas / 24;
-    
+
             if ($dias > 1) {
                 return floor($dias) . " días atrás";
             } elseif ($horas > 1) {
@@ -105,11 +107,11 @@ class Publicacion{
                 return floor($minutos) . " minutos atrás";
             } else {
                 return "Hace un momento";
-            }                        
-            
+            }
+
         } else {
             return "Fecha no disponible";
         }
     }
-    
+
 }

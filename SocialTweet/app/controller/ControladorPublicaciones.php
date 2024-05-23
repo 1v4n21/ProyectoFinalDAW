@@ -1,9 +1,11 @@
 <?php
 
-class ControladorPublicaciones{
-    public function inicio(){
+class ControladorPublicaciones
+{
+    public function inicio()
+    {
         //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
         //Obtenemos las publicaciones
@@ -14,9 +16,10 @@ class ControladorPublicaciones{
         require 'app/views/inicio.php';
     }
 
-    public function publicacion(){
+    public function publicacion()
+    {
         //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
         $id = intval(htmlentities($_GET['id']));
@@ -24,12 +27,12 @@ class ControladorPublicaciones{
         //Obtenemos las publicaciones
         $publicacionDAO = new PublicacionDAO($conn);
 
-        if($id != 0){
+        if ($id != 0) {
             $laPublicacion = $publicacionDAO->getById($id);
             $texto = $laPublicacion->getMensaje();
             $laPublicacion->setMensaje(str_replace(" (Editado)", "", $texto));
             $form = "Editar";
-        }else{
+        } else {
             $laPublicacion = new Publicacion();
             $form = "Crear";
         }
@@ -44,11 +47,11 @@ class ControladorPublicaciones{
 
             $usuariosDAO = new UsuarioDAO($conn);
 
-            if(empty($mensaje)){
+            if (empty($mensaje)) {
                 guardarMensaje("El campo mensaje no puede estar vacío.");
-                header('location: index.php?accion=publicacion&id='.$id);
-            }else{
-                if($id != 0){
+                header('location: index.php?accion=publicacion&id=' . $id);
+            } else {
+                if ($id != 0) {
                     $publicacion = $publicacionDAO->getById($id);
 
                     if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario()) {
@@ -58,19 +61,19 @@ class ControladorPublicaciones{
                     }
 
                     $publicacion->setFecha(date("Y-m-d H:i:s"));
-                    $publicacion->setMensaje($mensaje." (Editado)");
-    
+                    $publicacion->setMensaje($mensaje . " (Editado)");
+
                     $publicacionDAO->editar($publicacion);
                     guardarMensajeC("Publicación modificada con éxito");
 
                     //Incluyo la vista
                     header('location: index.php');
-                }else{
+                } else {
                     $publicacion = new Publicacion();
                     $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
                     $publicacion->setMensaje($mensaje);
                     $publicacion->setFecha(date("Y-m-d H:i:s"));
-    
+
                     $publicacionDAO->insert($publicacion);
                     guardarMensajeC("Publicación creada con éxito");
 
@@ -78,15 +81,16 @@ class ControladorPublicaciones{
                     header('location: index.php');
                 }
             }
-        }else{
+        } else {
             //Incluyo la vista
             require 'app/views/publicacion.php';
         }
     }
 
-    public function borrarPost(){
+    public function borrarPost()
+    {
         //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         $publicacionDAO = new PublicacionDAO($conn);
 
@@ -107,16 +111,17 @@ class ControladorPublicaciones{
             $publicacionDAO->delete($publicacion->getIdpublicacion());
 
             // Devolver el estado como JSON
-            print json_encode(['respuesta'=>'ok']);
+            print json_encode(['respuesta' => 'ok']);
         }// else {
         //     // Si la publicación o el usuario no existen, devolver un error 404
         //     return ResponseEntity.notFound().build();
         // }
     }
 
-    public function buscarPublicaciones(){
+    public function buscarPublicaciones()
+    {
         //Creamos la conexión utilizando la clase que hemos creado
-        $connexionDB = new ConexionDBi(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,MYSQL_DB);
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         $publicacionDAO = new PublicacionDAO($conn);
         $usuarioDAO = new UsuarioDAO($conn);

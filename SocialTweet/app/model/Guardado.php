@@ -1,9 +1,10 @@
 <?php
-class Guardado{
+class Guardado
+{
     private $idguardado;
     private $idpublicacion;
     private $idusuario;
-    
+
     /**
      * Get the value of idguardado
      */

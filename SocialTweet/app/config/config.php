@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('MYSQL_USER', 'root');
 define('MYSQL_PASS', '');
