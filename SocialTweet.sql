@@ -29,7 +29,7 @@ USE socialtweet;
 -- Estructura de tabla para la tabla `Guardados`
 --
 
-CREATE TABLE `Guardados` (
+CREATE TABLE `guardados` (
   `idguardado` int NOT NULL,
   `idpublicacion` int DEFAULT NULL,
   `idusuario` int DEFAULT NULL
@@ -41,7 +41,7 @@ CREATE TABLE `Guardados` (
 -- Estructura de tabla para la tabla `Megustas`
 --
 
-CREATE TABLE `Megustas` (
+CREATE TABLE `megustas` (
   `idmg` int NOT NULL,
   `idpublicacion` int DEFAULT NULL,
   `idusuario` int DEFAULT NULL
@@ -53,7 +53,7 @@ CREATE TABLE `Megustas` (
 -- Estructura de tabla para la tabla `Mensajes`
 --
 
-CREATE TABLE `Mensajes` (
+CREATE TABLE `mensajes` (
   `idmensaje` int NOT NULL,
   `mensaje` text COLLATE utf8mb4_spanish_ci,
   `idpublicacion` int DEFAULT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `Mensajes` (
 -- Estructura de tabla para la tabla `Publicaciones`
 --
 
-CREATE TABLE `Publicaciones` (
+CREATE TABLE `publicaciones` (
   `idpublicacion` int NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `mensaje` text COLLATE utf8mb4_spanish_ci,
@@ -79,7 +79,7 @@ CREATE TABLE `Publicaciones` (
 -- Estructura de tabla para la tabla `Usuarios`
 --
 
-CREATE TABLE `Usuarios` (
+CREATE TABLE `usuarios` (
   `idusuario` int NOT NULL,
   `sidusuario` varchar(255) COLLATE utf8mb4_spanish_ci NOT NULL,
   `apellidos` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `Usuarios` (
 --
 -- Indices de la tabla `Guardados`
 --
-ALTER TABLE `Guardados`
+ALTER TABLE `guardados`
   ADD PRIMARY KEY (`idguardado`),
   ADD KEY `idpublicacion` (`idpublicacion`),
   ADD KEY `idusuario` (`idusuario`);
@@ -107,7 +107,7 @@ ALTER TABLE `Guardados`
 --
 -- Indices de la tabla `Megustas`
 --
-ALTER TABLE `Megustas`
+ALTER TABLE `megustas`
   ADD PRIMARY KEY (`idmg`),
   ADD KEY `idpublicacion` (`idpublicacion`),
   ADD KEY `idusuario` (`idusuario`);
@@ -115,7 +115,7 @@ ALTER TABLE `Megustas`
 --
 -- Indices de la tabla `Mensajes`
 --
-ALTER TABLE `Mensajes`
+ALTER TABLE `mensajes`
   ADD PRIMARY KEY (`idmensaje`),
   ADD KEY `idpublicacion` (`idpublicacion`),
   ADD KEY `idusuario` (`idusuario`);
@@ -123,14 +123,14 @@ ALTER TABLE `Mensajes`
 --
 -- Indices de la tabla `Publicaciones`
 --
-ALTER TABLE `Publicaciones`
+ALTER TABLE `publicaciones`
   ADD PRIMARY KEY (`idpublicacion`),
   ADD KEY `idusuario` (`idusuario`);
 
 --
 -- Indices de la tabla `Usuarios`
 --
-ALTER TABLE `Usuarios`
+ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`idusuario`);
 
 --
@@ -140,31 +140,31 @@ ALTER TABLE `Usuarios`
 --
 -- AUTO_INCREMENT de la tabla `Guardados`
 --
-ALTER TABLE `Guardados`
+ALTER TABLE `guardados`
   MODIFY `idguardado` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `Megustas`
 --
-ALTER TABLE `Megustas`
+ALTER TABLE `megustas`
   MODIFY `idmg` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `Mensajes`
 --
-ALTER TABLE `Mensajes`
+ALTER TABLE `mensajes`
   MODIFY `idmensaje` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
-ALTER TABLE `Publicaciones`
+ALTER TABLE `publicaciones`
   MODIFY `idpublicacion` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
-ALTER TABLE `Usuarios`
+ALTER TABLE `usuarios`
   MODIFY `idusuario` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -174,29 +174,29 @@ ALTER TABLE `Usuarios`
 --
 -- Filtros para la tabla `Guardados`
 --
-ALTER TABLE `Guardados`
-  ADD CONSTRAINT `Guardados_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Guardados_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
+ALTER TABLE `guardados`
+  ADD CONSTRAINT `guardados_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `guardados_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Megustas`
 --
-ALTER TABLE `Megustas`
-  ADD CONSTRAINT `Megustas_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Megustas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
+ALTER TABLE `megustas`
+  ADD CONSTRAINT `megustas_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `megustas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Mensajes`
 --
-ALTER TABLE `Mensajes`
-  ADD CONSTRAINT `Mensajes_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `Publicaciones` (`idpublicacion`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Mensajes_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
+ALTER TABLE `mensajes`
+  ADD CONSTRAINT `mensajes_ibfk_1` FOREIGN KEY (`idpublicacion`) REFERENCES `publicaciones` (`idpublicacion`) ON DELETE CASCADE,
+  ADD CONSTRAINT `mensajes_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Publicaciones`
 --
-ALTER TABLE `Publicaciones`
-  ADD CONSTRAINT `Publicaciones_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
+ALTER TABLE `publicaciones`
+  ADD CONSTRAINT `publicaciones_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
