@@ -32,6 +32,13 @@ class ControladorPublicaciones
             $texto = $laPublicacion->getMensaje();
             $laPublicacion->setMensaje(str_replace(" (Editado)", "", $texto));
             $form = "Editar";
+
+            if (Sesion::getUsuario()->getRol() !== 'admin' && Sesion::getUsuario()->getIdusuario() != $laPublicacion->getIdusuario()) {
+                header('Location: index.php?accion=inicio');
+                guardarMensaje("No tienes permisos para realizar esta acción");
+                die();
+            }
+
         } else {
             $laPublicacion = new Publicacion();
             $form = "Crear";
@@ -59,12 +66,6 @@ class ControladorPublicaciones
             } else {
                 if ($id != 0) {
                     $publicacion = $publicacionDAO->getById($id);
-
-                    if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario()) {
-                        header('location: index.php?accion=inicio');
-                        guardarMensaje("No tienes permisos para realizar esta acción");
-                        die();
-                    }
 
                     $publicacion->setFecha(date("Y-m-d H:i:s"));
                     $publicacion->setMensaje($mensaje . " (Editado)");

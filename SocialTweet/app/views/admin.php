@@ -122,7 +122,7 @@
 
                 <!-- Campo de búsqueda -->
                 <input id="searchInput" class="form-control me-2" type="search" placeholder="Buscar Usuario"
-                    aria-label="Buscar">
+                    aria-label="Buscar"disabled>
 
                 <br>
 
@@ -241,7 +241,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <strong><?php echo htmlspecialchars($usuario->getNombreusuario()); ?></strong>
-                                <p><?php echo htmlspecialchars($publicacion->getMensaje()); ?></p>
+                                <p><?php echo htmlspecialchars($publicacion->getMensaje())." <br><strong>PostId-></strong> ".htmlspecialchars($publicacion->getIdpublicacion()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
                                 <a href="index.php?accion=borrarMeGustaAdmin&mgId=<?php echo $megusta->getIdmegusta(); ?>" type="button"
@@ -265,7 +265,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <strong><?php echo htmlspecialchars($usuario->getNombreusuario()); ?></strong>
-                                <p><?php echo htmlspecialchars($publicacion->getMensaje()); ?></p>
+                                <p><?php echo htmlspecialchars($publicacion->getMensaje())." <br><strong>PostId-></strong> ".htmlspecialchars($publicacion->getIdpublicacion()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
                                 <a href="index.php?accion=borrarGuardadoAdmin&guardadoId=<?php echo $guardado->getIdguardado(); ?>" type="button"
@@ -287,7 +287,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <strong><?php echo htmlspecialchars($usuario->getNombreusuario()); ?></strong>
-                                <p><?php echo htmlspecialchars($mensaje->getMensaje()); ?></p>
+                                <p><?php echo htmlspecialchars($mensaje->getMensaje())." <br><strong>PostId-></strong> ".htmlspecialchars($mensaje->getIdpublicacion()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
                                 <a href="<?php echo $mensaje->getIdmensaje(); ?>&accion=editar"

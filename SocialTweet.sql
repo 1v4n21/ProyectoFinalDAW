@@ -196,7 +196,7 @@ ALTER TABLE `Mensajes`
 -- Filtros para la tabla `Publicaciones`
 --
 ALTER TABLE `Publicaciones`
-  ADD CONSTRAINT `Publicaciones_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`);
+  ADD CONSTRAINT `Publicaciones_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `Usuarios` (`idusuario`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
