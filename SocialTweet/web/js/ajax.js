@@ -254,9 +254,11 @@ function sendMessage() {
                 postId: postId,
                 texto: newMessageText,
             },
-            success: function () {
-                const contador = document.querySelector('[data-idmsg="${postId}"]');
-                contador.innerHTML = data.contadorMsg;
+            success: function (data) {
+                console.log(data);
+                const contador = document.querySelector(`[data-idmsg="${postId}"]`);
+                contador.innerHTML = parseInt(contador.innerHTML)+1;
+
                 // Después de enviar el mensaje, recargar los mensajes
                 loadMessages(postId);
                 newMessageInput.value = '';
