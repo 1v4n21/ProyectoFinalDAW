@@ -77,7 +77,33 @@ class ControladorMensajes
         }
     }
 
-    public function eliminarMensajeAdmin(){
-        
+    public function borrarMensajeAdmin(){
+        // Verificar si el usuario de la sesión es admin
+        if (Sesion::getUsuario()->getRol() !== 'admin') {
+            // Si el usuario no es admin, redirigir y mostrar un mensaje de error
+            guardarMensaje("Necesitas permisos para acceder aqui");
+            header("Location: index.php");
+            die();
+        }
+
+        // Obtener el mensaje
+        $mensajeId = htmlspecialchars($_GET['idMensaje']); // Supongamos que el ID de mensaje viene por la URL
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $mensajeDAO = new MensajeDAO($conn);
+        $mensaje = $mensajeDAO->getById($mensajeId);
+
+        // Verificar si el mensaje existe
+        if ($mensaje !== null) {
+            // Borrar el mensaje
+            $mensajeDAO->delete($mensaje->getIdmensaje());
+
+            guardarMensajeC("Mensaje eliminado con exito");
+        } else {
+            guardarMensaje("El mensaje no existe");
+        }
+
+        header('location: index.php?accion=admin&funcion=mensajes');
     }
 }

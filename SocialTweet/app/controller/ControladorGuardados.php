@@ -70,9 +70,9 @@ class ControladorGuardados
         $guardadoDAO = new GuardadoDAO($conn);
         $guardado = $guardadoDAO->getById($guardadoId);
 
-        // Verificar si el mg existe
+        // Verificar si el guardado existe
         if ($guardado !== null) {
-            // Borrar el usuario
+            // Borrar el guardado
             $guardadoDAO->delete($guardado->getIdguardado());
 
             guardarMensajeC("Guardado eliminado con exito");

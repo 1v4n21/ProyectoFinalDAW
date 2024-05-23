@@ -118,6 +118,11 @@ $mapa = array(
         'metodo' => 'borrarGuardadoAdmin',
         'privada' => true
     ),
+    'borrarMensajeAdmin' => array(
+        'controlador' => 'ControladorMensajes',
+        'metodo' => 'borrarMensajeAdmin',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

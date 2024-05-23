@@ -290,9 +290,9 @@
                                 <p><?php echo htmlspecialchars($mensaje->getMensaje()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
-                                <a href="formUsuario?id=<?php echo $mensaje->getIdmensaje(); ?>&accion=editar"
+                                <a href="<?php echo $mensaje->getIdmensaje(); ?>&accion=editar"
                                     class="btn btn-warning btn-sm">Editar</a>
-                                <a href="borrarGuardadoAdmin?guardadoId=<?php echo $mensaje->getIdmensaje(); ?>" type="button"
+                                <a href="index.php?accion=borrarMensajeAdmin&idMensaje=<?php echo $mensaje->getIdmensaje(); ?>" type="button"
                                     class="btn btn-danger btn-sm">Eliminar</a>
                             </div>
                         </div>

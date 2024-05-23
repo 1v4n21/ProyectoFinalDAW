@@ -60,7 +60,7 @@ class ControladorMeGustas
 
         // Verificar si el mg existe
         if ($megusta !== null) {
-            // Borrar el usuario
+            // Borrar el mg
             $megustaDAO->delete($megusta->getIdmegusta());
 
             guardarMensajeC("Me gusta eliminado con exito");
