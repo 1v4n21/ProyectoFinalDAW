@@ -182,4 +182,35 @@ class ControladorPublicaciones
         // header("Content-Type: application/json");
         // echo json_encode($jsonBuilder);
     }
+
+    public function borrarPostAdmin()
+    {
+        // Verificar si el usuario de la sesión es admin
+        if (Sesion::getUsuario()->getRol() !== 'admin') {
+            // Si el usuario no es admin, redirigir y mostrar un mensaje de error
+            guardarMensaje("Necesitas permisos para acceder aqui");
+            header("Location: index.php");
+            die();
+        }
+
+        // Obtener el post
+        $postId = htmlspecialchars($_GET['postId']); // Supongamos que el ID de post viene por la URL
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $publicacionDAO = new PublicacionDAO($conn);
+        $publicacion = $publicacionDAO->getById($postId);
+
+        // Verificar si el post existe
+        if ($publicacion !== null) {
+            // Borrar el post
+            $publicacionDAO->delete($publicacion->getIdpublicacion());
+
+            guardarMensajeC("Publicación eliminada con exito");
+        } else {
+            guardarMensaje("La publicación no existe");
+        }
+
+        header('location: index.php?accion=admin&funcion=publicaciones');
+    }
 }

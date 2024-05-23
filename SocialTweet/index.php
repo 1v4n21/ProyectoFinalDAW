@@ -123,6 +123,11 @@ $mapa = array(
         'metodo' => 'borrarMensajeAdmin',
         'privada' => true
     ),
+    'borrarPostAdmin' => array(
+        'controlador' => 'ControladorPublicaciones',
+        'metodo' => 'borrarPostAdmin',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

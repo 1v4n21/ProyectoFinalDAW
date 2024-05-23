@@ -208,12 +208,12 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <strong><?php echo htmlspecialchars($usuario->getNombreusuario()); ?></strong>
-                                <p><?php echo htmlspecialchars($publicacion->getMensaje()); ?></p>
+                                <p><?php echo htmlspecialchars($publicacion->getMensaje())." -> ".htmlspecialchars($publicacion->getFecha()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
                                 <a href="index.php?accion=publicacion&id=<?php echo $publicacion->getIdpublicacion(); ?>"
                                     type="button" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="borrarPostAdmin?postId=<?php echo $publicacion->getIdpublicacion(); ?>" type="button"
+                                <a href="index.php?accion=borrarPostAdmin&postId=<?php echo $publicacion->getIdpublicacion(); ?>" type="button"
                                     class="btn btn-danger btn-sm">Eliminar</a>
                             </div>
                         </div>
