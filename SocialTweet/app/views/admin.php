@@ -19,9 +19,63 @@
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
+
+    <!-- Link jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        .error {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .correcto {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #28a745;
+            border: 1px solid #218838;
+            color: black;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Mensaje de error -->
+    <?php imprimirMensaje(); ?>
+
+    <!-- Mensaje de correcto -->
+    <?php imprimirMensajeC(); ?>
+
+    <!--JavaScript-->
+    <script>
+        // Muestra el mensaje de error al cargar la página
+        $(document).ready(function () {
+            $(".error").fadeIn().delay(5000).fadeOut();
+        });
+
+        // Muestra el mensaje de correcto al cargar la página
+        $(document).ready(function () {
+            $(".correcto").fadeIn().delay(5000).fadeOut();
+        });
+    </script>
 
     <!-- Cabecera -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -125,7 +179,7 @@
                                 <!-- Mostrar botones solo si el usuario no es admin -->
                                 <a href="formUsuario?id=<?php echo $usuario->getIdusuario(); ?>&accion=editar"
                                     class="btn btn-warning btn-sm">Editar</a>
-                                <a href="borrarUsuarioAdmin?userId=<?php echo $usuario->getIdusuario(); ?>"
+                                <a href="index.php?accion=borrarUsuarioAdmin&userId=<?php echo $usuario->getIdusuario(); ?>"
                                     class="btn btn-danger btn-sm">Eliminar</a>
                             <?php else: ?>
                                 <!-- Puedes agregar un mensaje de depuración o simplemente dejar vacío si prefieres -->
@@ -190,7 +244,7 @@
                                 <p><?php echo htmlspecialchars($publicacion->getMensaje()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
-                                <a href="borrarMeGustaAdmin?meGustaId=<?php echo $megusta->getIdmegusta(); ?>" type="button"
+                                <a href="index.php?accion=borrarMeGustaAdmin&mgId=<?php echo $megusta->getIdmegusta(); ?>" type="button"
                                     class="btn btn-danger btn-sm">Eliminar</a>
                             </div>
                         </div>

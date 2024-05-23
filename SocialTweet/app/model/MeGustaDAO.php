@@ -65,7 +65,7 @@ class MeGustaDAO
     public function getById(int $id): ?MeGusta
     {
         // Prepara la consulta SQL para obtener el registro de MeGusta por su ID
-        if (!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idmegusta = ?")) {
+        if (!$stmt = $this->conn->prepare("SELECT * FROM megustas WHERE idmg = ?")) {
             echo "Error en la SQL: " . $this->conn->error;
             return null;
         }

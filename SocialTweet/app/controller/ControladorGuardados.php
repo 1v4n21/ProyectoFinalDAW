@@ -51,4 +51,35 @@ class ControladorGuardados
         //Incluyo la vista
         require 'app/views/inicio.php';
     }
+
+    public function borrarGuardadoAdmin()
+    {
+        // Verificar si el usuario de la sesión es admin
+        if (Sesion::getUsuario()->getRol() !== 'admin') {
+            // Si el usuario no es admin, redirigir y mostrar un mensaje de error
+            guardarMensaje("Necesitas permisos para acceder aqui");
+            header("Location: index.php");
+            die();
+        }
+
+        // Obtener el guardado
+        $guardadoId = htmlspecialchars($_GET['guardadoId']); // Supongamos que el ID de guardado viene por la URL
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $guardadoDAO = new GuardadoDAO($conn);
+        $guardado = $guardadoDAO->getById($guardadoId);
+
+        // Verificar si el mg existe
+        if ($guardado !== null) {
+            // Borrar el usuario
+            $guardadoDAO->delete($guardado->getIdguardado());
+
+            guardarMensajeC("Guardado eliminado con exito");
+        } else {
+            guardarMensaje("El guardado no existe");
+        }
+
+        header('location: index.php?accion=admin&funcion=guardados');
+    }
 }

@@ -103,6 +103,16 @@ $mapa = array(
         'metodo' => 'admin',
         'privada' => true
     ),
+    'borrarUsuarioAdmin' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'borrarUsuarioAdmin',
+        'privada' => true
+    ),
+    'borrarMeGustaAdmin' => array(
+        'controlador' => 'ControladorMeGustas',
+        'metodo' => 'borrarMeGustaAdmin',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

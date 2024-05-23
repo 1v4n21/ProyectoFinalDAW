@@ -39,4 +39,35 @@ class ControladorMeGustas
 
         }
     }
+
+    public function borrarMeGustaAdmin()
+    {
+        // Verificar si el usuario de la sesión es admin
+        if (Sesion::getUsuario()->getRol() !== 'admin') {
+            // Si el usuario no es admin, redirigir y mostrar un mensaje de error
+            guardarMensaje("Necesitas permisos para acceder aqui");
+            header("Location: index.php");
+            die();
+        }
+
+        // Obtener el mg
+        $mgId = htmlspecialchars($_GET['mgId']); // Supongamos que el ID de mg viene por la URL
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $megustaDAO = new MeGustaDAO($conn);
+        $megusta = $megustaDAO->getById($mgId);
+
+        // Verificar si el mg existe
+        if ($megusta !== null) {
+            // Borrar el usuario
+            $megustaDAO->delete($megusta->getIdmegusta());
+
+            guardarMensajeC("Me gusta eliminado con exito");
+        } else {
+            guardarMensaje("El me gusta no existe");
+        }
+
+        header('location: index.php?accion=admin&funcion=megustas');
+    }
 }
