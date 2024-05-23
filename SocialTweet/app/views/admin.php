@@ -268,7 +268,7 @@
                                 <p><?php echo htmlspecialchars($publicacion->getMensaje()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
-                                <a href="borrarGuardadoAdmin?guardadoId=<?php echo $guardado->getIdguardado(); ?>" type="button"
+                                <a href="index.php?accion=borrarGuardadoAdmin&guardadoId=<?php echo $guardado->getIdguardado(); ?>" type="button"
                                     class="btn btn-danger btn-sm">Eliminar</a>
                             </div>
                         </div>

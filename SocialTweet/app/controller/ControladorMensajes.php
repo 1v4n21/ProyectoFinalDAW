@@ -54,6 +54,12 @@ class ControladorMensajes
             $usuario = Sesion::getUsuario();
             $texto = $_POST['texto'];
 
+            if (strlen($texto) > 40) {
+                header('location: index.php?accion=inicio');
+                guardarMensaje("El mensaje no puede ser mas largo de 40 caracteres");
+                die();
+            }
+
             $mensaje = new Mensaje();
             $mensaje->setIdpublicacion($postId);
             $mensaje->setMensaje($texto);
@@ -69,5 +75,9 @@ class ControladorMensajes
         } else {
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
         }
+    }
+
+    public function eliminarMensajeAdmin(){
+        
     }
 }

@@ -113,6 +113,11 @@ $mapa = array(
         'metodo' => 'borrarMeGustaAdmin',
         'privada' => true
     ),
+    'borrarGuardadoAdmin' => array(
+        'controlador' => 'ControladorGuardados',
+        'metodo' => 'borrarGuardadoAdmin',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

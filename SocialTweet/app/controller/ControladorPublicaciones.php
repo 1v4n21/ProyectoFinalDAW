@@ -47,6 +47,12 @@ class ControladorPublicaciones
 
             $usuariosDAO = new UsuarioDAO($conn);
 
+            if (strlen($mensaje) > 40) {
+                header('location: index.php?accion=inicio');
+                guardarMensaje("El mensaje no puede ser mas largo de 40 caracteres");
+                die();
+            }
+
             if (empty($mensaje)) {
                 guardarMensaje("El campo mensaje no puede estar vacío.");
                 header('location: index.php?accion=publicacion&id=' . $id);
