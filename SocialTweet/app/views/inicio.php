@@ -196,7 +196,7 @@
 
                     <!-- Botón de Mensaje -->
                     <i class="fa-regular fa-comment" onclick="openChatModal(<?php echo $post->getIdpublicacion(); ?>)"></i>
-                    <span
+                    <span data-idmsg="<?php echo $post->getIdpublicacion() ?>"
                         style="display: inline;"><?php echo count($mensajeDAO->getByPublicacionId($post->getIdpublicacion())); ?></span>
 
 

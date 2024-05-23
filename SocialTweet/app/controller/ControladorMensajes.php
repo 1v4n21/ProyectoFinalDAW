@@ -66,9 +66,10 @@ class ControladorMensajes
             $mensaje->setIdusuario($usuario->getIdusuario());
 
             $mensajeDAO = new MensajeDAO($conn);
+            $contadorMensajes = count($mensajeDAO->getByPublicacionId($postId));
 
             if ($mensajeDAO->insert($mensaje)) {
-                echo json_encode(['success' => true]);
+                echo json_encode(['success' => true, 'contadorMsg' => $contadorMensajes+1]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Error al enviar el mensaje']);
             }

@@ -223,7 +223,7 @@
 
             <!-- Añadir post -->
             <div class="fixed-logo">
-                <a href="publicacion">
+                <a href="index.php?accion=publicacion&id=0">
                     <i class="fa-solid fa-square-plus fa-2x"></i>
                 </a>
             </div>
