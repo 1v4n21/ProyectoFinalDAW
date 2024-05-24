@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase de controlador para gestionar los Guardados.
+ * Contiene métodos para ver, crear, editar y borrar guardados.
+ */
 class ControladorGuardados
 {
     public function darGuardado()

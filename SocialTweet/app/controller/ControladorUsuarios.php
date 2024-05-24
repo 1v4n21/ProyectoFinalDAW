@@ -1,8 +1,11 @@
 <?php
 
+/**
+ * Clase de controlador para gestionar los Usuarios.
+ * Contiene métodos para ver, crear, editar y borrar usuarios.
+ */
 class ControladorUsuarios
 {
-
     /**
      * Maneja el inicio de sesión de un usuario.
      * Si el usuario ya ha iniciado sesión, lo redirige a la página de inicio.
@@ -185,6 +188,13 @@ class ControladorUsuarios
         header('location: index.php');
     }
 
+    /**
+     * Método para gestionar la página de ajustes de usuario.
+     * Permite a los usuarios editar su nombre de usuario, email y contraseña.
+     * Valida los datos del formulario y actualiza la información del usuario en la base de datos.
+     *
+     * @return void
+     */
     public function ajustes()
     {
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
@@ -237,6 +247,13 @@ class ControladorUsuarios
         require 'app/views/ajustes.php';
     }
 
+    /**
+     * Método para gestionar la página de administración.
+     * Permite a los administradores ver y gestionar usuarios, publicaciones, me gustas, guardados y mensajes.
+     * Valida que el usuario tenga el rol de administrador antes de acceder a las funcionalidades de administración.
+     *
+     * @return void
+     */
     public function admin()
     {
 
@@ -279,6 +296,13 @@ class ControladorUsuarios
 
     }
 
+    /**
+     * Método para borrar un usuario desde la administración.
+     * Permite a los administradores eliminar usuarios del sistema.
+     * Verifica que el usuario de la sesión tenga el rol de administrador antes de realizar la operación.
+     *
+     * @return void
+     */
     public function borrarUsuarioAdmin()
     {
         // Verificar si el usuario de la sesión es admin
@@ -321,12 +345,12 @@ class ControladorUsuarios
         }
 
         $userId = htmlspecialchars($_GET['userId']); // Supongamos que el ID de usuario viene por la URL
-        if($userId != 0){
-            $accion="Editar";
-        }else{
-            $accion="Crear";
+        if ($userId != 0) {
+            $accion = "Editar";
+        } else {
+            $accion = "Crear";
         }
-       
+
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 

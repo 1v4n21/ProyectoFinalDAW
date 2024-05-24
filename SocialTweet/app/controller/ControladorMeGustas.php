@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase de controlador para gestionar los MeGusta.
+ * Contiene métodos para ver, crear, editar y borrar MeGustas.
+ */
 class ControladorMeGustas
 {
     public function darLike()

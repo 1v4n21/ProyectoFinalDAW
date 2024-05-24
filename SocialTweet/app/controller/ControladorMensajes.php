@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Clase de controlador para gestionar los Mensajes.
+ * Contiene métodos para ver, crear, editar y borrar mensajes.
+ */
 class ControladorMensajes
 {
     public function obtenerMensajes()

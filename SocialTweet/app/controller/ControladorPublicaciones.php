@@ -1,30 +1,46 @@
 <?php
 
+/**
+ * Clase de controlador para gestionar las Publicaciones.
+ * Contiene métodos para ver, crear, editar y borrar publicaciones.
+ */
 class ControladorPublicaciones
 {
+    /**
+     * Método para gestionar la página de inicio.
+     * Carga todas las publicaciones desde la base de datos y las muestra en la vista de inicio.
+     *
+     * @return void
+     */
     public function inicio()
     {
-        //Creamos la conexión utilizando la clase que hemos creado
+        // Crear la conexión utilizando la clase ConexionDBi
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
-        //Obtenemos las publicaciones
+        // Obtener todas las publicaciones
         $publicacionDAO = new PublicacionDAO($conn);
         $lasPublicaciones = $publicacionDAO->getAll();
 
-        //Incluyo la vista
+        // Incluir la vista de inicio
         require 'app/views/inicio.php';
     }
 
+    /**
+     * Método para gestionar una publicación.
+     * Permite crear y editar publicaciones.
+     *
+     * @return void
+     */
     public function publicacion()
     {
-        //Creamos la conexión utilizando la clase que hemos creado
+        // Crear la conexión utilizando la clase ConexionDBi
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
 
         $id = intval(htmlentities($_GET['id']));
 
-        //Obtenemos las publicaciones
+        // Obtener las publicaciones
         $publicacionDAO = new PublicacionDAO($conn);
 
         if ($id != 0) {
@@ -48,7 +64,7 @@ class ControladorPublicaciones
             $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
             $conn = $connexionDB->getConnexion();
 
-            //Obtenemos los campos del formulario
+            // Obtener los campos del formulario
             $idPublicacion = htmlspecialchars($_POST['idPublicacion']);
             $mensaje = htmlspecialchars($_POST['mensaje']);
 
@@ -73,7 +89,7 @@ class ControladorPublicaciones
                     $publicacionDAO->editar($publicacion);
                     guardarMensajeC("Publicación modificada con éxito");
 
-                    //Incluyo la vista
+                    // Incluir la vista
                     header('location: index.php');
                 } else {
                     $publicacion = new Publicacion();
@@ -84,19 +100,25 @@ class ControladorPublicaciones
                     $publicacionDAO->insert($publicacion);
                     guardarMensajeC("Publicación creada con éxito");
 
-                    //Incluyo la vista
+                    // Incluir la vista
                     header('location: index.php');
                 }
             }
         } else {
-            //Incluyo la vista
+            // Incluir la vista
             require 'app/views/publicacion.php';
         }
     }
 
+    /**
+     * Método para borrar una publicación del usuario actual.
+     * Permite a los usuarios borrar sus propias publicaciones.
+     *
+     * @return void
+     */
     public function borrarPost()
     {
-        //Creamos la conexión utilizando la clase que hemos creado
+        // Crear la conexión utilizando la clase ConexionDBi
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         $publicacionDAO = new PublicacionDAO($conn);
@@ -114,20 +136,23 @@ class ControladorPublicaciones
 
         // Verificar si la publicación existe
         if ($publicacion != null) {
-            //Borramos el post
+            // Borrar el post
             $publicacionDAO->delete($publicacion->getIdpublicacion());
 
             // Devolver el estado como JSON
             print json_encode(['respuesta' => 'ok']);
-        }// else {
-        //     // Si la publicación o el usuario no existen, devolver un error 404
-        //     return ResponseEntity.notFound().build();
-        // }
+        }
     }
 
+    /**
+     * Método para buscar publicaciones por nombre de usuario.
+     * Devuelve un JSON con las publicaciones encontradas y detalles del usuario.
+     *
+     * @return void
+     */
     public function buscarPublicaciones()
     {
-        //Creamos la conexión utilizando la clase que hemos creado
+        // Crear la conexión utilizando la clase ConexionDBi
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         $publicacionDAO = new PublicacionDAO($conn);
@@ -142,7 +167,7 @@ class ControladorPublicaciones
         $rolUsuario = $usuarioLogueado->getRol();
         $username = htmlentities($_GET['username']);
 
-        // Obtener la publicación
+        // Obtener las publicaciones
         $publicaciones = $publicacionDAO->buscarPublicacionesPorNombreUsuario($username . "%");
 
         // Construir el array asociativo
@@ -177,13 +202,14 @@ class ControladorPublicaciones
 
         // Devolver el JSON
         echo $json;
-
-
-        // También puedes devolverlo como respuesta HTTP si es necesario
-        // header("Content-Type: application/json");
-        // echo json_encode($jsonBuilder);
     }
 
+    /**
+     * Método para borrar una publicación desde la administración.
+     * Permite a los administradores eliminar cualquier publicación.
+     *
+     * @return void
+     */
     public function borrarPostAdmin()
     {
         // Verificar si el usuario de la sesión es admin
@@ -194,7 +220,7 @@ class ControladorPublicaciones
             die();
         }
 
-        // Obtener el post
+        // Obtener el ID del post desde la URL y sanitizarlo
         $postId = htmlspecialchars($_GET['postId']); // Supongamos que el ID de post viene por la URL
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
@@ -212,6 +238,7 @@ class ControladorPublicaciones
             guardarMensaje("La publicación no existe");
         }
 
+        // Redirigir a la página de administración de publicaciones
         header('location: index.php?accion=admin&funcion=publicaciones');
     }
 }
