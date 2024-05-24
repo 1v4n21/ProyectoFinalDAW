@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Clase de controlador para gestionar las Publicaciones.
- * Contiene métodos para ver, crear, editar y borrar publicaciones.
+ * Clase de controlador para gestionar las publicaciones.
+ * Contiene métodos para ver, crear, editar, borrar publicaciones y buscar publicaciones por nombre de usuario.
  */
 class ControladorPublicaciones
 {
