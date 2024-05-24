@@ -128,6 +128,11 @@ $mapa = array(
         'metodo' => 'borrarPostAdmin',
         'privada' => true
     ),
+    'userForm' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'userForm',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

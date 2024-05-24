@@ -309,4 +309,30 @@ class ControladorUsuarios
 
         header('location: index.php?accion=admin&funcion=usuarios');
     }
+
+    public function userForm()
+    {
+        // Verificar si el usuario de la sesión es admin
+        if (Sesion::getUsuario()->getRol() !== 'admin') {
+            // Si el usuario no es admin, redirigir y mostrar un mensaje de error
+            guardarMensaje("Necesitas permisos para acceder aqui");
+            header("Location: index.php");
+            die();
+        }
+
+        $userId = htmlspecialchars($_GET['userId']); // Supongamos que el ID de usuario viene por la URL
+        if($userId != 0){
+            $accion="Editar";
+        }else{
+            $accion="Crear";
+        }
+       
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $usuarioDAO = new UsuarioDAO($conn);
+        $usuario = $usuarioDAO->getById($userId);
+
+        require 'app/views/usuario.php';
+    }
 }

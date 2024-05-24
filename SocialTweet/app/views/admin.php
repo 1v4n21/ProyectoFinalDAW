@@ -177,7 +177,7 @@
                         <div class="btn-group" role="group">
                             <?php if ($usuario->getRol() != 'admin'): ?>
                                 <!-- Mostrar botones solo si el usuario no es admin -->
-                                <a href="formUsuario?id=<?php echo $usuario->getIdusuario(); ?>&accion=editar"
+                                <a href="index.php?accion=userForm&userId=<?php echo $usuario->getIdusuario(); ?>"
                                     class="btn btn-warning btn-sm">Editar</a>
                                 <a href="index.php?accion=borrarUsuarioAdmin&userId=<?php echo $usuario->getIdusuario(); ?>"
                                     class="btn btn-danger btn-sm">Eliminar</a>
@@ -192,7 +192,7 @@
 
             <!-- Añadir usuario -->
             <div class="fixed-logo">
-                <a href="formUsuario?accion=crear">
+                <a href="index.php?accion=userForm&userId=0">
                     <i class="fa-solid fa-square-plus fa-2x"></i>
                 </a>
             </div>
