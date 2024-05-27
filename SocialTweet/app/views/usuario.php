@@ -124,7 +124,7 @@
 
         <!-- Campos del formulario -->
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
+            <label for="nombre" class="form-label">Nombre</label><span class="required-asterisk text-danger"> *</span>
             <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $usuario->getNombre() ?>" />
         </div>
 
@@ -134,12 +134,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label><span class="required-asterisk text-danger"> *</span>
             <input type="text" class="form-control" id="email" name="email" value="<?= $usuario->getEmail() ?>" />
         </div>
 
         <div class="mb-3">
-            <label for="nombreUsuario" class="form-label">Nombre de Usuario</label>
+            <label for="nombreUsuario" class="form-label">Nombre de Usuario</label><span class="required-asterisk text-danger"> *</span>
             <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" value="<?= $usuario->getNombreusuario() ?>" />
         </div>
 
@@ -149,12 +149,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
+            <label for="password" class="form-label">Contraseña</label><span class="required-asterisk text-danger"> *</span>
             <input type="password" class="form-control" id="password" name="password"/>
         </div>
 
         <div class="mb-3">
-            <label for="rol" class="form-label">Rol</label>
+            <label for="rol" class="form-label">Rol</label><span class="required-asterisk text-danger"> *</span>
             <select class="form-select" id="rol" name="rol">
                 <option value="normal" <?= $usuario->getRol() == 'normal' ? 'selected' : '' ?>>Normal</option>
                 <option value="admin" <?= $usuario->getRol() == 'admin' ? 'selected' : '' ?>>Admin</option>
@@ -162,7 +162,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="foto" class="form-label">Imágen</label>
+            <label for="foto" class="form-label">Imágen</label><span class="required-asterisk text-danger"> *</span>
             <input type="file" class="form-control" name="foto" id="foto" accept="image/jpeg, image/gif, image/webp, image/png">
         </div>
 

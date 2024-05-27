@@ -128,7 +128,7 @@ class ControladorPublicaciones
         // Obtener la publicación
         $publicacion = $publicacionDAO->getById($postId);
 
-        if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario()) {
+        if (Sesion::getUsuario()->getIdusuario() != $publicacion->getIdusuario() && Sesion::getUsuario()->getRol() != "admin") {
             header('location: index.php?accion=inicio');
             guardarMensaje("No tienes permisos para realizar esta acción");
             die();
