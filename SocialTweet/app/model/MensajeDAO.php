@@ -55,7 +55,7 @@ class MensajeDAO
         $mensajeTexto = $mensaje->getMensaje();
         $idpublicacion = $mensaje->getIdPublicacion();
         $idusuario = $mensaje->getIdUsuario();
-        $id = $mensaje->getId();
+        $id = $mensaje->getIdmensaje();
 
         // Asocia los parámetros a la consulta SQL
         $stmt->bind_param('siis', $mensajeTexto, $idpublicacion, $idusuario, $id);

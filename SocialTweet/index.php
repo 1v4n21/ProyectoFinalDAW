@@ -58,6 +58,11 @@ $mapa = array(
         'metodo' => 'publicacion',
         'privada' => true
     ),
+    'mensaje' => array(
+        'controlador' => 'ControladorMensajes',
+        'metodo' => 'mensaje',
+        'privada' => true
+    ),
     'darLike' => array(
         'controlador' => 'ControladorMeGustas',
         'metodo' => 'darLike',

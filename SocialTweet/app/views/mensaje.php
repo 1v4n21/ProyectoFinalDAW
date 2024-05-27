@@ -128,14 +128,14 @@
                 <div class="card">
                     <div class="card-header bg-primary text-white"><?php echo $form; ?> Mensaje Publicación</div>
                     <div class="card-body">
-                        <form action="index.php?accion=publicacion&id=<?php echo $laPublicacion->getIdpublicacion() ?>"
+                        <form action="index.php?accion=mensaje&id=<?php echo $elMensaje->getIdmensaje() ?>"
                             method="post">
-                            <input type="hidden" name="idPublicacion"
-                                value="<?php echo $laPublicacion->getIdpublicacion(); ?>" />
+                            <input type="hidden" name="idMensaje"
+                                value="<?php echo $elMensaje->getIdmensaje(); ?>" />
                             <div class="mb-3">
                                 <label for="mensaje" class="form-label">Mensaje:</label>
                                 <textarea class="form-control" id="mensaje" name="mensaje" rows="6"
-                                    autofocus><?php echo $laPublicacion->getMensaje(); ?></textarea>
+                                    autofocus><?php echo $elMensaje->getMensaje(); ?></textarea>
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Subir</button>

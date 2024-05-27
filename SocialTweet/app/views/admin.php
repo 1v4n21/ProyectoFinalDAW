@@ -290,7 +290,7 @@
                                 <p><?php echo htmlspecialchars($mensaje->getMensaje())." <br><strong>PostId-></strong> ".htmlspecialchars($mensaje->getIdpublicacion()); ?></p>
                             </div>
                             <div class="btn-group" role="group">
-                                <a href="<?php echo $mensaje->getIdmensaje(); ?>&accion=editar"
+                                <a href="index.php?accion=mensaje&id=<?php echo $mensaje->getIdmensaje(); ?>"
                                     class="btn btn-warning btn-sm">Editar</a>
                                 <a href="index.php?accion=borrarMensajeAdmin&idMensaje=<?php echo $mensaje->getIdmensaje(); ?>" type="button"
                                     class="btn btn-danger btn-sm">Eliminar</a>
