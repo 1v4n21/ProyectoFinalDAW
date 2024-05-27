@@ -345,7 +345,7 @@ class ControladorUsuarios
         }
 
         $userId = intval(htmlentities($_GET['userId'])); // Supongamos que el ID de usuario viene por la URL
-        
+
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
         $usuarioDAO = new UsuarioDAO($conn);
@@ -356,8 +356,128 @@ class ControladorUsuarios
         } else {
             $accion = "crear";
             $usuario = new Usuario();
+            $usuario->setIdusuario(0);
+        }
+
+        $error = $nombre = $apellidos = $localidad = $email = $nombreUsuario = $password = $foto = '';
+
+        // Envío de formulario POST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            // Limpiamos datos
+            $nombre = htmlentities($_POST['nombre']);
+            $apellidos = htmlentities($_POST['apellidos']);
+            $localidad = htmlentities($_POST['localidad']);
+            $email = htmlentities($_POST['email']);
+            $nombreUsuario = htmlentities($_POST['nombreUsuario']);
+            $password = htmlentities($_POST['password']);
+            $foto = '';
+
+            // Validación de campos obligatorios
+            if (empty($nombre)) {
+                $error = 'El campo nombre es obligatorio.';
+            } elseif (empty($email)) {
+                $error = 'El campo email es obligatorio.';
+            } elseif (empty($nombreUsuario)) {
+                $error = 'El campo nombre de usuario es obligatorio.';
+            } elseif ($accion == "crear" && empty($password)) {
+                $error = 'El campo contraseña es obligatorio.';
+            } elseif (!empty($password) && strlen($password) <= 6) {
+                $error = 'La contraseña debe tener más de 6 caracteres.';
+            }
+
+            if ($error == '') {
+                $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+                $conn = $connexionDB->getConnexion();
+
+                // Validación nombre de usuario
+                $usuariosDAO = new UsuarioDAO($conn);
+                $usuarioExistente = $usuariosDAO->getByNombreUsuario($nombreUsuario);
+                if ($usuarioExistente != null && $usuarioExistente->getIdusuario() != $userId) {
+                    $error = "Ya hay un usuario con ese nombre";
+                } else {
+                    // Copiamos la foto al disco
+                    if (!empty($_FILES['foto']['name'])) {
+                        if (
+                            $_FILES['foto']['type'] != 'image/jpeg' &&
+                            $_FILES['foto']['type'] != 'image/webp' &&
+                            $_FILES['foto']['type'] != 'image/png'
+                        ) {
+                            $error = "La foto no tiene el formato admitido, debe ser png, jpg o webp";
+                        } else {
+                            // Calculamos un hash para el nombre del archivo
+                            $foto = generarNombreArchivo($_FILES['foto']['name']);
+
+                            // Si existe un archivo con ese nombre volvemos a calcular el hash
+                            while (file_exists("web/fotosUsuarios/$foto")) {
+                                $foto = generarNombreArchivo($_FILES['foto']['name']);
+                            }
+
+                            if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosUsuarios/$foto")) {
+                                die("Error al copiar la foto a la carpeta fotosUsuarios");
+                            }
+                        }
+                    }
+
+                    if ($error == '') {
+
+                        $usuario->setNombre($nombre);
+                        $usuario->setApellidos($apellidos);
+                        $usuario->setLocalidad($localidad);
+                        $usuario->setEmail($email);
+                        $usuario->setNombreUsuario($nombreUsuario);
+                        if (!empty($foto)) {
+                            $usuario->setFoto($foto);
+                        }
+
+                        // Encriptamos el password si se ha proporcionado
+                        if (!empty($password)) {
+                            $passwordCifrado = password_hash($password, PASSWORD_DEFAULT);
+                            $usuario->setPassword($passwordCifrado);
+                        }
+
+                        if ($accion == "crear") {
+                            $usuario->setSid(sha1(rand() + time()), true);
+                            if ($iduser = $usuariosDAO->insert($usuario)) {
+                                guardarMensajeC("Usuario creado con éxito");
+                                header("location: index.php");
+                                die();
+                            } else {
+                                $error = "No se ha podido crear el usuario";
+                            }
+                        } else {
+                            $idusuario = htmlentities($_POST['idUsuario']);
+                            $usuario->setIdusuario($idusuario);
+                            if ($usuariosDAO->update($usuario)) {
+                                guardarMensajeC("Usuario actualizado con éxito");
+                                header("location: index.php");
+                                die();
+                            } else {
+                                $error = "No se ha podido actualizar el usuario";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Mostramos el error si existe
+        if ($error != '') {
+            guardarMensaje($error);
         }
 
         require 'app/views/usuario.php';
+    }
+
+    /**
+     * Maneja el registro de un nuevo usuario.
+     * Si se envía un formulario POST para registrarse, valida los datos del usuario y lo registra si son correctos.
+     * Si algún dato es incorrecto o falta, muestra un mensaje de error.
+     * Si el registro es exitoso, sube la foto de perfil, encripta la contraseña, guarda el usuario en la base de datos, y crea una sesión para el usuario.
+     * Si ya existe un usuario con el mismo nombre de usuario, muestra un mensaje de error.
+     */
+    public function editarUsuarioAdmin()
+    {
+        require 'app/views/registro.php';
     }
 }

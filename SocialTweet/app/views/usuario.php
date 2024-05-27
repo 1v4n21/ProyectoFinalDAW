@@ -16,8 +16,63 @@
 
     <!-- Icono -->
     <link rel="icon" type="image/x-icon" href="web/images/gorjeo.ico">
+
+    <!-- Link jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- CSS -->
+    <style>
+        .error {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .correcto {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #28a745;
+            border: 1px solid #218838;
+            color: black;
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
+
+<!-- Mensaje de error -->
+<?php imprimirMensaje(); ?>
+
+<!-- Mensaje de correcto -->
+<?php imprimirMensajeC(); ?>
+
+<!--JavaScript-->
+<script>
+    // Muestra el mensaje de error al cargar la página
+    $(document).ready(function () {
+        $(".error").fadeIn().delay(5000).fadeOut();
+    });
+
+    // Muestra el mensaje de correcto al cargar la página
+    $(document).ready(function () {
+        $(".correcto").fadeIn().delay(5000).fadeOut();
+    });
+</script>
 
 <!-- Cabecera -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -64,7 +119,7 @@
     <h2 class="mb-4"><?= $accion == 'crear' ? 'Crear' : 'Editar' ?> Usuario</h2>
 
     <!-- Formulario para crear usuario -->
-    <form method="post" action="<?= $accion == 'crear' ? 'crearUsuarioAdmin' : 'editarUsuarioAdmin' ?>">
+    <form method="post" action="index.php?accion=userForm&userId=<?= $usuario->getIdusuario() ?>" enctype="multipart/form-data">
         <input type="hidden" name="idUsuario" value="<?= $usuario->getIdusuario() ?>" />
 
         <!-- Campos del formulario -->
@@ -95,7 +150,7 @@
 
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" value="<?= $usuario->getPassword() ?>" />
+            <input type="password" class="form-control" id="password" name="password"/>
         </div>
 
         <div class="mb-3">
@@ -104,6 +159,11 @@
                 <option value="normal" <?= $usuario->getRol() == 'normal' ? 'selected' : '' ?>>Normal</option>
                 <option value="admin" <?= $usuario->getRol() == 'admin' ? 'selected' : '' ?>>Admin</option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="foto" class="form-label">Imágen</label>
+            <input type="file" class="form-control" name="foto" id="foto" accept="image/jpeg, image/gif, image/webp, image/png">
         </div>
 
         <br>
