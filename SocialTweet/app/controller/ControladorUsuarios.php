@@ -344,18 +344,19 @@ class ControladorUsuarios
             die();
         }
 
-        $userId = htmlspecialchars($_GET['userId']); // Supongamos que el ID de usuario viene por la URL
-        if ($userId != 0) {
-            $accion = "Editar";
-        } else {
-            $accion = "Crear";
-        }
-
+        $userId = intval(htmlentities($_GET['userId'])); // Supongamos que el ID de usuario viene por la URL
+        
         $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
         $conn = $connexionDB->getConnexion();
-
         $usuarioDAO = new UsuarioDAO($conn);
-        $usuario = $usuarioDAO->getById($userId);
+
+        if ($userId != 0) {
+            $accion = "editar";
+            $usuario = $usuarioDAO->getById($userId);
+        } else {
+            $accion = "crear";
+            $usuario = new Usuario();
+        }
 
         require 'app/views/usuario.php';
     }

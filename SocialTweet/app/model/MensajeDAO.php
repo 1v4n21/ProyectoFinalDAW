@@ -46,7 +46,7 @@ class MensajeDAO
     public function editar(Mensaje $mensaje): bool
     {
         // Prepara la consulta SQL
-        if (!$stmt = $this->conn->prepare("UPDATE mensajes SET mensaje = ?, idpublicacion = ?, idusuario = ? WHERE id = ?")) {
+        if (!$stmt = $this->conn->prepare("UPDATE mensajes SET mensaje = ?, idpublicacion = ?, idusuario = ? WHERE idmensaje = ?")) {
             echo "Error al preparar la consulta editar: " . $this->conn->error;
             return false;
         }

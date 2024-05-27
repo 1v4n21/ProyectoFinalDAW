@@ -193,7 +193,7 @@ class ControladorMensajes
                     $mensajeN->setMensaje($mensaje . " (Editado)");
 
                     $mensajeDAO->editar($mensajeN);
-                    guardarMensajeC("Publicación modificada con éxito");
+                    guardarMensajeC("Mensaje modificado con éxito");
 
                     // Incluir la vista
                     header('location: index.php');
@@ -203,7 +203,7 @@ class ControladorMensajes
                     $mensajeN->setMensaje($mensaje);
 
                     $mensajeDAO->insert($mensajeN);
-                    guardarMensajeC("Publicación creada con éxito");
+                    guardarMensajeC("Mensaje creado con éxito");
 
                     // Incluir la vista
                     header('location: index.php');
