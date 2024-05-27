@@ -132,4 +132,86 @@ class ControladorMensajes
         // Redirigir a la página de administración de mensajes
         header('location: index.php?accion=admin&funcion=mensajes');
     }
+
+    /**
+     * Método para gestionar un mensaje.
+     * Permite crear y editar mensajes.
+     *
+     * @return void
+     */
+    public function mensaje()
+    {
+        // Crear la conexión utilizando la clase ConexionDBi
+        $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+        $conn = $connexionDB->getConnexion();
+
+        $id = intval(htmlentities($_GET['id']));
+
+        // Obtener los mensajes
+        $mensajeDAO = new MensajeDAO($conn);
+
+        if ($id != 0) {
+            $elMensaje = $mensajeDAO->getById($id);
+            $texto = $elMensaje->getMensaje();
+            $elMensaje->setMensaje(str_replace(" (Editado)", "", $texto));
+            $form = "Editar";
+
+            if (Sesion::getUsuario()->getRol() !== 'admin' && Sesion::getUsuario()->getIdusuario() != $elMensaje->getIdusuario()) {
+                header('Location: index.php?accion=inicio');
+                guardarMensaje("No tienes permisos para realizar esta acción");
+                die();
+            }
+
+        } else {
+            $elMensaje = new Mensaje();
+            $form = "Crear";
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $connexionDB = new ConexionDBi(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_DB);
+            $conn = $connexionDB->getConnexion();
+
+            // Obtener los campos del formulario
+            $idMensaje = htmlspecialchars($_POST['idMensaje']);
+            $mensaje = htmlspecialchars($_POST['mensaje']);
+
+            $usuariosDAO = new UsuarioDAO($conn);
+
+            if (strlen($mensaje) > 35) {
+                header('location: index.php?accion=inicio');
+                guardarMensaje("El mensaje no puede ser mas largo de 35 caracteres");
+                die();
+            }
+
+            if (empty($mensaje)) {
+                guardarMensaje("El campo mensaje no puede estar vacío.");
+                header('location: index.php?accion=mensaje&id=' . $id);
+            } else {
+                if ($id != 0) {
+                    $mensajeN = $mensajeDAO->getById($id);
+
+                    $mensajeN->setMensaje($mensaje . " (Editado)");
+
+                    $mensajeDAO->editar($mensajeN);
+                    guardarMensajeC("Publicación modificada con éxito");
+
+                    // Incluir la vista
+                    header('location: index.php');
+                } else {
+                    $mensajeN = new Mensaje();
+                    $mensajeN->setIdusuario(Sesion::getUsuario()->getIdusuario());
+                    $mensajeN->setMensaje($mensaje);
+
+                    $mensajeDAO->insert($mensajeN);
+                    guardarMensajeC("Publicación creada con éxito");
+
+                    // Incluir la vista
+                    header('location: index.php');
+                }
+            }
+        } else {
+            // Incluir la vista
+            require 'app/views/mensaje.php';
+        }
+    }
 }

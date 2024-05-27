@@ -39,6 +39,36 @@ class MensajeDAO
     }
 
     /**
+     * Actualiza un mensaje existente en la base de datos
+     * @param Mensaje $mensaje El mensaje a actualizar
+     * @return bool Devuelve true si la actualización tiene éxito, de lo contrario devuelve false
+     */
+    public function editar(Mensaje $mensaje): bool
+    {
+        // Prepara la consulta SQL
+        if (!$stmt = $this->conn->prepare("UPDATE mensajes SET mensaje = ?, idpublicacion = ?, idusuario = ? WHERE id = ?")) {
+            echo "Error al preparar la consulta editar: " . $this->conn->error;
+            return false;
+        }
+
+        // Obtiene los datos del mensaje
+        $mensajeTexto = $mensaje->getMensaje();
+        $idpublicacion = $mensaje->getIdPublicacion();
+        $idusuario = $mensaje->getIdUsuario();
+        $id = $mensaje->getId();
+
+        // Asocia los parámetros a la consulta SQL
+        $stmt->bind_param('siis', $mensajeTexto, $idpublicacion, $idusuario, $id);
+
+        // Ejecuta la consulta
+        if ($stmt->execute()) {
+            return true; // Devuelve true si la actualización tiene éxito
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Elimina un mensaje de la base de datos por su ID
      * @param int $id El ID del mensaje a eliminar
      * @return bool Devuelve true si se elimina correctamente, de lo contrario devuelve false
