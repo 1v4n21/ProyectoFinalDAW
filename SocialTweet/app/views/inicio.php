@@ -134,6 +134,12 @@
 
     <!-- Nombre de usuario y foto -->
     <br>
+
+    
+    <div class="text-center display-6 d-flex align-items-center justify-content-center">
+        <a href="index.php?accion=sobreMi">Sobre Mi</a></span>
+    </div>
+
     <div class="text-center display-6 d-flex align-items-center justify-content-center">
         <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
         <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
