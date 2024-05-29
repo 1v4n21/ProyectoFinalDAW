@@ -241,4 +241,9 @@ class ControladorPublicaciones
         // Redirigir a la página de administración de publicaciones
         header('location: index.php?accion=admin&funcion=publicaciones');
     }
+
+    public function sobreMi(){
+        // Incluir la vista
+        require 'app/views/sobreMi.php';
+    }
 }
