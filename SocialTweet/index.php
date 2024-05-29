@@ -138,6 +138,11 @@ $mapa = array(
         'metodo' => 'userForm',
         'privada' => true
     ),
+    'sobreMi' => array(
+        'controlador' => 'ControladorUsuarios',
+        'metodo' => 'sobreMi',
+        'privada' => true
+    ),
 );
 
 // Parseo de la ruta

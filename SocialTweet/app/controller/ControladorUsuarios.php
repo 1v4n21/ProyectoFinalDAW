@@ -480,4 +480,9 @@ class ControladorUsuarios
     {
         require 'app/views/registro.php';
     }
+
+    public function sobreMi(){
+        // Incluir la vista
+        require 'app/views/sobreMi.php';
+    }
 }

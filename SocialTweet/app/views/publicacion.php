@@ -110,9 +110,15 @@
                         <a class="nav-link" href="index.php?accion=guardados">Guardados</a>
                     </li>
                 </ul>
+
+                <br>
+
                 <!-- Campo de búsqueda -->
                 <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Buscar"
                     disabled>
+
+                <br>
+
                 <!-- Botón de Logout con color rojo y dinámico -->
                 <a class="btn btn-danger" href="index.php?accion=logout">Logout</a>
             </div>
