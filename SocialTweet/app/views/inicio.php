@@ -147,7 +147,7 @@
 
             <!-- Mostrar la foto de perfil del usuario -->
             <div class="perfil-image">
-                <img src="web/images/sobreMi.jpg" alt="Foto de perfil">
+                <img src="web/images/fotoPerfil.jfif" alt="Foto de perfil">
             </div>
 
             <!-- Nombre de usuario y contenido del post -->
@@ -155,8 +155,8 @@
                 <div class="post-title">
                     <?php echo '@imartinez29' ?>
                 </div>
-                <small class="text-muted"><?php echo '*--*--*--*' ?></small>
-                <div><a href="index.php?accion=sobreMi">Sobre mi</a></div>
+                <small class="text-muted"><?php echo '(っ◔◡◔)っ' ?></small>
+                <div><a href="index.php?accion=sobreMi">𝓼𝓸𝓫𝓻𝓮 𝓶𝓲</a></div>
             </div>
 
             <br>
