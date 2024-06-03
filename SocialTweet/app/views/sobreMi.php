@@ -138,7 +138,7 @@
     <br>
     <div class="cv-container row">
         <div class="left-column col-md-4">
-            <img src="web/fotosUsuarios/cd1f08e72fa72c259bd3e4eeea362461.jpg" alt="Iván Martínez Sánchez" class="profile-pic">
+            <img src="web/images/sobreMi.jpg" alt="Iván Martínez Sánchez" class="profile-pic">
             <h2>IVÁN MARTÍNEZ SÁNCHEZ</h2>
             <div class="contact-info">
                 <p><strong>Dirección:</strong> C. Ciudad. Real, 30, 2do izq, 13710, Ciudad Real</p>

@@ -147,7 +147,7 @@
 
             <!-- Mostrar la foto de perfil del usuario -->
             <div class="perfil-image">
-                <img src="web/images/gorjeo.png" alt="Foto de perfil">
+                <img src="web/images/sobreMi.jpg" alt="Foto de perfil">
             </div>
 
             <!-- Nombre de usuario y contenido del post -->
