@@ -135,11 +135,6 @@
     <!-- Nombre de usuario y foto -->
     <br>
 
-    
-    <div class="text-center display-6 d-flex align-items-center justify-content-center">
-        <a href="index.php?accion=sobreMi">Sobre Mi</a></span>
-    </div>
-
     <div class="text-center display-6 d-flex align-items-center justify-content-center">
         <img src="web/fotosUsuarios/<?php echo Sesion::getUsuario()->getFoto(); ?>" alt="Perfil" class="perfil-imagen">
         <span class="text-primary ms-2">@<?php echo Sesion::getUsuario()->getNombreusuario(); ?></span>
@@ -148,6 +143,25 @@
 
     <!-- Posts -->
     <div class="container" id="resultadosContainer">
+        <div class="post">
+
+            <!-- Mostrar la foto de perfil del usuario -->
+            <div class="perfil-image">
+                <img src="web/images/gorjeo.png" alt="Foto de perfil">
+            </div>
+
+            <!-- Nombre de usuario y contenido del post -->
+            <div class="post-content">
+                <div class="post-title">
+                    <?php echo '@imartinez29' ?>
+                </div>
+                <small class="text-muted"><?php echo '*--*--*--*' ?></small>
+                <div><a href="index.php?accion=sobreMi">Sobre mi</a></div>
+            </div>
+
+            <br>
+        </div>
+
         <?php foreach ($lasPublicaciones as $post): ?>
             <?php
             $usuarioDAO = new UsuarioDAO($conn);
