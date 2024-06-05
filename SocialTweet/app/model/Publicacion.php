@@ -4,79 +4,28 @@ class Publicacion
     private $idpublicacion;
     private $fecha;
     private $mensaje;
+    private $imagen;
     private $idusuario;
 
-    /**
-     * Get the value of idpublicacion
-     */
-    public function getIdpublicacion()
-    {
-        return $this->idpublicacion;
-    }
+    public function getIdpublicacion() {return $this->idpublicacion;}
 
-    /**
-     * Set the value of idpublicacion
-     */
-    public function setIdpublicacion($idpublicacion): self
-    {
-        $this->idpublicacion = $idpublicacion;
+	public function getFecha() {return $this->fecha;}
 
-        return $this;
-    }
+	public function getMensaje() {return $this->mensaje;}
 
-    /**
-     * Get the value of fecha
-     */
-    public function getFecha()
-    {
-        return $this->fecha;
-    }
+	public function getImagen() {return $this->imagen;}
 
-    /**
-     * Set the value of fecha
-     */
-    public function setFecha($fecha): self
-    {
-        $this->fecha = $fecha;
+	public function getIdusuario() {return $this->idusuario;}
 
-        return $this;
-    }
+	public function setIdpublicacion( $idpublicacion): void {$this->idpublicacion = $idpublicacion;}
 
-    /**
-     * Get the value of mensaje
-     */
-    public function getMensaje()
-    {
-        return $this->mensaje;
-    }
+	public function setFecha( $fecha): void {$this->fecha = $fecha;}
 
-    /**
-     * Set the value of mensaje
-     */
-    public function setMensaje($mensaje): self
-    {
-        $this->mensaje = $mensaje;
+	public function setMensaje( $mensaje): void {$this->mensaje = $mensaje;}
 
-        return $this;
-    }
+	public function setImagen( $imagen): void {$this->imagen = $imagen;}
 
-    /**
-     * Get the value of idusuario
-     */
-    public function getIdusuario()
-    {
-        return $this->idusuario;
-    }
-
-    /**
-     * Set the value of idusuario
-     */
-    public function setIdusuario($idusuario): self
-    {
-        $this->idusuario = $idusuario;
-
-        return $this;
-    }
+	public function setIdusuario( $idusuario): void {$this->idusuario = $idusuario;}
 
     public function obtenerTiempoTranscurrido()
     {

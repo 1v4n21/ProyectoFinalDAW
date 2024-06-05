@@ -17,7 +17,7 @@ class PublicacionDAO
     public function insert(Publicacion $publicacion): int|bool
     {
         // Prepara la consulta SQL
-        if (!$stmt = $this->conn->prepare("INSERT INTO publicaciones (fecha, mensaje, idusuario) VALUES (?, ?, ?)")) {
+        if (!$stmt = $this->conn->prepare("INSERT INTO publicaciones (fecha, mensaje, imagen, idusuario) VALUES (?, ?, ?, ?)")) {
             echo "Error al preparar la consulta insert: " . $this->conn->error;
             return false;
         }
@@ -25,10 +25,11 @@ class PublicacionDAO
         // Obtiene los datos de la publicación
         $fecha = $publicacion->getFecha();
         $mensaje = $publicacion->getMensaje();
+        $imagen = $publicacion->getImagen();
         $idusuario = $publicacion->getIdUsuario();
 
         // Asocia los parámetros a la consulta SQL
-        $stmt->bind_param('ssi', $fecha, $mensaje, $idusuario);
+        $stmt->bind_param('sssi', $fecha, $mensaje, $imagen, $idusuario);
 
         // Ejecuta la consulta
         if ($stmt->execute()) {
@@ -46,7 +47,7 @@ class PublicacionDAO
     public function editar(Publicacion $publicacion): bool
     {
         // Prepara la consulta SQL
-        if (!$stmt = $this->conn->prepare("UPDATE publicaciones SET fecha = ?, mensaje = ? WHERE idpublicacion = ?")) {
+        if (!$stmt = $this->conn->prepare("UPDATE publicaciones SET fecha = ?, mensaje = ?, imagen = ? WHERE idpublicacion = ?")) {
             echo "Error al preparar la consulta update: " . $this->conn->error;
             return false;
         }
@@ -54,10 +55,11 @@ class PublicacionDAO
         // Obtiene los datos de la publicación
         $fecha = $publicacion->getFecha();
         $mensaje = $publicacion->getMensaje();
+        $imagen = $publicacion->getImagen();
         $id = $publicacion->getIdpublicacion(); // Suponiendo que tienes un método getId() en la clase Publicacion para obtener el ID
 
         // Asocia los parámetros a la consulta SQL
-        $stmt->bind_param('ssi', $fecha, $mensaje, $id);
+        $stmt->bind_param('sssi', $fecha, $mensaje, $imagen, $id);
 
         // Ejecuta la consulta
         if ($stmt->execute()) {

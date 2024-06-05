@@ -70,6 +70,7 @@ CREATE TABLE `publicaciones` (
   `idpublicacion` int NOT NULL,
   `fecha` datetime DEFAULT NULL,
   `mensaje` text COLLATE utf8mb4_spanish_ci,
+  `imagen` varchar(255) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `idusuario` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 

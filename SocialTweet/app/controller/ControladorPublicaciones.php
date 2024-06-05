@@ -80,28 +80,66 @@ class ControladorPublicaciones
                 guardarMensaje("El campo mensaje no puede estar vacío.");
                 header('location: index.php?accion=publicacion&id=' . $id);
             } else {
-                if ($id != 0) {
-                    $publicacion = $publicacionDAO->getById($id);
+                // Manejar la subida de imagen
+                $rutaImagen = null;
+                $error = '';
 
-                    $publicacion->setFecha(date("Y-m-d H:i:s"));
-                    $publicacion->setMensaje($mensaje . " (Editado)");
+                if (!empty($_FILES['foto']['name'])) {
+                    $validMimeTypes = ['image/jpeg', 'image/webp', 'image/png'];
+                    $fileType = $_FILES['foto']['type'];
 
-                    $publicacionDAO->editar($publicacion);
-                    guardarMensajeC("Publicación modificada con éxito");
+                    if (!in_array($fileType, $validMimeTypes)) {
+                        $error = "La foto no tiene el formato admitido, debe ser png, jpg o webp";
+                    } else {
+                        // Generar un nombre único para la imagen
+                        $foto = generarNombreArchivo($_FILES['foto']['name']);
 
-                    // Incluir la vista
-                    header('location: index.php');
+                        // Comprobar si el archivo ya existe y generar un nuevo nombre si es necesario
+                        while (file_exists("web/fotosPublicaciones/$foto")) {
+                            $foto = generarNombreArchivo($_FILES['foto']['name']);
+                        }
+
+                        if (!move_uploaded_file($_FILES['foto']['tmp_name'], "web/fotosPublicaciones/$foto")) {
+                            die("Error al copiar la foto a la carpeta fotosPublicaciones");
+                        }
+
+                        $rutaImagen = "web/fotosPublicaciones/$foto";
+                    }
+                }
+
+                if ($error == '') {
+                    if ($id != 0) {
+                        $publicacion = $publicacionDAO->getById($id);
+
+                        $publicacion->setFecha(date("Y-m-d H:i:s"));
+                        $publicacion->setMensaje($mensaje . " (Editado)");
+                        if ($rutaImagen) {
+                            $publicacion->setImagen($rutaImagen);
+                        }
+
+                        $publicacionDAO->editar($publicacion);
+                        guardarMensajeC("Publicación modificada con éxito");
+
+                        // Incluir la vista
+                        header('location: index.php');
+                    } else {
+                        $publicacion = new Publicacion();
+                        $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
+                        $publicacion->setMensaje($mensaje);
+                        $publicacion->setFecha(date("Y-m-d H:i:s"));
+                        if ($rutaImagen) {
+                            $publicacion->setImagen($rutaImagen);
+                        }
+
+                        $publicacionDAO->insert($publicacion);
+                        guardarMensajeC("Publicación creada con éxito");
+
+                        // Incluir la vista
+                        header('location: index.php');
+                    }
                 } else {
-                    $publicacion = new Publicacion();
-                    $publicacion->setIdusuario(Sesion::getUsuario()->getIdusuario());
-                    $publicacion->setMensaje($mensaje);
-                    $publicacion->setFecha(date("Y-m-d H:i:s"));
-
-                    $publicacionDAO->insert($publicacion);
-                    guardarMensajeC("Publicación creada con éxito");
-
-                    // Incluir la vista
-                    header('location: index.php');
+                    guardarMensaje($error);
+                    header('location: index.php?accion=publicacion&id=' . $id);
                 }
             }
         } else {

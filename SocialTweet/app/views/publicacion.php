@@ -135,13 +135,17 @@
                     <div class="card-header bg-primary text-white"><?php echo $form; ?> Publicación</div>
                     <div class="card-body">
                         <form action="index.php?accion=publicacion&id=<?php echo $laPublicacion->getIdpublicacion() ?>"
-                            method="post">
+                            method="post" enctype="multipart/form-data">
                             <input type="hidden" name="idPublicacion"
                                 value="<?php echo $laPublicacion->getIdpublicacion(); ?>" />
                             <div class="mb-3">
                                 <label for="mensaje" class="form-label">Mensaje:</label>
                                 <textarea class="form-control" id="mensaje" name="mensaje" rows="6"
                                     autofocus><?php echo $laPublicacion->getMensaje(); ?></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="foto" class="form-label">Subir Foto:</label>
+                                <input class="form-control" type="file" id="foto" name="foto">
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Publicar</button>

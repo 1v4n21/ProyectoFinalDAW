@@ -54,6 +54,23 @@
             z-index: 9999;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
+        .post-image {
+            width: 100%;
+            max-height: 300px;
+            /* Puedes ajustar esta altura según tus necesidades */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            /* Ajusta la imagen para que cubra el área del contenedor */
+        }
     </style>
 </head>
 
@@ -191,6 +208,13 @@
                     </div>
                     <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
                     <div><?php echo $post->getMensaje(); ?></div>
+
+                    <!-- Mostrar la imagen de la publicación si existe -->
+                    <?php if ($post->getImagen()): ?>
+                        <div class="post-image">
+                            <img src="<?php echo $post->getImagen(); ?>" alt="Imagen de la publicación">
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <br>
