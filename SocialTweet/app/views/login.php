@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>SocialTweet - Login</title>
@@ -55,7 +54,6 @@
         }
     </style>
 </head>
-
 <body>
 
     <!-- Mensaje de error -->
@@ -66,13 +64,8 @@
 
     <!--JavaScript-->
     <script>
-        // Muestra el mensaje de error al cargar la página
         $(document).ready(function () {
             $(".error").fadeIn().delay(5000).fadeOut();
-        });
-
-        // Muestra el mensaje de correcto al cargar la página
-        $(document).ready(function () {
             $(".correcto").fadeIn().delay(5000).fadeOut();
         });
     </script>
@@ -87,38 +80,28 @@
         </div>
 
         <form action="index.php?accion=login" method="post" class="p-3 mt-3">
-
-            <!-- Nombre de Usuario -->
             <div class="form-field d-flex align-items-center">
                 <span class="fa-solid fa-user"></span>
                 <input name="nombreUsuario" id="userName" type="text" placeholder="Nombre Usuario" autofocus
                     value="<?php echo htmlentities($nombreusuario); ?>" />
                 <span class="required-asterisk">*</span>
             </div>
-
-            <!-- Contraseña -->
             <div class="form-field d-flex align-items-center">
                 <span class="fa-solid fa-key"></span>
                 <input name="password" type="password" id="pwd" placeholder="Contraseña"
                     value="<?php echo htmlentities($password); ?>" />
                 <span class="required-asterisk">*</span>
             </div>
-
-            <!-- Boton de envio de formulario -->
             <button type="submit" class="btn mt-3">Iniciar Sesión</button>
         </form>
 
-        <!-- Link para realizar el registro -->
         <div class="text-center fs-6">
             <a href="index.php?accion=registro">No tienes cuenta? Registrate</a>
         </div>
     </div>
 
-    <!-- Script bootsrap -->
+    <!-- Script bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
-
 </html>
