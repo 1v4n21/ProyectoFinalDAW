@@ -117,10 +117,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     const userImage = document.createElement("img");
                     userImage.src = "web/fotosUsuarios/" + publicacion.imagenUsuario;
                     userImage.alt = "Foto de perfil";
-                    userImage.className = "perfil-image";
+
+                    const postImage = document.createElement("img");
+                    postImage.src = publicacion.imagenPublicacion;
+                    postImage.alt = "Foto de publicacion";
 
                     const perfilImage = document.createElement("div");
                     perfilImage.className = "perfil-image";
+
+                    const divpostImage = document.createElement("div");
+                    divpostImage.className = "post-image";
 
                     const postTitle = document.createElement("div");
                     postTitle.className = "post-title";
@@ -178,11 +184,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     chatCount.textContent = publicacion.mensajes;
 
                     // Agregar elementos al div del post
-                    perfilImage.appendChild(userImage)
+                    perfilImage.appendChild(userImage);
                     postDiv.appendChild(perfilImage);
                     postDiv.appendChild(postTitle);
                     postDiv.appendChild(postTime);
                     postDiv.appendChild(postContent);
+
+                    //Comprobar que este post tiene imagen incluida
+                    if(publicacion.imagenPublicacion != null){
+                        postDiv.appendChild(document.createElement("br"));
+                        divpostImage.appendChild(postImage);
+                        postDiv.appendChild(divpostImage);
+                    }
+                    
                     postDiv.appendChild(document.createElement("br"));
                     postDiv.appendChild(postActions);
                     postActions.appendChild(likeIcon);

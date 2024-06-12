@@ -155,6 +155,7 @@
                     <small class="text-muted"><?php echo $post->obtenerTiempoTranscurrido(); ?></small>
                     <div><?php echo $post->getMensaje(); ?></div>
                     <?php if ($post->getImagen()): ?>
+                        <br>
                         <div class="post-image">
                             <img src="<?php echo $post->getImagen(); ?>" alt="Imagen de la publicación">
                         </div>

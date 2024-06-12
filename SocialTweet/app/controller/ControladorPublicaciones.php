@@ -226,6 +226,7 @@ class ControladorPublicaciones
                 "idUsuario" => $publicacion->getIdusuario(),
                 "nombreUsuario" => $usuario->getNombreusuario(),
                 "imagenUsuario" => $usuario->getFoto(),
+                "imagenPublicacion" => $publicacion->getImagen(),
                 "megustas" => count($mgDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
                 "guardados" => count($guardadoDAO->getByIdPublicacion($publicacion->getIdpublicacion())),
                 "mensajes" => count($mensajeDAO->getByPublicacionId($publicacion->getIdpublicacion())),

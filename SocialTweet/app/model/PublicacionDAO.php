@@ -175,7 +175,7 @@ class PublicacionDAO
         $publicaciones = array();
 
         // Prepara la consulta SQL para obtener las publicaciones de un usuario por su nombre de usuario
-        $sql = "SELECT p.idpublicacion, p.mensaje, p.fecha, p.idusuario 
+        $sql = "SELECT p.idpublicacion, p.mensaje, p.imagen, p.fecha, p.idusuario 
                 FROM publicaciones p
                 INNER JOIN usuarios u ON p.idusuario = u.idusuario
                 WHERE u.nombreusuario LIKE ?
@@ -187,13 +187,14 @@ class PublicacionDAO
             $stmt->execute();
 
             // Vincula variables de resultado
-            $stmt->bind_result($idPublicacion, $mensaje, $fecha, $idUsuario);
+            $stmt->bind_result($idPublicacion, $mensaje, $imagen, $fecha, $idUsuario);
 
             // Recorre los resultados y crea objetos Publicacion
             while ($stmt->fetch()) {
                 $publicacion = new Publicacion();
                 $publicacion->setIdpublicacion($idPublicacion);
                 $publicacion->setMensaje($mensaje);
+                $publicacion->setImagen($imagen);
                 $publicacion->setFecha($fecha);
                 $publicacion->setIdusuario($idUsuario);
 
